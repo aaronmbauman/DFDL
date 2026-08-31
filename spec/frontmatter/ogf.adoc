@@ -1,2 +1,13 @@
-// OGF edition front matter. The body is shared with the ISO edition; only
-// this file and the master document's metadata differ.
+// OGF edition front matter.
+// Content pages are identical to the ISO edition; only this file and the
+// master document's metadata differ. The ISO edition takes its cover,
+// copyright and licence from Metanorma; the OGF edition carries the OGF
+// document process wording instead.
+
+[abstract]
+== Abstract
+
+This document provides a definition of a standard Data Format Description
+Language (DFDL). This language allows description of text, dense binary, and
+legacy data formats in a vendor-neutral declarative manner. DFDL is an
+extension to the XML Schema Description Language (XSD).
