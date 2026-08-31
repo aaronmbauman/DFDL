@@ -45,7 +45,7 @@ Implementations MAY have implementation-defined limitations on the use of forwar
 [[variables]]
 === Variables
 
-A variable is a binding between a (qualified) name and a (typed) value. Variables are defined using the dfdl:defineVariable annotation (see 7.7); defining a variable causes an initial instance also to be created. Further instances of variables are created using the dfdl:newVariableInstance annotation. Instances of variables are assigned a value using the dfdl:setVariable annotation.  Variables are referenced in expressions by preceding the QName with '$'.
+A variable is a binding between a (qualified) name and a (typed) value. Variables are defined using the dfdl:defineVariable annotation (see <<dfdl-variable-annotations>>); defining a variable causes an initial instance also to be created. Further instances of variables are created using the dfdl:newVariableInstance annotation. Instances of variables are assigned a value using the dfdl:setVariable annotation.  Variables are referenced in expressions by preceding the QName with '$'.
 
 This section describes the semantics of variables. Any implementation consistent with the behavior described here is acceptable.
 
@@ -678,12 +678,12 @@ This section discusses functions related to nillable elements.
 | Meaning
 
 | dfdl:contentLength($node, $lengthUnits)
-a| Returns the length of the supplied node's SimpleContent region for elements of simple type, or ComplexContent region for elements of complex type. These regions are defined in Section 9.2 DFDL Data Syntax Grammar. The value is returned as an xs:unsignedLong.
+a| Returns the length of the supplied node's SimpleContent region for elements of simple type, or ComplexContent region for elements of complex type. These regions are defined in Section <<dfdl-data-syntax-grammar>> DFDL Data Syntax Grammar. The value is returned as an xs:unsignedLong.
 
 The second argument is of type xs:string and must be 'bytes', 'characters', or 'bits' (Schema Definition Error otherwise) and determines the units of length.
 
 | dfdl:valueLength($node, $lengthUnits)
-a| Returns the length of the supplied node's SimpleLogicalValue region for elements of simple type, or ComplexValue region for elements of complex type. These regions are defined in Section 9.2 DFDL Data Syntax Grammar. The value is returned as an xs:unsignedLong.
+a| Returns the length of the supplied node's SimpleLogicalValue region for elements of simple type, or ComplexValue region for elements of complex type. These regions are defined in Section <<dfdl-data-syntax-grammar>> DFDL Data Syntax Grammar. The value is returned as an xs:unsignedLong.
 
 For simple types, the dfdl:valueLength() function returns a length which excludes any padding or filling.
 
@@ -718,7 +718,7 @@ The facets that are checked are
 * totalDigits
 * fractionDigits
 
-See Section 5.3 for which facets are checked for each simple type.
+See Section <<xsd-facets-min-maxoccurs-default-and-fixed>> for which facets are checked for each simple type.
 
 Additionally, the XSD fixed property is checked.
 

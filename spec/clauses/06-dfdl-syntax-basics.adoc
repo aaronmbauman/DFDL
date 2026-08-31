@@ -594,7 +594,7 @@ In this notation the "r" can be thought of as short for "raw", as byte value ent
 [[dfdl-expressions]]
 ==== DFDL Expressions
 
-Some DFDL properties allow DFDL expressions (see Section 18 DFDL Expression Language) to be used so that the property can be set dynamically at processing-time.
+Some DFDL properties allow DFDL expressions (see <<dfdl-expression-language>> DFDL Expression Language) to be used so that the property can be set dynamically at processing-time.
 
 The general syntax of expressions is "{" expression "}"
 
@@ -613,7 +613,7 @@ DFDL expressions that are used to provide the value of DFDL properties in the df
 [[dfdl-regular-expressions]]
 ==== DFDL Regular Expressions
 
-Some properties expect a regular expression to be specified. The DFDL Regular Expression language is defined in Section 19, DFDL Regular Expressions.
+Some properties expect a regular expression to be specified. The DFDL Regular Expression language is defined in <<dfdl-regular-expressions-2>>, DFDL Regular Expressions.
 
 ==== Enumerations in DFDL
 

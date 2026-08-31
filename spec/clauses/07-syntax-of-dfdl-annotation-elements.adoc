@@ -723,7 +723,7 @@ DFDL variables only _vary_ in the sense that different instances of the same var
 
 Variables are used by referencing them in DFDL expressions by prefixing their QNames with '$'.
 
-More information about variables and how they work operationally is in Section 18.2 Variables. The remaining sub-sections of this section focus only on the variable-related DFDL annotations and their syntax.
+More information about variables and how they work operationally is in Section <<variables>> Variables. The remaining sub-sections of this section focus only on the variable-related DFDL annotations and their syntax.
 
 ==== dfdl:defineVariable Annotation Element
 

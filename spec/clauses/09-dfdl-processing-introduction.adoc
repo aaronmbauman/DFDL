@@ -773,7 +773,7 @@ The following DFDL schema constructs are allowed in DFDL and are checked if appl
 
 Note that validation is distinct from the checking of DFDL assert or discriminator predicates. Both DFDL asserts and discriminators are essential to parsing and are evaluated irrespective of whether validation is enabled or disabled.
 
-There is also a function dfdl:checkConstraints available in the DFDL Expression language. This can be used to explicitly include checking of the XSD constructs as part of parsing a specific element. Such checking is part of parsing and does not create Validation Errors. See Section 18.5.3 DFDL Functions for details.
+There is also a function dfdl:checkConstraints available in the DFDL Expression language. This can be used to explicitly include checking of the XSD constructs as part of parsing a specific element. Such checking is part of parsing and does not create Validation Errors. See Section <<dfdl-functions>> DFDL Functions for details.
 
 [[unparser-infoset-augmentation-algorithm]]
 === Unparser Infoset Augmentation Algorithm

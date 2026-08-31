@@ -16,7 +16,7 @@ The sections of the specification are
 ** <<choice-groups,Choice Groups>> (see <<choice-groups>> )
 ** <<properties-for-array-elements-and-optional-elements,Array (i.e., recurring) elements and optional elements>> (see <<properties-for-array-elements-and-optional-elements>> )
 ** <<calculated-value-properties,Calculated Values>> (see <<calculated-value-properties>> )
-* Section 18, DFDL Expression Language covers the XPath-derived expression language that is embedded in DFDL and is used for computing the values of many properties dynamically, as well as for calculated value elements, and assertion checking.
-* Section 19, DFDL Regular Expressions, covers the regular expression language used when parsing to isolate elements within the data stream, as well as to check assertions.
+* <<dfdl-expression-language>>, DFDL Expression Language covers the XPath-derived expression language that is embedded in DFDL and is used for computing the values of many properties dynamically, as well as for calculated value elements, and assertion checking.
+* <<dfdl-regular-expressions-2>>, DFDL Regular Expressions, covers the regular expression language used when parsing to isolate elements within the data stream, as well as to check assertions.
 
 The remaining sections and appendices supply additional details of particular importance to implementors of DFDL, or they provide detail and reference material and are referenced from other parts of the specification.
