@@ -4,6 +4,7 @@
 // Metanorma reads a clause titled "Introduction" as ISO prefatory matter
 // and leaves it unnumbered; the specification numbers it as Clause 1.
 [heading=clause]
+
 include::clauses/01-introduction.adoc[]
 
 include::clauses/02-overview-of-the-specification.adoc[]
@@ -13,8 +14,15 @@ include::clauses/03-notational-and-definitional-conventions.adoc[]
 include::clauses/04-the-dfdl-information-set-infoset.adoc[]
 
 include::clauses/05-dfdl-schema-component-model.adoc[]
+
 include::clauses/06-dfdl-syntax-basics.adoc[]
 
 include::clauses/07-syntax-of-dfdl-annotation-elements.adoc[]
 
 include::clauses/08-property-scoping-and-dfdl-schema-checking.adoc[]
+
+include::clauses/09-dfdl-processing-introduction.adoc[]
+
+include::clauses/10-overview-representation-properties-and-their-format-semantic.adoc[]
+
+include::clauses/11-properties-common-to-both-content-and-framing.adoc[]
