@@ -41,6 +41,8 @@ from pathlib import Path
 NS = {
     "w": "http://schemas.openxmlformats.org/wordprocessingml/2006/main",
     "r": "http://schemas.openxmlformats.org/officeDocument/2006/relationships",
+    "a": "http://schemas.openxmlformats.org/drawingml/2006/main",
+    "asvg": "http://schemas.microsoft.com/office/drawing/2016/SVG/main",
 }
 
 
@@ -423,6 +425,7 @@ class Package:
         self.document = self._parse("word/document.xml")
         self.styles = self._parse("word/styles.xml")
         self.numbering = self._parse_optional("word/numbering.xml")
+        self.footnotes = self._parse_optional("word/footnotes.xml")
         self.rels = self._read_rels("word/_rels/document.xml.rels")
 
     def _parse(self, name: str) -> ET.Element:
@@ -441,6 +444,9 @@ class Package:
         for rel in root:
             rels[rel.get("Id")] = (rel.get("Target"), rel.get("TargetMode", "Internal"))
         return rels
+
+    def media(self, target: str) -> bytes:
+        return self.zip.read("word/" + target.lstrip("/"))
 
     def table_styles_with_header(self) -> set:
         """Style ids whose definition formats the first row differently."""
@@ -704,11 +710,14 @@ class Clause:
 
 
 class Converter:
-    def __init__(self, package: Package):
+    def __init__(self, package: Package, image_dir: Path, image_prefix: str = "images"):
         self.pkg = package
         self.body = package.document[0]
         self.numbering = Numbering(package.numbering)
         self.header_styles = package.table_styles_with_header()
+        self.image_dir = image_dir
+        self.image_prefix = image_prefix
+        self.footnote_text = self._load_footnotes()
         self.clauses = self._split_clauses()
         clause_of_block = {}
         for clause in self.clauses:
@@ -723,8 +732,21 @@ class Converter:
         self.emitted_clauses = set()
         self.current = None
         self.cell_depth = 0
+        self.pending_footnotes = []
+        self.extracted_images = []
 
     # -- setup ------------------------------------------------------------
+
+    def _load_footnotes(self) -> dict:
+        notes = {}
+        if self.pkg.footnotes is None:
+            return notes
+        for note in self.pkg.footnotes:
+            note_id = note.get(q("w", "id"))
+            if note.get(q("w", "type")) in ("separator", "continuationSeparator"):
+                continue
+            notes[note_id] = note
+        return notes
 
     def _split_clauses(self) -> list:
         """Cut the body at every Heading 1 and label each piece.
@@ -922,6 +944,10 @@ class Converter:
                 self._emit(segments, field_stack, " ", kind=kind)
             elif tag == q("w", "noBreakHyphen"):
                 self._emit(segments, field_stack, "-", kind=kind)
+            elif tag == q("w", "footnoteReference"):
+                self._emit(segments, field_stack, self._render_footnote(node), raw=True)
+            elif tag == q("w", "drawing"):
+                self._emit(segments, field_stack, self._render_drawing(node), raw=True)
             elif tag == q("w", "fldChar"):
                 self._handle_fld_char(node, segments, field_stack)
             elif tag == q("w", "instrText") and field_stack:
@@ -978,6 +1004,41 @@ class Converter:
                 return
         self._emit(segments, field_stack, text, raw=True)
 
+    def _render_footnote(self, node) -> str:
+        note = self.footnote_text.get(node.get(q("w", "id")))
+        if note is None:
+            return ""
+        parts = [self.render_inline(para).strip() for para in note.iter(W_P)]
+        text = " ".join(part for part in parts if part).strip()
+        return f"footnote:[{escape_macro_body(text)}]"
+
+    def _render_drawing(self, node) -> str:
+        blip = node.find(".//" + q("a", "blip"))
+        if blip is None:
+            return ""
+        rel_id = None
+        svg = node.find(".//" + q("asvg", "svgBlip"))
+        if svg is not None:
+            rel_id = svg.get(q("r", "embed"))
+        if rel_id is None:
+            rel_id = blip.get(q("r", "embed"))
+        if rel_id not in self.pkg.rels:
+            return ""
+        target = self.pkg.rels[rel_id][0]
+        name = self.extract_image(target)
+        return f"image:{self.image_prefix}/{name}[]"
+
+    def extract_image(self, target: str) -> str:
+        name = Path(target).name
+        self.image_dir.mkdir(parents=True, exist_ok=True)
+        destination = self.image_dir / name
+        data = self.pkg.media(target)
+        if not destination.exists() or destination.read_bytes() != data:
+            destination.write_bytes(data)
+        if name not in self.extracted_images:
+            self.extracted_images.append(name)
+        return name
+
     # -- block rendering --------------------------------------------------
 
     def render_blocks(self, blocks, depth=0) -> list:
@@ -1030,6 +1091,14 @@ class Converter:
                 )
                 index += 1
                 continue
+            if (
+                block.find(".//" + q("w", "drawing")) is not None
+                and not raw_text(block).strip()
+            ):
+                caption = self._lookahead_caption(blocks, index + 1)
+                lines.extend(self._render_figure(block, caption))
+                index += 1 + caption.consumed
+                continue
             lines.extend(self._render_paragraph(block, style))
             index += 1
         return trim_blank_lines(lines)
@@ -1043,9 +1112,10 @@ class Converter:
             lines.append("[appendix]")
         lines.extend(f"[[{ident}]]" for ident in self._block_anchors(para))
         title = self.render_inline(para).strip()
-        if annex:
-            # Metanorma numbers annexes itself, so drop Word's "Appendix C:".
-            title = APPENDIX_RE.sub("", title).strip(" :-") or title
+        # A heading's footnote is not carried into the rendered title, so it
+        # goes to the text the heading introduces instead.
+        self.pending_footnotes.extend(FOOTNOTE_MACRO_RE.findall(title))
+        title = FOOTNOTE_MACRO_RE.sub("", title).strip()
         marker = "=" * (level + 1)
         lines.append(f"{marker} {title or 'Untitled'}")
         lines.append("")
@@ -1126,10 +1196,25 @@ class Converter:
             if not all(para_style(para) in CAPTION_STYLES for para in paragraphs):
                 continue
             title = split_anchors(self.render_inline(paragraphs[0]).strip())[0]
-            anchors = self._block_anchors(paragraphs[0])
             rows.remove(row)
-            return strip_caption_number(title), anchors
-        return None, ()
+            return Caption(
+                strip_caption_number(title),
+                self._block_anchors(paragraphs[0]),
+                hidden_comment(paragraphs[0]),
+            )
+        return Caption()
+
+    def _render_figure(self, para, caption: Caption) -> list:
+        lines = [""] + caption.comments
+        lines.extend(f"[[{ident}]]" for ident in caption.anchors)
+        if caption.title:
+            lines.append("." + caption.title)
+        image = self.render_inline(para).strip()
+        # A block image is the inline macro with a doubled colon.
+        image = image.replace("image:", "image::", 1)
+        lines.append(image)
+        lines.append("")
+        return lines
 
     def _render_xml_example(self, blocks, index) -> tuple:
         """Emit schema fragments that Word styled as body text as a listing.
@@ -1561,6 +1646,9 @@ SECTION_LABEL_RE = re.compile(
     re.IGNORECASE,
 )
 
+#: A footnote macro, as this converter writes one.
+FOOTNOTE_MACRO_RE = re.compile(r"footnote:\[(?:\\.|[^\]])*\]")
+
 #: The bracketed label Word caches as the visible text of a citation.
 CITATION_LABEL_RE = re.compile(r"^\s*\[[^\[\]]*\]")
 
@@ -1800,6 +1888,11 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--all", action="store_true", help="convert every clause")
     parser.add_argument("--outdir", help="output directory for --all")
     parser.add_argument(
+        "--imagedir",
+        default="spec/images",
+        help="directory that extracted images are written to",
+    )
+    parser.add_argument(
         "--list", action="store_true", help="list the top-level clauses and exit"
     )
     return parser
@@ -1812,7 +1905,7 @@ def main(argv=None) -> int:
     if not docx.exists():
         print(f"no such file: {docx}", file=sys.stderr)
         return 2
-    converter = Converter(Package(docx))
+    converter = Converter(Package(docx), Path(args.imagedir))
 
     if args.list:
         for clause in converter.clauses:
