@@ -33,13 +33,13 @@
 
 *CCSID* - see Coded Character Set Identifier.
 
-*Character* - An ISO 10646 [ISO10646] character having a unique character code as its identifier. This concept is independent of font, typeface, size, and style, so '*F*', '*F*', 'F', are all the same character 'F'.
+*Character* - An ISO 10646 [<<a-iso10646,ISO10646>>] character having a unique character code as its identifier. This concept is independent of font, typeface, size, and style, so '*F*', '*F*', 'F', are all the same character 'F'.
 
-*Character Code* - The canonical integer used to identify a character in the ISO 10646 [ISO10646] standards. This number uniquely identifies the character independently of the various ways it is represented by different _character set encodings_ of the character. For example: The '{' character known in Unicode [Unicode] as LEFT CURLY BRACKET has character code U+007B. In both ASCII and UTF-8 character set encodings the representation of this character is as a single byte _code point_ pass-format:straightquotes[0x7B]. However, in EBCDIC-based character set encodings the representation of this same character code is the single byte code point pass-format:straightquotes[0xC0].
+*Character Code* - The canonical integer used to identify a character in the ISO 10646 [<<a-iso10646,ISO10646>>] standards. This number uniquely identifies the character independently of the various ways it is represented by different _character set encodings_ of the character. For example: The '{' character known in Unicode [<<a-unicode,Unicode>>] as LEFT CURLY BRACKET has character code U+007B. In both ASCII and UTF-8 character set encodings the representation of this character is as a single byte _code point_ pass-format:straightquotes[0x7B]. However, in EBCDIC-based character set encodings the representation of this same character code is the single byte code point pass-format:straightquotes[0xC0].
 
 *Character Set* - An abstract set of characters that are assigned (or mapped to) a representation by a particular character set encoding. For most character set encodings their character set is a subset of the Unicode character set.
 
-*Character Set Encoding* - Often abbreviated to just 'encoding'. A specific representation of a character set as bytes or bits of data. A character set encoding is usually identified by a standard character set encoding name or a recognized alias name, or by a coded character set identifier or CCSID [CCSID]. These identifiers are standardized. The names and aliases are standardized by the IANA [IANA] (where unfortunately, they are called character set names). CCSIDs are an industry standard. Examples of character set encoding names are UTF-8, USASCII, GB2312, ebcdic-cp-it, ISO-8859-5, UTF-16BE, Shift_JIS. There are also additional DFDL standard character set encodings, see _DFDL Standard Encoding._ The DFDL standard also allows for implementation-defined character set encodings to be supported.
+*Character Set Encoding* - Often abbreviated to just 'encoding'. A specific representation of a character set as bytes or bits of data. A character set encoding is usually identified by a standard character set encoding name or a recognized alias name, or by a coded character set identifier or CCSID [<<a-ccsid,CCSID>>]. These identifiers are standardized. The names and aliases are standardized by the IANA [<<a-iana,IANA>>] (where unfortunately, they are called character set names). CCSIDs are an industry standard. Examples of character set encoding names are UTF-8, USASCII, GB2312, ebcdic-cp-it, ISO-8859-5, UTF-16BE, Shift_JIS. There are also additional DFDL standard character set encodings, see _DFDL Standard Encoding._ The DFDL standard also allows for implementation-defined character set encodings to be supported.
 
 *Character Width* - The number of code units or alternatively the number of bytes or bits used to represent a character in a specific character set encoding is called the character width. Encodings are either fixed width (all characters encoded using the same width), or variable-width (different characters are encoded using different widths). For example, the UTF-32 character set encoding has 4-byte character width, whereas USASCII has a 1-byte character width. UTF-8 is variable width, and any specific character in that encoding has width 1, 2, 3, or 4 bytes. See also _Fixed-Width Character Encoding_ and _Variable-Width Character Encoding._
 
@@ -51,13 +51,13 @@
 
 *Code Unit* - When a character set encoding uses differing variable width representations for characters, the units making up these variable width representations are called code units. For example, the UTF-8 encoding uses between 1 and 4 code units to represent characters, and for UTF-8, the individual code units are single bytes. DFDL's interpretation of the UTF-16 encoding is either fixed or variable width. When format property dfdl:utf16Width 'variable' then UTF-16 is variable width and this encoding uses either one or two code units per character, but in this case each individual code unit is a 16-bit value. When a character set is fixed width, then there is no distinction between a code unit and a code point.
 
-*Coded Character Set Identifier* (CCSID) - An alternate identifier of a character set encoding. Originally created by IBM, CCSIDs are a broadly used industry standard. See [CCSID].]
+*Coded Character Set Identifier* (CCSID) - An alternate identifier of a character set encoding. Originally created by IBM, CCSIDs are a broadly used industry standard. See [<<a-ccsid,CCSID>>].]
 
 *Component* - A construct within a DFDL schema. These constructs include XSD element declarations, type definitions, group definitions, sequence definitions, choice definitions, element references, and group references. DFDL schema annotations are not components of the schema, rather they appear on components of the schema or on the top-level xs:schema element of a schema document.
 
 *Content* - The bits of the data stream data that are interpreted when parsing to compute the logical value of a simple type, and when unparsing are computed from the logical value for incorporation into the data stream.
 
-*Content Model* – One of 3 kinds of syntactic structure of XSD element declarations. The DFDL subset of XSD includes only empty, simple, and element-only content models, and not mixed content [MixedContent]. An XSD element declaration for an element of complex type containing a xs:sequence element is said to have a sequence in its content model. (DFDL's usage is derived from Section 13.3 of []).
+*Content Model* – One of 3 kinds of syntactic structure of XSD element declarations. The DFDL subset of XSD includes only empty, simple, and element-only content models, and not mixed content <<a-mixedcontent,[MixedContent]>>. An XSD element declaration for an element of complex type containing a xs:sequence element is said to have a sequence in its content model. (DFDL's usage is derived from Section 13.3 of <<walmsely,[]>>).
 
 *Contiguous* - An element has a contiguous representation if all parts of its representation are adjacent in the input/output stream. Most simple types have contiguous representations naturally. Groups containing elements that are themselves contiguous are also considered to have contiguous representations irrespective of alignment fill or padding of any kind that exists within the group. Similarly, arrays of elements that are themselves contiguous are also contiguous. An example of a non-contiguous representation would be a nillable element, where a flag is used to determine whether the element is nil, and the location of that flag is not adjacent to the value representation.
 
@@ -90,7 +90,7 @@
 
 *DFDL Schema* - An XML schema containing DFDL annotations to describe data format and using only the DFDL subset of the XSD language. This includes all included and imported schemas taken together. This also includes both the XSD declarations and definitions and the DFDL definitions provided in the top-level DFDL annotations.
 
-*DFDL Standard Encoding* - A character set for which there is no IANA name or CCSID but the name and definition of which DFDL implementations must agree on. See Section 33 Appendix D: DFDL Standard Encodings.
+*DFDL Standard Encoding* - A character set for which there is no IANA name or CCSID but the name and definition of which DFDL implementations must agree on. See <<appendix-d-dfdl-standard-encodings>> Appendix D: DFDL Standard Encodings.
 
 *Double-Byte Character Set* (DBCS) - A character set encoding where each character code consists of one code unit which uses exactly 2 bytes.
 
@@ -111,7 +111,7 @@
 * 1-byte wide: ASCII, ebcdic-cp-us, iso-8859-1. See also SBCS (Single-Byte Character Set)
 * 2-bytes wide: UTF-16 when dfdl:utf16Width is 'fixed'. See also DBCS (Double-Byte Character Set)
 * 4-bytes wide: UTF-32.
-* 7-bits wide: X-DFDL-US-ASCII-7-BIT-PACKEDfootnote:[X-DFDL-US-ASCII-7-BIT-PACKED is a DFDL standard encoding, which uses the US-ASCII characters, but each code unit is stored occupying only 7 bits, not a whole 8-bit-byte. DFDL standard encodings are defined in a separate specification. See Section 33 Appendix D: DFDL Standard Encodings.].
+* 7-bits wide: X-DFDL-US-ASCII-7-BIT-PACKEDfootnote:[X-DFDL-US-ASCII-7-BIT-PACKED is a DFDL standard encoding, which uses the US-ASCII characters, but each code unit is stored occupying only 7 bits, not a whole 8-bit-byte. DFDL standard encodings are defined in a separate specification. See <<appendix-d-dfdl-standard-encodings>> Appendix D: DFDL Standard Encodings.].
 
 *Fixed Array Element* - An array element where XSD minOccurs is equal to XSD maxOccurs.
 
@@ -145,7 +145,7 @@
 
 *Nibble* - 4 bits. A single hexadecimal digit (0 to F) is often referred to as a nibble as it can be represented in exactly 4 bits.
 
-*Node* - The term Node is a shorter equivalent to Element Information Item of the DFDL Infoset described in Section 4.2.2 Element Information Items.
+*Node* - The term Node is a shorter equivalent to Element Information Item of the DFDL Infoset described in Section <<element-information-items>> Element Information Items.
 
 *Non-Representation Property* – A format property that is not a representation property, specifically dfdl:ref, dfdl:hiddenGroupRef, dfdl:choiceBranchKey, dfdl:choiceDispatchKey, dfdl:inputValueCalc, dfdl:outputValueCalc. See also representation property.
 
@@ -169,7 +169,7 @@
 
 *Required Occurrence* - An occurrence with an index less than or equal to XSD minOccurs.
 
-*Required Property* – A DFDL property that must have a value. The required properties for each schema component are listed in Appendix G: Property Precedence.
+*Required Property* – A DFDL property that must have a value. The required properties for each schema component are listed in <<appendix-g-property-precedence,Appendix G: Property Precedence>>.
 
 *Resolved Set of Annotations* - When DFDL annotations appear on
 
@@ -224,7 +224,7 @@ They are combined, and the resulting set of annotations is referred to as the _r
 
 *Unsigned Number* - The unsigned number types have names beginning with "unsigned", as well as nonNegativeInteger. (The signed number types are byte, short, int, long, integer, float, and double.) For type xs:decimal the decimal is considered unsigned if dfdl:decimalSigned="no" and signed if dfdl:decimalSigned="yes".
 
-*Validity* - A DFDL Infoset is said to be valid with respect to a DFDL schema if each Infoset item is valid with respect to its corresponding DFDL schema component. Validity is about the Infoset and the values it holds. It is independent of the data representation when parsing or unparsing. See Section 9.6 Validation, for a list of the specific value checks that are performed when validating a DFDL Infoset against a DFDL schema.
+*Validity* - A DFDL Infoset is said to be valid with respect to a DFDL schema if each Infoset item is valid with respect to its corresponding DFDL schema component. Validity is about the Infoset and the values it holds. It is independent of the data representation when parsing or unparsing. See Section <<validation>> Validation, for a list of the specific value checks that are performed when validating a DFDL Infoset against a DFDL schema.
 
 *Variable-Width Character Encoding* - A character set encoding where characters are encoded using one or more code units for their representation depending on which specific character is being encoded. Examples with their ranges of varying width:
 

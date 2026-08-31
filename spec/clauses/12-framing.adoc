@@ -154,7 +154,7 @@ If the data is not aligned to the proper boundary for the encoding when textual 
 
 All required character set encodings in DFDL have 8-bit/1-byte alignment.
 
-DFDL standard encodings specify their alignment. See Section 33 Appendix D: DFDL Standard Encodings.
+DFDL standard encodings specify their alignment. See <<appendix-d-dfdl-standard-encodings>> Appendix D: DFDL Standard Encodings.
 
 Some implementations MAY include additional implementation-defined encodings which have other alignments.
 
@@ -220,7 +220,7 @@ In the above the *AlignmentFill* region still appears before element 'B', and in
 
 The following properties apply to all objects that use text delimiters to delimit, that is, to initiate and/or terminate data. Delimiters can apply to binary data; however, they are most often called 'text' delimiters because the concept is much more commonly used for textual data formats.
 
-When parsing, there can be multiple delimiter candidates to be matched against the data stream. The matching is performed in a _longest-match preferred_ manner. That is, each of the delimiter candidates is matched against the data, taking the longest match possible for that candidate. Then across all the delimiter candidates, the one with the longest match is the one that is selected as having been found. Once a matching delimiter is found, no other matches are subsequently attempted (i.e., there is no backtracking to try shorter matches.) Additional details on the matching of DFDL String Literals are given in Appendix C: Processing of DFDL String literals.
+When parsing, there can be multiple delimiter candidates to be matched against the data stream. The matching is performed in a _longest-match preferred_ manner. That is, each of the delimiter candidates is matched against the data, taking the longest match possible for that candidate. Then across all the delimiter candidates, the one with the longest match is the one that is selected as having been found. Once a matching delimiter is found, no other matches are subsequently attempted (i.e., there is no backtracking to try shorter matches.) Additional details on the matching of DFDL String Literals are given in <<appendix-c-processing-of-dfdl-string-literals,Appendix C: Processing of DFDL String literals>>.
 
 .Properties for Specifying Delimiters
 [cols="1,2",options="header"]

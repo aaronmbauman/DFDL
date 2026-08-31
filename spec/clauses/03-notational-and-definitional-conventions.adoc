@@ -6,7 +6,7 @@ Examples of DFDL schemas provided herein are for illustration purposes only and 
 [[glossary-and-terminology]]
 === Glossary and Terminology
 
-This specification provides definitions of the terms it uses at the point of first use. However, as this specification will not generally be read linearly, but out of order, a complete glossary is provided in Appendix E: Glossary of Terms.
+This specification provides definitions of the terms it uses at the point of first use. However, as this specification will not generally be read linearly, but out of order, a complete glossary is provided in <<appendix-e-glossary-of-terms,Appendix E: Glossary of Terms>>.
 
 The capitalized key words _MUST_, MUST NOT, SHALL, SHALL NOT, SHOULD, SHOULD NOT, MAY, REQUIRED, OPTIONAL, and RECOMMENDED in this document are to be interpreted as described in [<<a-rfc2119,RFC2119>>]. Such usage in capital letters is generally about DFDL implementations and their common or distinguishing characteristics.
 

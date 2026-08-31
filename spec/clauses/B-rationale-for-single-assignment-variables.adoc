@@ -7,7 +7,7 @@ An additional quite critical goal for DFDL is that it allows high-performance im
 
 DFDL contains an expression language with variables for use in creating parameterized DFDL schemas.
 
-However, the way variables can be used in DFDL is quite constrained. Specifically, the variables are single-assignment. This is a form of immutable object (See [Immutable]).
+However, the way variables can be used in DFDL is quite constrained. Specifically, the variables are single-assignment. This is a form of immutable object (See <<a-immutable,[Immutable]>>).
 
 Single-assignment variables solve a number of problems.
 

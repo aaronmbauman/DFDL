@@ -12,7 +12,7 @@ However, if implemented, then a conformant DFDL implementation MUST follow the s
 
 Additional encoding names are needed for several reasons:
 
-. Incomplete Information: the definitions of IANA [IANA] and CCSID [CCSID] character set encodings are not sufficiently specific about the encoding, omitting important characteristics such as alignment or bit order. An example of this is the encoding X-DFDL-US-ASCII-7-BIT-PACKED, defined herein.
+. Incomplete Information: the definitions of IANA [<<a-iana,IANA>>] and CCSID [<<a-ccsid,CCSID>>] character set encodings are not sufficiently specific about the encoding, omitting important characteristics such as alignment or bit order. An example of this is the encoding X-DFDL-US-ASCII-7-BIT-PACKED, defined herein.
 . Unnamed or Legacy Encodings: There are many legacy encodings that have no IANA or CCSID identifiers. For example, ITA2 [<<a-ita2,ITA2>>] is a 5-bit-per character encoding that is very old, yet still has modern uses.
 
 === Conventions

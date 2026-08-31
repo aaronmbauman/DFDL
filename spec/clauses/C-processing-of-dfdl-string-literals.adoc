@@ -6,7 +6,7 @@ A DFDL String Literal describes characters or bytes that can appear in the data.
 
 === Interpreting a DFDL String Literal
 
-A DFDL String literal is a sequence of one or more _string literal parts_. Each string literal part describes zero or more characters or exactly one byte. To process a DFDL string literal correctly it is necessary to parse it into its string literal parts using the grammar in Table 3 DFDL Character Entity, Character Class Entity, and Byte Value Entity Syntax of Section 6.3.1 DFDL String Literals.
+A DFDL String literal is a sequence of one or more _string literal parts_. Each string literal part describes zero or more characters or exactly one byte. To process a DFDL string literal correctly it is necessary to parse it into its string literal parts using the grammar in <<dfdl-character-entity-character-class-entity-and-byte-value>> DFDL Character Entity, Character Class Entity, and Byte Value Entity Syntax of Section <<dfdl-string-literals>> DFDL String Literals.
 
 === Recognizing a DFDL String Literal
 
@@ -58,14 +58,14 @@ a| The entity is specifying a newline character or character sequence.
 
 The string part is recognized if a newline character sequence is found in the data at the current byte offset:
 
-The newline character sequences are defined in Table 5 DFDL Character Class Entities, in Section 6.3.1.2 DFDL Character Entities, Character Class Entities, and Byte Values in String Literals.
+The newline character sequences are defined in <<dfdl-character-class-entities>> DFDL Character Class Entities, in Section <<dfdl-character-entities-character-class-entities-and-byte-va>> DFDL Character Entities, Character Class Entities, and Byte Values in String Literals.
 
 The recognition algorithm MUST be greedy. If the CR character is matched then the DFDL processor MUST check to see whether it is followed by an LF character and if so, consume that character also.
 
 | DfdlWSPEntity
 a| The entity is specifying a single whitespace character.
 
-The string part if recognized if one of the whitespace characters is found in the data at the current byte offset. The whitespace characters are defined in Table 5 DFDL Character Class Entities, in Section 6.3.1.2 DFDL Character Entities, Character Class Entities, and Byte Values in String Literals.
+The string part if recognized if one of the whitespace characters is found in the data at the current byte offset. The whitespace characters are defined in <<dfdl-character-class-entities>> DFDL Character Class Entities, in Section <<dfdl-character-entities-character-class-entities-and-byte-va>> DFDL Character Entities, Character Class Entities, and Byte Values in String Literals.
 
 | DfdlWSPStarEntity
 a| The entity is specifying zero or more whitespace characters.

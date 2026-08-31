@@ -42,18 +42,18 @@ The following are Processing Errors:
 The following are Schema Definition Errors, regardless of whether they are detected in advance of processing or once processing begins:
 
 * Errors in XML Schema Construction and Structure
-** See XML Schema Specification Part 1, Section 5.1 [XSDLV1]
+** See XML Schema Specification Part 1, Section 5.1 [<<a-xsdl-part1,XSDLV1>>]
 * Use of XSD constructs outside of DFDL subset
 * Implementation-defined Limitations
 ** Use of DFDL schema constructs not supported by this implementation.
-*** Example: xs:choice is an optional part of the DFDL specification (see Section 23). If not supported, it MUST be rejected as a Schema Definition Error.
+*** Example: xs:choice is an optional part of the DFDL specification (see <<optional-dfdl-features>>). If not supported, it MUST be rejected as a Schema Definition Error.
 *** Example: use of packed-decimal when it is not supported by the implementation.
-*** Example: use of dfdl:assert when it is not supported by the implementation (See Spec Section 23 on DFDL Subsets)
+*** Example: use of dfdl:assert when it is not supported by the implementation (See Spec <<optional-dfdl-features>> on DFDL Subsets)
 *** Note: Unrecognized DFDL properties or property values can produce a warning and an implementation can attempt to process data despite the warning.
 ** Exceeding implementation-dependent limits for schema size/complexity
 *** Example: schema too large – simply a limit on how large the schema can be, how many files, how many top-level constructs, etc.
 * Schema Not Valid
-** See XML Schema Specification Part 1, Section 5.2 [XSDLV1]
+** See XML Schema Specification Part 1, Section 5.2 [<<a-xsdl-part1,XSDLV1>>]
 * UPA violation (Unique Particle Attribution)
 * Reference to DFDL global definition not found
 ** Format definition (dfdl:defineFormat)

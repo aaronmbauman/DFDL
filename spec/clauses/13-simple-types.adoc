@@ -341,7 +341,7 @@ If this is used to serialize a DFDL Infoset element of type xs:string with value
 
 In this scenario, the data is not compliant with the escape scheme, and the DFDL unparser MUST issue a Processing Error.
 
-Additional examples are in Appendix A: Escape Scheme Use Cases.
+Additional examples are in <<appendix-a-escape-scheme-use-cases,Appendix A: Escape Scheme Use Cases>>.
 
 === Properties for Bidirectional support for All Simple Types with Text representation
 

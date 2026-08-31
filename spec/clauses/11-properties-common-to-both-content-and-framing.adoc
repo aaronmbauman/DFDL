@@ -72,7 +72,7 @@ Unlike most other properties with Enum values, encoding names are case-insensiti
 
 The encoding name 'UTF-8' is interpreted strictly and does not include variants such as CESU-8.
 
-DFDL standard encoding names are defined in Section 33 Appendix D: DFDL Standard Encodings. When supported, a conforming DFDL implementation MUST implement them in a uniform manner so that they are portable across all DFDL implementations that implement them.
+DFDL standard encoding names are defined in <<appendix-d-dfdl-standard-encodings>> Appendix D: DFDL Standard Encodings. When supported, a conforming DFDL implementation MUST implement them in a uniform manner so that they are portable across all DFDL implementations that implement them.
 
 Additional implementation-defined encoding names MAY be provided only for character set encodings for which there is no IANA name standard nor CCSID standard nor DFDL standard encoding. These implementation-defined encodings MUST have "X-" as a prefix to their name, as they are subject to being superseded by IANA or DFDL standard encoding names.
 

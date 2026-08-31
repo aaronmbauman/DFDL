@@ -198,7 +198,7 @@ A DFDL string literal can describe any of the following types of literal data in
 
 A DFDL string literal is therefore able to describe any arbitrary sequence of bytes and characters.
 
-Details on how a string literal is matched against the data stream for parsing are given in Appendix C: Processing of DFDL String literals.
+Details on how a string literal is matched against the data stream for parsing are given in <<appendix-c-processing-of-dfdl-string-literals,Appendix C: Processing of DFDL String literals>>.
 
 *Empty String:* The special DFDL entity %ES; is provided for describing an empty string or an empty byte sequence. The %ES; entity is the only way to do this. A DFDL string literal with value "" (the empty string) is usually invalid. There are a few properties that explicitly allow an empty DFDL String Literal, and these properties assign a property-specific meaning to the empty string value.
 
