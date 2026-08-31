@@ -62,3 +62,17 @@ include::clauses/27-removed.adoc[]
 include::clauses/28-removed.adoc[]
 
 include::clauses/29-references.adoc[]
+
+include::clauses/A-escape-scheme-use-cases.adoc[]
+
+include::clauses/B-rationale-for-single-assignment-variables.adoc[]
+
+include::clauses/C-processing-of-dfdl-string-literals.adoc[]
+
+include::clauses/D-dfdl-standard-encodings.adoc[]
+
+include::clauses/E-glossary-of-terms.adoc[]
+
+include::clauses/F-specific-errors-classified.adoc[]
+
+include::clauses/G-property-precedence.adoc[]
