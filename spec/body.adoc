@@ -1,0 +1,2 @@
+// Shared body. Included by both edition masters; the editions differ only
+// in the front matter each one includes.
