@@ -5,7 +5,7 @@ Several properties are common across the various framing styles or are used to d
 
 === Aligned Data
 
-Alignment properties control the leading alignment and trailing alignment regions. That is, the LeadingAlignment and TrailingAlignment regions of the data syntax grammar (in Section 9.2).
+Alignment properties control the leading alignment and trailing alignment regions. That is, the LeadingAlignment and TrailingAlignment regions of the data syntax grammar (in Section <<dfdl-data-syntax-grammar>>).
 
 When the alignment properties are applied to an array element, the properties are applied to each occurrence of the element; that is, not only to the first occurrence.
 
@@ -300,7 +300,7 @@ Indicates that when an element in the data stream is empty, which of initiator, 
 
 Ignored if both dfdl:initiator and dfdl:terminator are "" (empty string).
 
-'initiator' indicates that, on parsing, if the content region (which can be either the SimpleContent region or the ComplexContent region defined in Section 9.2)  is empty then the dfdl:initiator must be present. It also indicates that on unparsing when the content region is empty that the dfdl:initiator is output.
+'initiator' indicates that, on parsing, if the content region (which can be either the SimpleContent region or the ComplexContent region defined in Section <<dfdl-data-syntax-grammar>>)  is empty then the dfdl:initiator must be present. It also indicates that on unparsing when the content region is empty that the dfdl:initiator is output.
 
 'terminator' indicates that, on parsing, if the content region is empty then the dfdl:terminator must be present. It also indicates that on unparsing when the content region is empty the dfdl:terminator is output.
 
@@ -310,7 +310,7 @@ Ignored if both dfdl:initiator and dfdl:terminator are "" (empty string).
 
 It is a Schema Definition Error if dfdl:emptyValueDelimiterPolicy set to 'none' or 'terminator' when the parent group has dfdl:initiatedContent 'yes'.
 
-This property plays an important role in establishing empty representation. See 9.2.2 Empty Representation for details.
+This property plays an important role in establishing empty representation. See <<empty-representation>> Empty Representation for details.
 
 This property is ignored if the element is fixed-length and length is not zero (as no empty representation is possible).
 
@@ -331,7 +331,7 @@ a| Enum
 
 Valid values are 'yes', 'no'
 
-When the dfdl:documentFinalTerminatorCanBeMissing property is true, then when an element is the last element in the data stream, then on parsing, it is not an error if the terminator is not found, and the terminator is considered to be logically present for the purposes of establishing representation, per Section 9.3.2.
+When the dfdl:documentFinalTerminatorCanBeMissing property is true, then when an element is the last element in the data stream, then on parsing, it is not an error if the terminator is not found, and the terminator is considered to be logically present for the purposes of establishing representation, per Section <<establishing-representation>>.
 
 For example, if the data are in a file, and the format specifies lines terminated by the newline character (typically LF or CRLF), then if the last line is missing its newline, then this would normally be an error, but if dfdl:documentFinalTerminatorCanBeMissing is true, then this is not a Processing Error.
 
@@ -344,7 +344,7 @@ a| DFDL String Literal or DFDL Expression
 
 Specifies the character or characters that are used to replace the %NL; character class entity during unparse.
 
-(The %NL; entity is defined in Section 6.3.1.3 DFDL Character Class Entities in DFDL String Literals.)
+(The %NL; entity is defined in Section <<dfdl-character-class-entities-in-dfdl-string-literals>> DFDL Character Class Entities in DFDL String Literals.)
 
 It is a Schema Definition Error if any of the characters are not in the set of characters allowed by the DFDL entity %NL; Only individual characters or the %CR;%LF; combination are allowed.
 
@@ -601,7 +601,7 @@ a| Enum
 
 Valid values are 'yes', 'no'
 
-Specifies whether the length given by a prefix includes the length of the prefix as well as the length of the content region which can be either the SimpleContent region or the ComplexContent region defined in Section 9.2 DFDL Data Syntax Grammar.
+Specifies whether the length given by a prefix includes the length of the prefix as well as the length of the content region which can be either the SimpleContent region or the ComplexContent region defined in Section <<dfdl-data-syntax-grammar>> DFDL Data Syntax Grammar.
 
 Used only when dfdl:lengthKind 'prefixed'.
 
@@ -760,13 +760,13 @@ Only used when lengthKind is 'pattern'.
 
 Specifies a regular expression that, on parsing, is executed against the data stream to determine the length of the element.
 
-The data stream beginning at the starting offset of the content region (which can be either the SimpleContent region or the ComplexContent region defined in Section 9.2 DFDL Data Syntax Grammar) of the element is interpreted as a stream of characters in the encoding of the element, and the regular expression contained in the dfdl:lengthPattern property is executed against that stream of characters. When the element is complex the encoding used is the dfdl:encoding of the complex element itself.
+The data stream beginning at the starting offset of the content region (which can be either the SimpleContent region or the ComplexContent region defined in Section <<dfdl-data-syntax-grammar>> DFDL Data Syntax Grammar) of the element is interpreted as a stream of characters in the encoding of the element, and the regular expression contained in the dfdl:lengthPattern property is executed against that stream of characters. When the element is complex the encoding used is the dfdl:encoding of the complex element itself.
 
 It is a Schema Definition Error if there is no value for the dfdl:encoding property in scope.
 
 DFDL Escape Schemes (per dfdl:escapeSchemeRef) are not used when executing the regular expression.
 
-If the pattern matching of the regular expression reads data that cannot be decoded into characters of the current encoding, then the behavior is controlled by the dfdl:encodingErrorPolicy property. See dfdl:encodingErrorPolicy in Section 11 Properties Common to both Content and Framing.
+If the pattern matching of the regular expression reads data that cannot be decoded into characters of the current encoding, then the behavior is controlled by the dfdl:encodingErrorPolicy property. See dfdl:encodingErrorPolicy in <<properties-common-to-both-content-and-framing>> Properties Common to both Content and Framing.
 
 Annotation: dfdl:element, dfdl:simpleType
 |===
@@ -838,7 +838,7 @@ The use of dfdl:lengthKind 'endOfParent' is distinct from the situation where th
 
 When parsing an element with dfdl:lengthKind 'endOfParent', delimiter scanning is turned off and in-scope terminating delimiters are not looked for within the element.
 
-When unparsing an element with dfdl:lengthKind 'endOfParent', if the parent is a complex element with dfdl:lengthKind 'explicit' where dfdl:length is not an expression, or a choice with dfdl:choiceLengthKind 'explicit', then the element with dfdl:lengthKind 'endOfParent' is padded or filled in the usual manner to the required length, by completing the *LeftPadding*, *RightPad*, *RightFill*, *ElementUnused*, or *ChoiceUnused* regions of the data syntax grammar (Section 9.2) as appropriate.
+When unparsing an element with dfdl:lengthKind 'endOfParent', if the parent is a complex element with dfdl:lengthKind 'explicit' where dfdl:length is not an expression, or a choice with dfdl:choiceLengthKind 'explicit', then the element with dfdl:lengthKind 'endOfParent' is padded or filled in the usual manner to the required length, by completing the *LeftPadding*, *RightPad*, *RightFill*, *ElementUnused*, or *ChoiceUnused* regions of the data syntax grammar (Section <<dfdl-data-syntax-grammar>>) as appropriate.
 
 [[elements-of-specified-length]]
 ==== Elements of Specified Length
@@ -857,7 +857,7 @@ For dfdl:lengthKind 'explicit' (expression), whether parsing or unparsing the ex
 
 When parsing, if the data stream ends without enough data to parse an element, that is, N bits are needed based on the dfdl:length, but only M < N bits are available, then it is a Processing Error.
 
-If dfdl:lengthUnits is 'characters' then the length (in bits) of the content region  (i.e., SimpleContent or ComplexContent defined in Section 9.2 DFDL Data Syntax Grammar) depends on the encoding of the characters.
+If dfdl:lengthUnits is 'characters' then the length (in bits) of the content region  (i.e., SimpleContent or ComplexContent defined in Section <<dfdl-data-syntax-grammar>> DFDL Data Syntax Grammar) depends on the encoding of the characters.
 
 * If the dfdl:encoding property specifies a fixed-width encoding then the content length is the character width (in bits) multiplied by the length.
 * If the dfdl:encoding property specifies a variable-width encoding then the length depends on the actual characters in the element's value. The characters MUST be decoded one by one, adding up their widths (in bits), while counting to the specified length value.
@@ -1008,6 +1008,6 @@ The dfdl:fillByte is *not* used to trim an element of type xs:hexBinary when par
 
 A complex element of specified length is defining a 'box' in which its child elements exist. An example of this would be a fixed-length record element with a variable number of children elements. The dfdl:lengthUnits may be 'bytes' or 'characters' and it is a Schema Definition Error otherwise.
 
-It is possible that the children may not entirely fill the full length of the complex element. An example is a complex element with a specified length of 100 characters, which contains a sequence of child elements that use up less than 100 characters of data, perhaps because an optional element is not present. In this case the remaining unused data is called the ElementUnused region in the data syntax grammar of Section 9.2. Another example is a complex element with a specified length of 100 bytes, which contains a sequence of child elements the last of which has dfdl:lengthKind 'endOfParent', dfdl:representation 'text' and a multi-byte dfdl:encoding such that the element does not use up all the bytes of data. In this case the remaining unused bytes comprise the child element's *RightFill* region in the data syntax grammar of Section 9.2. In both examples, the unused area is skipped when parsing, and is filled with the dfdl:fillByte on unparsing.
+It is possible that the children may not entirely fill the full length of the complex element. An example is a complex element with a specified length of 100 characters, which contains a sequence of child elements that use up less than 100 characters of data, perhaps because an optional element is not present. In this case the remaining unused data is called the ElementUnused region in the data syntax grammar of Section <<dfdl-data-syntax-grammar>>. Another example is a complex element with a specified length of 100 bytes, which contains a sequence of child elements the last of which has dfdl:lengthKind 'endOfParent', dfdl:representation 'text' and a multi-byte dfdl:encoding such that the element does not use up all the bytes of data. In this case the remaining unused bytes comprise the child element's *RightFill* region in the data syntax grammar of Section <<dfdl-data-syntax-grammar>>. In both examples, the unused area is skipped when parsing, and is filled with the dfdl:fillByte on unparsing.
 
 Note that a poorly chosen value for dfdl:fillByte may fill the region with data that cannot be decoded in the character set encoding, resulting in a decode error when this data is subsequently parsed again. When dfdl:lengthUnits is 'characters' the value for dfdl:fillByte must be chosen to avoid this error.

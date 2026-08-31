@@ -10,7 +10,7 @@ The sections of the specification are
 * <<dfdl-processing-introduction>>, DFDL Processing Introduction covers processing, including the core algorithms for parsing and unparsing data, as well as validation. It introduces the <<dfdl-data-syntax-grammar,DFDL Data Syntax Grammar>>, which captures the structure of data that can be described with DFDL, and which is referenced throughout the rest of the specification.
 * <<overview-representation-properties-and-their-format-semantic>>, Overview: Representation Properties and their Format Semantics provides an overview of, and Sections <<properties-common-to-both-content-and-framing>> to 17 describe in detail, all the DFDL properties. The properties are organized as follows:
 ** <<properties-common-to-both-content-and-framing,Common to both Content and Framing>> (see <<properties-common-to-both-content-and-framing>>)
-** Common Framing, Position, and Length (see Section 12)
+** <<framing,Common Framing, Position, and Length>> (see <<framing>>)
 ** Simple Type Content (see Section 13 ) - This is the largest section as it covers properties for all the various simple types, starting with properties that apply to all simple types, then properties for all types with textual representation, and then proceeding through the types, covering textual and binary format properties for each type.
 ** Sequence Groups (see Section 14 )
 ** Choice Groups (see Section 15 )
