@@ -12,6 +12,10 @@
 #   make check     lint, then the validators in tools/ against the semantic XML
 #   make clean     remove build output
 #
+#   make release VERSION=x.y.z
+#                  every edition, rendered from scratch into docs/releases/,
+#                  which is committed; build/ is not.
+#
 # EDITION selects which edition to build; output lands in build/$(EDITION)/.
 # Both editions render identically-named artifacts, so they need separate
 # directories.
@@ -41,7 +45,9 @@ SRCSTEM  := $(basename $(notdir $(SPEC)))
 DOCKER   := docker run --rm -v "$(CURDIR):/metanorma" $(IMAGE)
 MN_FLAGS := --no-install-fonts --continue-without-fonts
 
-.PHONY: all editions xml html pdf lint check clean
+RELEASE  := docs/releases/$(VERSION)
+
+.PHONY: all editions release xml html pdf lint check clean
 
 # One pdf pass also emits the HTML and the XML, so `all` is just `pdf`.
 all: pdf
@@ -67,6 +73,21 @@ xml html pdf:
 		mv -f "$$f" "$(BUILD)/$(STEM)$${f#$(dir $(SPEC))$(SRCSTEM)}"; \
 	done
 	@echo "Output in $(BUILD)/"
+
+# A release is committed, so it is rendered from scratch rather than
+# published from whatever happens to be left in build/. The edition is part
+# of the filename because build/ keeps them apart by directory instead.
+release:
+	@test -n "$(VERSION)" || { echo "usage: make release VERSION=x.y.z" >&2; exit 1; }
+	$(MAKE) --no-print-directory clean
+	$(MAKE) --no-print-directory editions
+	@mkdir -p $(RELEASE)
+	@for e in $(EDITIONS); do \
+		for x in pdf html xml; do \
+			cp build/$$e/$(STEM).$$x $(RELEASE)/$(STEM)-$$e.$$x || exit 1; \
+		done; \
+	done
+	@echo "Release in $(RELEASE)/"
 
 # ruff and black run on the host, not in the Metanorma container.
 lint:
