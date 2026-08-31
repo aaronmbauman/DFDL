@@ -42,3 +42,23 @@ include::clauses/17-calculated-value-properties.adoc[]
 include::clauses/18-dfdl-expression-language.adoc[]
 
 include::clauses/19-dfdl-regular-expressions.adoc[]
+
+include::clauses/20-external-control-of-the-dfdl-processor.adoc[]
+
+include::clauses/21-built-in-specifications.adoc[]
+
+include::clauses/22-conformance.adoc[]
+
+include::clauses/23-optional-dfdl-features.adoc[]
+
+include::clauses/24-security-considerations.adoc[]
+
+include::clauses/25-removed.adoc[]
+
+include::clauses/26-removed.adoc[]
+
+include::clauses/27-removed.adoc[]
+
+include::clauses/28-removed.adoc[]
+
+include::clauses/29-references.adoc[]
