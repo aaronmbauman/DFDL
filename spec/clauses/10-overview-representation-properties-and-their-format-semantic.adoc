@@ -11,7 +11,7 @@ The properties are organized as follows:
 
 * Common to both Content and Framing (see <<properties-common-to-both-content-and-framing>>)
 * Common Framing, Position, and Length (see <<framing>>)
-* Simple Type Content (see 13)
+* Simple Type Content (see <<simple-types>>)
 * Sequence Groups (see 14)
 * Choice Groups (see 15)
 * Array elements and optional elements (see 16)

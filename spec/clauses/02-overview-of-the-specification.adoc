@@ -11,7 +11,7 @@ The sections of the specification are
 * <<overview-representation-properties-and-their-format-semantic>>, Overview: Representation Properties and their Format Semantics provides an overview of, and Sections <<properties-common-to-both-content-and-framing>> to 17 describe in detail, all the DFDL properties. The properties are organized as follows:
 ** <<properties-common-to-both-content-and-framing,Common to both Content and Framing>> (see <<properties-common-to-both-content-and-framing>>)
 ** <<framing,Common Framing, Position, and Length>> (see <<framing>>)
-** Simple Type Content (see Section 13 ) - This is the largest section as it covers properties for all the various simple types, starting with properties that apply to all simple types, then properties for all types with textual representation, and then proceeding through the types, covering textual and binary format properties for each type.
+** <<simple-types,Simple Type Content>> (see <<simple-types>> ) - This is the largest section as it covers properties for all the various simple types, starting with properties that apply to all simple types, then properties for all types with textual representation, and then proceeding through the types, covering textual and binary format properties for each type.
 ** Sequence Groups (see Section 14 )
 ** Choice Groups (see Section 15 )
 ** Array (i.e., recurring) elements and optional elements (see Section 16 )

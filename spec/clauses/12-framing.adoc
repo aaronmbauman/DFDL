@@ -952,7 +952,7 @@ The value of the specified length is constrained per the table below. The length
 | Implementation-dependent (but not less than 64)
 |===
 
-See Section 13.7.1.1 Converting Base-2 Binary Numbers for details of the conversion to/from numeric values.
+See Section <<converting-base-2-binary-numbers>> Converting Base-2 Binary Numbers for details of the conversion to/from numeric values.
 
 ====== Length of Floating Point Binary Number Elements
 
@@ -960,7 +960,7 @@ For binary elements of types xs:float or xs:double, a specified length must be e
 
 The dfdl:lengthUnits property must be 'bytes'. It is a Schema Definition Error otherwise.
 
-See Section 13.8 Properties Specific to Float/Double with Binary Representation.
+See Section <<properties-specific-to-float-double-with-binary-representati>> Properties Specific to Float/Double with Binary Representation.
 
 ====== Length of Packed Decimal Number Elements
 
@@ -970,13 +970,13 @@ It is a Schema Definition Error if the specified length is not a multiple of 4 b
 
 The maximum specified length of a packed decimal number is implementation-defined.
 
-See Section 13.7 Properties Specific to Number with Binary Representation for details of the conversion of the packed decimal bit string to/from a numeric value.
+See Section <<properties-specific-to-number-with-binary-representation>> Properties Specific to Number with Binary Representation for details of the conversion of the packed decimal bit string to/from a numeric value.
 
 ====== Length of Binary Boolean Elements
 
 The specified length of a binary element of type xs:boolean is as for type xs:unsignedInt described in Section <<length-of-base-2-binary-number-elements>> Length of Base-2 Binary Number Elements.
 
-See also Section 13.10 Properties Specific to Boolean with Binary Representation for details of how the data is converted to/from a Boolean value.
+See also Section <<properties-specific-to-boolean-with-binary-representation>> Properties Specific to Boolean with Binary Representation for details of how the data is converted to/from a Boolean value.
 
 ====== Length of Base-2 Binary Calendar Elements
 
@@ -984,7 +984,7 @@ Calendars (types date, time, dateTime) with binary representation and dfdl:binar
 
 The dfdl:lengthUnits property must be 'bytes'. It is a Schema Definition Error otherwise.
 
-See Section 13.13 Properties Specific to Calendar with Binary Representation for details of how the data is converted to/from the calendar type.
+See Section <<properties-specific-to-calendar-with-binary-representation>> Properties Specific to Calendar with Binary Representation for details of how the data is converted to/from the calendar type.
 
 ====== Length of Packed Decimal Calendar Elements
 
@@ -994,7 +994,7 @@ It is a Schema Definition Error if the specified length is not a multiple of 4 b
 
 The maximum specified length of a packed decimal calendar is implementation-defined (but not less than 9 bytes, which corresponds to calendar pattern 'yyyyMMddhhmmssSSS')footnote:[This is the smallest pattern that contains all the digit-only symbols. SSS is the minimum precision that must be supported for fractional seconds, but in can be more, hence why 'not less than 9 bytes'.].
 
-See Section 13.13 Properties Specific to Calendar with Binary Representation for details of how the data is converted to/from the calendar type.
+See Section <<properties-specific-to-calendar-with-binary-representation>> Properties Specific to Calendar with Binary Representation for details of how the data is converted to/from the calendar type.
 
 ====== Length of Binary Opaque Elements
 
