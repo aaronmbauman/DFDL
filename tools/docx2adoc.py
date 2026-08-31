@@ -198,6 +198,10 @@ HAZARD_RE = re.compile(
 #: A URL, where a `#` is a fragment marker that AsciiDoc already respects.
 URL_RE = re.compile(r"\b(?:https?|ftp|mailto):[^\s\[\]]+")
 
+#: A link or image macro that has just been emitted, and whose closing
+#: bracket the next span would run into.
+MACRO_END_RE = re.compile(r"\b(?:link|mailto|image):\S*\[[^\]]*\]$")
+
 #: A spaced hyphen, plus the brackets needed to tell an operator from prose.
 ARITH_DASH_RE = re.compile(r"""[()\[\]]|(?<=[\w)\]'"]) (-{1,2}) (?=[\w(\['"])""")
 
@@ -418,6 +422,7 @@ class Package:
         self.zip = zipfile.ZipFile(path)
         self.document = self._parse("word/document.xml")
         self.numbering = self._parse_optional("word/numbering.xml")
+        self.rels = self._read_rels("word/_rels/document.xml.rels")
 
     def _parse(self, name: str) -> ET.Element:
         with self.zip.open(name) as handle:
@@ -428,6 +433,13 @@ class Package:
             return self._parse(name)
         except KeyError:
             return None
+
+    def _read_rels(self, name: str) -> dict:
+        root = self._parse(name)
+        rels = {}
+        for rel in root:
+            rels[rel.get("Id")] = (rel.get("Target"), rel.get("TargetMode", "Internal"))
+        return rels
 
 
 class Numbering:
@@ -553,6 +565,93 @@ def hidden_comment(para) -> list:
 
 
 # --------------------------------------------------------------------------
+# Anchors
+# --------------------------------------------------------------------------
+
+
+@dataclass
+class Anchor:
+    """A Word bookmark that survives into the AsciiDoc output."""
+
+    name: str
+    ident: str
+    clause: int
+    block_level: bool  # sits on a heading or caption, so it becomes a block id
+    level: int = 0  # heading level, when it sits on a heading
+
+
+class AnchorIndex:
+    """Assign readable AsciiDoc ids to the Word bookmarks worth keeping."""
+
+    def __init__(self, body, clause_of_block):
+        self.by_name = {}
+        self.referenced = set()
+        self._collect_references(body)
+        self._assign(body, clause_of_block)
+
+    def _collect_references(self, body):
+        for node in body.iter():
+            if node.tag == q("w", "instrText"):
+                match = re.search(r"\bREF\s+(\S+)", node.text or "")
+                if match:
+                    self.referenced.add(match.group(1))
+            elif node.tag == q("w", "hyperlink"):
+                anchor = node.get(q("w", "anchor"))
+                if anchor:
+                    self.referenced.add(anchor)
+
+    def _wanted(self, name: str) -> bool:
+        if name.startswith("_Toc"):
+            return False
+        return name in self.referenced or not name.startswith("_")
+
+    def _assign(self, body, clause_of_block):
+        used = set()
+        pending = []  # bookmarks seen between blocks, attached to the next one
+        for index, block in enumerate(body):
+            clause = clause_of_block.get(index, 0)
+            if block.tag == q("w", "bookmarkStart"):
+                pending.append(block.get(q("w", "name")))
+                continue
+            if block.tag not in (W_P, W_TBL):
+                continue
+            for para in [block] if block.tag == W_P else block.iter(W_P):
+                style = para_style(para)
+                level = heading_level(style)
+                block_level = level is not None or style in CAPTION_STYLES
+                names = pending + [
+                    b.get(q("w", "name")) for b in para.iter(q("w", "bookmarkStart"))
+                ]
+                pending = []
+                shared = None
+                for name in names:
+                    if not name or not self._wanted(name):
+                        continue
+                    if block_level and shared is not None:
+                        self.by_name[name] = self.by_name[shared]
+                        continue
+                    base = (
+                        slugify(strip_caption_number(raw_text(para).strip()))
+                        if block_level
+                        else slugify(name.lstrip("_"))
+                    )
+                    ident = base
+                    suffix = 2
+                    while ident in used:
+                        ident = f"{base}-{suffix}"
+                        suffix += 1
+                    used.add(ident)
+                    self.by_name[name] = Anchor(
+                        name, ident, clause, block_level, level or 0
+                    )
+                    if block_level:
+                        shared = name
+
+    def lookup(self, name: str):
+        return self.by_name.get(name)
+
+
+# --------------------------------------------------------------------------
 # Conversion
 # --------------------------------------------------------------------------
 
@@ -588,6 +687,17 @@ class Converter:
         self.body = package.document[0]
         self.numbering = Numbering(package.numbering)
         self.clauses = self._split_clauses()
+        clause_of_block = {}
+        for clause in self.clauses:
+            for index in range(clause.start, clause.end):
+                clause_of_block[index] = clause.key
+        self.anchors = AnchorIndex(self.body, clause_of_block)
+        self.self_labelling = {
+            anchor.ident
+            for anchor in self.anchors.by_name.values()
+            if anchor.level == 1
+        }
+        self.emitted_clauses = set()
         self.current = None
 
     # -- setup ------------------------------------------------------------
@@ -651,7 +761,21 @@ class Converter:
         """Render the runs of a paragraph (or hyperlink) to AsciiDoc text."""
         segments = []
         self._render_children(container, segments, [])
-        return self._join_segments(segments)
+        text = collapse_duplicate_xrefs(self._join_segments(segments))
+        return self._drop_doubled_labels(text)
+
+    def _drop_doubled_labels(self, text: str) -> str:
+        """Drop the word Word puts in front of a reference that labels itself.
+
+        Metanorma writes a reference to a top-level clause as "Clause 11" and
+        one to a subclause as "12.1.2", so Word's own "Section" is said twice
+        in front of the first and not at all in front of the second.
+        """
+
+        def drop(match):
+            return "" if match.group("id") in self.self_labelling else match.group()
+
+        return SECTION_LABEL_RE.sub(drop, text)
 
     def _join_segments(self, segments, plain=False) -> str:
         """Merge adjacent same-format segments, then apply inline markup."""
@@ -667,11 +791,15 @@ class Converter:
                 merged.append((kind, text))
         out = []
         for position, (kind, text) in enumerate(merged):
+            before = "".join(out)
             after = merged[position + 1][1] if position + 1 < len(merged) else ""
             # Constrained formatting only fires at word boundaries, so a span
             # that starts or ends mid-word needs the doubled delimiter.
-            tight = (text[:1].strip() != "" and "".join(out)[-1:].isalnum()) or (
-                text[-1:].strip() != "" and after[:1].isalnum()
+            tight = (
+                text[:1].strip() != ""
+                and (before[-1:].isalnum() or before.endswith(">>"))
+            ) or (
+                text[-1:].strip() != "" and (after[:1].isalnum() or after[:2] == "<<")
             )
             if kind == "raw" or not text.strip():
                 out.append(text)
@@ -694,6 +822,11 @@ class Converter:
             else:
                 out.append(escape_inline(text))
                 continue
+            # A link's closing bracket runs into the delimiter that follows
+            # it and AsciiDoc then reads neither; {empty} parts them without
+            # putting anything between them.
+            if not lead and MACRO_END_RE.search(before):
+                lead = "{empty}"
             out.append(lead + marked + trail)
         return "".join(out)
 
@@ -710,9 +843,30 @@ class Converter:
                 continue
             elif tag in (q("w", "smartTag"), q("w", "sdtContent"), q("w", "sdt")):
                 self._render_children(child, segments, field_stack)
+            elif tag == q("w", "fldSimple"):
+                inner = []
+                self._render_children(child, inner, field_stack)
+                self._emit(
+                    segments,
+                    field_stack,
+                    self._resolve_field(child.get(q("w", "instr")) or "", inner),
+                    raw=True,
+                )
+            elif tag == q("w", "bookmarkStart"):
+                self._render_bookmark(child, segments, field_stack)
+
+    def _render_bookmark(self, node, segments, field_stack):
+        anchor = self.anchors.lookup(node.get(q("w", "name")) or "")
+        if anchor and not anchor.block_level and anchor.clause in self.emitted_clauses:
+            self._emit(segments, field_stack, f"[[{anchor.ident}]]", raw=True)
 
     def _emit(self, segments, field_stack, text, raw=False, kind="plain"):
         if not text:
+            return
+        if field_stack:
+            top = field_stack[-1]
+            if top["state"] == "result":
+                top["result"].append(("raw" if raw else kind, text))
             return
         segments.append(("raw" if raw else kind, text))
 
@@ -744,10 +898,61 @@ class Converter:
                 self._emit(segments, field_stack, " ", kind=kind)
             elif tag == q("w", "noBreakHyphen"):
                 self._emit(segments, field_stack, "-", kind=kind)
+            elif tag == q("w", "fldChar"):
+                self._handle_fld_char(node, segments, field_stack)
+            elif tag == q("w", "instrText") and field_stack:
+                field_stack[-1]["instr"].append(node.text or "")
+
+    def _handle_fld_char(self, node, segments, field_stack):
+        kind = node.get(q("w", "fldCharType"))
+        if kind == "begin":
+            field_stack.append({"instr": [], "state": "instr", "result": []})
+        elif kind == "separate":
+            if field_stack:
+                field_stack[-1]["state"] = "result"
+        elif kind == "end" and field_stack:
+            done = field_stack.pop()
+            text = self._resolve_field("".join(done["instr"]), done["result"])
+            self._emit(segments, field_stack, text, raw=True)
+
+    def _resolve_field(self, instr: str, result_segments) -> str:
+        """Render one Word field: a cross-reference, a link, or its cached text."""
+        words = instr.strip().split()
+        if not words:
+            return self._join_segments(result_segments)
+        name = words[0].upper()
+        if name in ("TOC", "INDEX", "XE"):
+            return ""
+        if name in ("REF", "PAGEREF") and len(words) > 1:
+            # Word's cached result, without the field's decorative italics or
+            # bolding, is the text the reader saw.
+            text = self._join_segments(result_segments, plain=True)
+            anchor = self.anchors.lookup(words[1])
+            if name == "REF" and anchor and anchor.clause in self.emitted_clauses:
+                return xref(anchor, text)
+            return text
+        if name == "HYPERLINK" and len(words) > 1:
+            url = words[1].strip('"')
+            return external_link(url, self._join_segments(result_segments))
+        return self._join_segments(result_segments)
 
     def _render_hyperlink(self, node, segments, field_stack):
-        # Link targets are resolved once anchors exist.
-        self._render_children(node, segments, field_stack)
+        inner = []
+        self._render_children(node, inner, [])
+        text = self._join_segments(inner)
+        rel_id = node.get(q("r", "id"))
+        anchor_name = node.get(q("w", "anchor"))
+        if rel_id and rel_id in self.pkg.rels:
+            target, mode = self.pkg.rels[rel_id]
+            if mode == "External":
+                self._emit(segments, field_stack, external_link(target, text), raw=True)
+                return
+        if anchor_name:
+            anchor = self.anchors.lookup(anchor_name)
+            if anchor and anchor.clause in self.emitted_clauses:
+                self._emit(segments, field_stack, xref(anchor, text), raw=True)
+                return
+        self._emit(segments, field_stack, text, raw=True)
 
     # -- block rendering --------------------------------------------------
 
@@ -793,6 +998,7 @@ class Converter:
         annex = level == 1 and self.current is not None and self.current.is_annex
         if annex:
             lines.append("[appendix]")
+        lines.extend(f"[[{ident}]]" for ident in self._block_anchors(para))
         title = self.render_inline(para).strip()
         if annex:
             # Metanorma numbers annexes itself, so drop Word's "Appendix C:".
@@ -801,6 +1007,20 @@ class Converter:
         lines.append(f"{marker} {title or 'Untitled'}")
         lines.append("")
         return lines
+
+    def _block_anchors(self, para) -> tuple:
+        """Ids for the bookmarks on a heading or caption paragraph."""
+        idents = []
+        for bookmark in para.iter(q("w", "bookmarkStart")):
+            anchor = self.anchors.lookup(bookmark.get(q("w", "name")) or "")
+            if (
+                anchor
+                and anchor.block_level
+                and anchor.clause in self.emitted_clauses
+                and anchor.ident not in idents
+            ):
+                idents.append(anchor.ident)
+        return tuple(idents)
 
     def _render_paragraph(self, para, style) -> list:
         text = self.render_inline(para).strip()
@@ -916,6 +1136,37 @@ class Converter:
         return f"{clause.key}-{slugify(title)}.adoc"
 
 
+def escape_macro_body(text: str) -> str:
+    """Escape the brackets that would close a macro early.
+
+    The passthroughs that protect technical text carry brackets of their own,
+    and escaping those would break the very thing they protect, so only the
+    text between them is escaped.
+    """
+    out = []
+    position = 0
+    for match in PROTECTED_RE.finditer(text):
+        out.append(text[position : match.start()].replace("]", "\\]"))
+        out.append(match.group())
+        position = match.end()
+    out.append(text[position:].replace("]", "\\]"))
+    return "".join(out)
+
+
+def external_link(url: str, text: str) -> str:
+    url = url.strip()
+    text = (text or "").strip()
+    if not url:
+        return text
+    if url.startswith("mailto:"):
+        macro = "mailto:{}".format(url[len("mailto:") :])
+    else:
+        macro = f"link:{url}"
+    if not text or text == url:
+        text = url
+    return f"{macro}[{escape_macro_body(text)}]"
+
+
 #: A paragraph that is really a fragment of XML rather than a sentence.
 XML_EXAMPLE_RE = re.compile(r"^<[?!/]?[A-Za-z][^<>]*>")
 
@@ -928,6 +1179,105 @@ def is_xml_example(para) -> bool:
         return False
     text = raw_text(para).strip()
     return bool(text) and text.endswith(">") and XML_EXAMPLE_RE.match(text) is not None
+
+
+#: A cross-reference that has already been rendered, as ``<<id>>`` or ``<<id,text>>``.
+XREF_RE = re.compile(r"<<[^<>\n]+>>")
+
+#: Word's own "Section" in front of a rendered cross-reference.  Only the
+#: singular: a plural introduces a list of references, and the label
+#: Metanorma writes belongs to each of them rather than to the list.
+SECTION_LABEL_RE = re.compile(
+    r"\b(?:Section|Clause)\s+(?=<<(?P<id>[^<>,\s]+)(?:,[^<>]*)?>>)",
+    re.IGNORECASE,
+)
+
+#: The bracketed label Word caches as the visible text of a citation.
+CITATION_LABEL_RE = re.compile(r"^\s*\[[^\[\]]*\]")
+
+
+#: The number Word resolves a cross-reference to, and that Metanorma
+#: regenerates: a clause number, or a caption's "Table 7" label.
+RESOLVED_NUMBER_RE = re.compile(
+    r"^(?:(?:Table|Figure)\s+)?\d+(?:\.\d+)*(?:-[A-Za-z0-9]{1,3})?[.:]?(?=\s|$)"
+)
+
+
+def xref(anchor, text: str) -> str:
+    """Render a hyperlink to ``anchor`` whose visible text is ``text``.
+
+    Word nests a REF field inside the hyperlink that carries the same target,
+    so the text is often an already-rendered cross-reference: using it as the
+    label of a second one produces ``<<id,<<id>>``, which is not a reference
+    at all.  A cached citation label is dropped for the same reason, since
+    Metanorma renders the label itself and the cached one may be stale.
+
+    Word resolves "Section 13.7 Properties Specific to Number with Binary
+    Representation" to a number and the target's title.  Metanorma
+    regenerates the number and nothing else, so the number becomes the
+    reference and the title stays as the text it is.
+    """
+    if XREF_RE.search(text):
+        return text
+    label = CITATION_LABEL_RE.match(text)
+    if label and not any(char.isalnum() for char in label.group()):
+        # Word cached an empty "[]" for this citation and shows the reader
+        # nothing; the reference is still there, and the text after the
+        # empty label belongs to the sentence.
+        return f"<<{anchor.ident},{label.group().strip()}>>" + text[label.end() :]
+    # The space either side of the field is the sentence's, not the label's.
+    lead = text[: len(text) - len(text.lstrip())]
+    trail = text[len(text.rstrip()) :]
+    label = text.strip()
+    if not label or label == anchor.ident:
+        return f"{lead}<<{anchor.ident}>>{trail}"
+    number = RESOLVED_NUMBER_RE.match(label)
+    if number:
+        title = label[number.end() :].strip()
+        return f"{lead}<<{anchor.ident}>> {title}".rstrip() + trail
+    return f"{lead}<<{anchor.ident},{label}>>{trail}"
+
+
+#: The same reference twice in a row, which Word writes as a pair of REF
+#: fields, one resolving to the number and one to the target's title.
+DUPLICATE_XREF_RE = re.compile(
+    r"<<(?P<id>[^<>,\s]+)(?P<label>,[^<>]*)?>>"
+    r"(?P<gap>\s*,?\s*)<<(?P=id)(?:,(?P<title>[^<>]*))?>>"
+)
+
+
+def collapse_duplicate_xrefs(text: str) -> str:
+    """Fold Word's number-and-title pair of references into one.
+
+    Only the number is Metanorma's to regenerate, so the second reference
+    becomes the title it resolved to, as text.
+    """
+
+    def fold(match):
+        head = "<<{}{}>>".format(match.group("id"), match.group("label") or "")
+        title = (match.group("title") or "").strip()
+        if match.group("label") or not title:
+            return head
+        return head + (match.group("gap") or " ") + title
+
+    previous = None
+    while previous != text:
+        previous = text
+        text = DUPLICATE_XREF_RE.sub(fold, text)
+    return text
+
+
+#: Word's own caption number, including the "33-A" form used where a table
+#: was inserted without renumbering the ones after it.
+CAPTION_NUMBER_RE = re.compile(r"^(?:Table|Figure)\s*\d*(?:-[A-Za-z0-9]{1,3})?[.:]?\s+")
+
+
+def strip_caption_number(text: str) -> str:
+    """Drop Word's "Table 6 " / "Table 33-A " prefix; Metanorma renumbers."""
+    stripped = CAPTION_NUMBER_RE.sub("", text).strip()
+    # A caption that is nothing but its number still has to keep some text,
+    # or the block title it becomes would swallow the block itself.
+    return stripped or text.strip()
 
 
 def listing_attributes(language: str, titled: bool) -> str:
