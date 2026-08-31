@@ -39,51 +39,51 @@ The _resolved set of annotations_ for an annotation point is a combined set of a
 
 .8+| Format Annotation
 | dfdl:choice
-| Defines the physical data format properties of an xs:choice group. See Section 7.1.
+| Defines the physical data format properties of an xs:choice group. See Section <<component-format-annotations>>.
 
 | dfdl:element
-| Defines the physical data format properties of an xs:element and xs:element reference. See Section 7.1.
+| Defines the physical data format properties of an xs:element and xs:element reference. See Section <<component-format-annotations>>.
 
 | dfdl:format
-| Defines the physical data format properties for multiple DFDL schema constructs. Used on an xs:schema and as a child of a dfdl:defineFormat annotation. This includes aspects such as the encodings, separators, and many more. See Section 7.1.
+| Defines the physical data format properties for multiple DFDL schema constructs. Used on an xs:schema and as a child of a dfdl:defineFormat annotation. This includes aspects such as the encodings, separators, and many more. See Section <<component-format-annotations>>.
 
 | dfdl:group
-| Defines the physical data format properties of an xs:group reference. See Section 7.1.
+| Defines the physical data format properties of an xs:group reference. See Section <<component-format-annotations>>.
 
 | dfdl:property
-| Used in the syntax of format annotations. See Section 7.1.1.2.
+| Used in the syntax of format annotations. See Section <<property-binding-syntax-element-form>>.
 
 | dfdl:sequence
-| Defines the physical data format properties of an xs:sequence group. See Section 7.1.
+| Defines the physical data format properties of an xs:sequence group. See Section <<component-format-annotations>>.
 
 | dfdl:simpleType
-| Defines the physical data format properties of an xs:simpleType. See Section 7.1.
+| Defines the physical data format properties of an xs:simpleType. See Section <<component-format-annotations>>.
 
 | dfdl:escapeScheme
-| Defines the scheme by which quotation marks and escape characters can be specified. This is for use with delimited text formats. See Section 7.4.
+| Defines the scheme by which quotation marks and escape characters can be specified. This is for use with delimited text formats. See Section <<the-dfdl-escapescheme-annotation-element>>.
 
 .4+| Statement Annotation
 | dfdl:assert
-| Defines a test to be used to ensure the data are well formed. Assert is used only when parsing data. See Section 7.5
+| Defines a test to be used to ensure the data are well formed. Assert is used only when parsing data. See Section <<the-dfdl-assert-statement-annotation-element>>
 
 | dfdl:discriminator
-| Defines a test to be used when resolving choice branches and optional element occurrences. A dfdl:discriminator is used only when parsing data. See Section 7.6
+| Defines a test to be used when resolving choice branches and optional element occurrences. A dfdl:discriminator is used only when parsing data. See Section <<the-dfdl-discriminator-statement-annotation-element>>
 
 | dfdl:newVariableInstance
-| Creates a new instance of a variable. See Section 7.7.2
+| Creates a new instance of a variable. See Section <<the-dfdl-newvariableinstance-statement-annotation-element>>
 
 | dfdl:setVariable
-| Sets the value of a variable whose declaration is in scope See Section 7.7.3
+| Sets the value of a variable whose declaration is in scope See Section <<the-dfdl-setvariable-statement-annotation-element>>
 
 .3+| Defining Annotation
 | dfdl:defineEscapeScheme
-| Defines a named, reusable escapeScheme See Section 7.3
+| Defines a named, reusable escapeScheme See Section <<the-dfdl-defineescapescheme-defining-annotation-element>>
 
 | dfdl:defineFormat
-| Defines a reusable data format by collecting together other annotations and associating them with a name that can be referenced from elsewhere. See Section 7.2
+| Defines a reusable data format by collecting together other annotations and associating them with a name that can be referenced from elsewhere. See Section <<dfdl-defineformat-reusable-data-format-definitions>>
 
 | dfdl:defineVariable
-| Defines a variable that can be referenced elsewhere. This can be used to communicate a parameter from one part of processing to another part. See Section 7.7
+| Defines a variable that can be referenced elsewhere. This can be used to communicate a parameter from one part of processing to another part. See Section <<dfdl-variable-annotations>>
 |===
 
 DFDL defining annotation elements may only appear at _top-level_, that is, as annotation children of the xs:schema element. The order of their appearance does not matter, nor does their position relative to other children of the xs:schema.
@@ -92,7 +92,7 @@ DFDL defining annotation elements may only appear at _top-level_, that is, as an
 
 A DFDL _property_ is a specific DFDL construct that tells the DFDL processor some characteristic about the data format.
 
-Properties carried on the component format annotations (See Section 7.1) are called _format properties_. A format property that is used to describe a physical characteristic of a component is called a _representation_ property.
+Properties carried on the component format annotations (See Section <<component-format-annotations>>) are called _format properties_. A format property that is used to describe a physical characteristic of a component is called a _representation_ property.
 
 Properties on DFDL annotations may have values of one or more of the following types
 

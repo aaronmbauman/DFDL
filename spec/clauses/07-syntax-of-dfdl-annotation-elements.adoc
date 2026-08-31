@@ -3,7 +3,7 @@
 
 This section describes the syntax of each of the DFDL annotation elements along with discussion of their basic meanings.
 
-The DFDL annotation elements are listed in Table 2 DFDL Annotation Elements
+The DFDL annotation elements are listed in <<dfdl-annotation-elements>> DFDL Annotation Elements
 
 [[component-format-annotations]]
 === Component Format Annotations
@@ -83,7 +83,7 @@ Belowa dfdl:format annotation is used inside a dfdl:defineFormat annotation to d
 </xs:schema>
 ----
 
-A dfdl:format annotation at the top level of a schema, that is as an annotation child element on the xs:schema, provides a set of default properties for the lexically enclosed schema document. (See 8.1.2 Providing Defaults for DFDL properties.)
+A dfdl:format annotation at the top level of a schema, that is as an annotation child element on the xs:schema, provides a set of default properties for the lexically enclosed schema document. (See <<providing-defaults-for-dfdl-properties>> Providing Defaults for DFDL properties.)
 
 [source%unnumbered,xml]
 ----
