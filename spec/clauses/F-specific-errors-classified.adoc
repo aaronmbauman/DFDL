@@ -42,7 +42,7 @@ The following are Processing Errors:
 The following are Schema Definition Errors, regardless of whether they are detected in advance of processing or once processing begins:
 
 * Errors in XML Schema Construction and Structure
-** See XML Schema Specification Part 1, Section 5.1 [<<a-xsdl-part1,XSDLV1>>]
+** See XML Schema Specification Part 1, Section <<dfdl-simple-types>> [<<a-xsdl-part1,XSDLV1>>]
 * Use of XSD constructs outside of DFDL subset
 * Implementation-defined Limitations
 ** Use of DFDL schema constructs not supported by this implementation.
@@ -53,7 +53,7 @@ The following are Schema Definition Errors, regardless of whether they are detec
 ** Exceeding implementation-dependent limits for schema size/complexity
 *** Example: schema too large – simply a limit on how large the schema can be, how many files, how many top-level constructs, etc.
 * Schema Not Valid
-** See XML Schema Specification Part 1, Section 5.2 [<<a-xsdl-part1,XSDLV1>>]
+** See XML Schema Specification Part 1, Section <<dfdl-subset-of-xml-schema>> [<<a-xsdl-part1,XSDLV1>>]
 * UPA violation (Unique Particle Attribution)
 * Reference to DFDL global definition not found
 ** Format definition (dfdl:defineFormat)

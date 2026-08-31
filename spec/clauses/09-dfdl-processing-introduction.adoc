@@ -33,7 +33,7 @@ Any one of the following constructs is a point of uncertainty:
 
 * An xs:choice
 * All xs:elements in an unordered xs:sequence (dfdl:sequenceKindfootnote:[For dfdl:sequenceKind, see Section 14 Sequence Groups.] is 'unordered')
-* All xs:elements in an xs:sequence containing one or more dfdl:floatingfootnote:[For dfdl:floating elements, see Section 14.4 Floating Elements.] xs:elements
+* All xs:elements in an xs:sequence containing one or more dfdl:floatingfootnote:[For dfdl:floating elements, see Section <<floating-elements>> Floating Elements.] xs:elements
 
 Any one of the following constructs is a _potential_ point of uncertainty:
 
@@ -252,7 +252,7 @@ Some examples follow the definitions.
 
 An element occurrence has a _nil representation_ if the element declaration has XSD nillable property 'true' and the occurrence either:
 
-* conforms to the grammar for SimpleNilLiteralElementRep or ComplexNilLiteralElementRep. Specifically, the *NilElementInitiator* and *NilElementTerminator* regions must be conformant with property dfdl:nilValueDelimiterPolicyfootnote:[For dfdl:nilValueDelimiterPolicy, see Section 13.16 Properties for Nillable Elements.]. (If non-conformant it is not a Processing Error and the representation is not nil).
+* conforms to the grammar for SimpleNilLiteralElementRep or ComplexNilLiteralElementRep. Specifically, the *NilElementInitiator* and *NilElementTerminator* regions must be conformant with property dfdl:nilValueDelimiterPolicyfootnote:[For dfdl:nilValueDelimiterPolicy, see Section <<properties-for-nillable-elements>> Properties for Nillable Elements.]. (If non-conformant it is not a Processing Error and the representation is not nil).
 * conforms to the grammar for SimpleNormalRep and its SimpleLogicalValue is *NilLogicalValue*.
 
 The LeadingAlignment, TrailingAlignment, PrefixLength regions may be present.
@@ -260,7 +260,7 @@ The LeadingAlignment, TrailingAlignment, PrefixLength regions may be present.
 [[empty-representation]]
 ==== Empty Representation
 
-An element occurrence has an _empty representation_ if the occurrence does not have a nil representation and it conforms to the grammar for SimpleEmptyElementRep or ComplexEmptyElementRep. Specifically, the *EmptyElementInitiator* and *EmptyElementTerminator* regions must be conformant with dfdl:emptyValueDelimiterPolicyfootnote:[For dfdl:emptyValueDelimiterPolicy, see Section 12.2 Properties for Specifying Delimiters.] and the occurrence's SimpleContent or ComplexContent region in the data must be of length zero. (If non-conformant it is not a Processing Error and the representation is not empty).
+An element occurrence has an _empty representation_ if the occurrence does not have a nil representation and it conforms to the grammar for SimpleEmptyElementRep or ComplexEmptyElementRep. Specifically, the *EmptyElementInitiator* and *EmptyElementTerminator* regions must be conformant with dfdl:emptyValueDelimiterPolicyfootnote:[For dfdl:emptyValueDelimiterPolicy, see Section <<properties-for-specifying-delimiters>> Properties for Specifying Delimiters.] and the occurrence's SimpleContent or ComplexContent region in the data must be of length zero. (If non-conformant it is not a Processing Error and the representation is not empty).
 
 LeadingAlignment, TrailingAlignment, PrefixLength regions may be present.
 
@@ -380,8 +380,8 @@ Establishing the representation of an occurrence of a schema component and resol
 An occurrence of a schema component is said to be _known-to-exist_ when any of these positive determinations hold:
 
 . There is a dfdl:discriminatorfootnote:[DFDL discriminators are described in Section: 7.6 The dfdl:discriminator Statement Annotation Element.] applying to the component and its expression evaluates to true or regular expression pattern matches.
-. The component is a direct child of an xs:sequence or xs:choice with dfdl:initiatedContentfootnote:[For dfdl:initiator and dfdl:initiatedContent, see Section 12.2 Properties for Specifying Delimiters.] 'yes' and a dfdl:initiator defined for the component is found.
-. The component is a direct child of an xs:choice with dfdl:choiceDispatchKeyfootnote:[For dfdl:choiceDispatchKey and dfdl:choiceBranchKey, see Section 15.1.2 Resolving Choices via Direct Dispatch.] and the result of the dfdl:choiceDispatchKey expression matches one of the dfdl:choiceBranchKey property values of the child.
+. The component is a direct child of an xs:sequence or xs:choice with dfdl:initiatedContentfootnote:[For dfdl:initiator and dfdl:initiatedContent, see Section <<properties-for-specifying-delimiters>> Properties for Specifying Delimiters.] 'yes' and a dfdl:initiator defined for the component is found.
+. The component is a direct child of an xs:choice with dfdl:choiceDispatchKeyfootnote:[For dfdl:choiceDispatchKey and dfdl:choiceBranchKey, see Section <<resolving-choices-via-direct-dispatch>> Resolving Choices via Direct Dispatch.] and the result of the dfdl:choiceDispatchKey expression matches one of the dfdl:choiceBranchKey property values of the child.
 
 If none of those hold because they are not applicable then the occurrence is still known-to-exist if ALL of the following hold, and no Processing Error occurs during their determination:
 
@@ -527,8 +527,8 @@ A DFDL processor can create element defaults in the Infoset for both simple and 
 A simple element has a default value if any of these are true:
 
 . The XSD default property exists. The default value is the XSD default property's value.
-. The XSD fixedfootnote:[For the XSD fixed property see Section 5.3.7.] property exists. The default value is the XSD fixed property's value.
-. The element has XSD nillable is 'true' and dfdl:useNilForDefaultfootnote:[For dfdl:useNilForDefault see Section 13.16.] is 'yes'. The corresponding Infoset item has the *[nilled]* member true, and the *[dataValue]* member has no value.
+. The XSD fixedfootnote:[For the XSD fixed property see Section <<fixed>>.] property exists. The default value is the XSD fixed property's value.
+. The element has XSD nillable is 'true' and dfdl:useNilForDefaultfootnote:[For dfdl:useNilForDefault see Section <<properties-for-nillable-elements>>.] is 'yes'. The corresponding Infoset item has the *[nilled]* member true, and the *[dataValue]* member has no value.
 
 ===== Required/Optional Occurrence
 
@@ -565,7 +565,7 @@ Required occurrence: If the element has a default value then an item is added to
 
 Optional occurrence: if dfdl:emptyValueDelimiterPolicy is applicable and is not 'none'footnote:[If other than 'none', either an initiator, terminator or both must have been found in the data stream.], then an item is added to the Infoset using empty string (type xs:string) or empty hexBinary (type xs:hexBinary) as the value, otherwise nothing is added to the Infoset.
 
-Note: To prevent unwanted empty strings or empty hexBinary values from being added to the Infoset, use XSD minLength > '0' and a dfdl:assert that uses the dfdl:checkConstraints()footnote:[For dfdl:checkConstraints function see Section 18.5.3] function, to raise a Processing Error.
+Note: To prevent unwanted empty strings or empty hexBinary values from being added to the Infoset, use XSD minLength > '0' and a dfdl:assert that uses the dfdl:checkConstraints()footnote:[For dfdl:checkConstraints function see Section <<dfdl-functions>>] function, to raise a Processing Error.
 
 ===== Complex element
 
@@ -692,7 +692,7 @@ Of these, some are statement annotations and the order of their evaluation relat
 For elements and element references:
 
 . dfdl:discriminator or dfdl:assert(s) with testKind 'pattern' (parsing only)
-. dfdl:element following property scoping rules, which includes establishing representation as described in Section 9.3.2 and conversion to the element type for simple types
+. dfdl:element following property scoping rules, which includes establishing representation as described in Section <<establishing-representation>> and conversion to the element type for simple types
 . dfdl:setVariable(s) - in lexical order, innermost schema component first
 . dfdl:discriminator or dfdl:assert(s) with testKind 'expression' (parsing only)
 

@@ -173,9 +173,9 @@ When parsing a single array, it is possible to extract occurrences that have dif
 
 Occurrences with nil representation are added to the Infoset with *[nilled]* member true.
 
-Occurrences with empty representation may or may not be added to the Infoset, as described in Section <<element-defaults>>. If a required occurrence is not added to the Infoset, it may be a Processing Error, dependent on dfdl:occursCountKind as described in Section 16.1.
+Occurrences with empty representation may or may not be added to the Infoset, as described in Section <<element-defaults>>. If a required occurrence is not added to the Infoset, it may be a Processing Error, dependent on dfdl:occursCountKind as described in Section <<the-dfdl-occurscountkind-property>>.
 
-Occurrences with absent representation are not added to the Infoset. For a required occurrence it may be a Processing Error, dependent on dfdl:occursCountKind as described in Section 16.1.
+Occurrences with absent representation are not added to the Infoset. For a required occurrence it may be a Processing Error, dependent on dfdl:occursCountKind as described in Section <<the-dfdl-occurscountkind-property>>.
 
 === Sparse Arrays
 

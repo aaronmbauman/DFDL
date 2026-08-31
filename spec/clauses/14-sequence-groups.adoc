@@ -258,7 +258,7 @@ The descriptions found in the cells of the matrix do not provide a parsing algor
 
 *Rep(M)* means M occurrences of nil, empty, normal or absent representation. These are optional occurrences, so default rules do not apply for empty representations.
 
-*RepNonZero(1)* means an occurrence of a nil, empty or normal representation where such a representation does not have zero-lengthfootnote:[Absent representation always implies zero-length. Nil, empty, and normal representations can also be zero-length with the right combinations of properties. See Section 9.2.5 Zero-length Representation.]. This is an optional occurrence, so default rules do not apply.
+*RepNonZero(1)* means an occurrence of a nil, empty or normal representation where such a representation does not have zero-lengthfootnote:[Absent representation always implies zero-length. Nil, empty, and normal representations can also be zero-length with the right combinations of properties. See Section <<zero-length-representation>> Zero-length Representation.]. This is an optional occurrence, so default rules do not apply.
 
 A notation like *Rep(M pass-format:straightquotes[<=] max – min)* means that there are M occurrences, where M is some value between the values of the XSD minOccurs and XSD maxOccurs properties. When an unbounded number of occurrences is possible this is shown explicitly by _Rep(M < INF)_ , INF meaning infinity or unbounded.
 

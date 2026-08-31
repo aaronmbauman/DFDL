@@ -162,7 +162,7 @@ Note the 16-bit and 32-bit Unicode character set encodings UTF-16, UTF-16BE, UTF
 
 ==== Mandatory Alignment for Packed Decimal Data
 
-Packed decimal data is data with dfdl:binaryNumberRepfootnote:[For dfdl:binaryNumberRep, see Section 13.7 Properties Specific to Number with Binary Representation.] values of 'packed', 'ibm4690Packed' or 'bcd'. This representation stores a decimal digit in a 4 bit nibble. These nibbles must have a multiple of 4-bit alignment. It is a Schema Definition Error otherwise.
+Packed decimal data is data with dfdl:binaryNumberRepfootnote:[For dfdl:binaryNumberRep, see Section <<properties-specific-to-number-with-binary-representation>> Properties Specific to Number with Binary Representation.] values of 'packed', 'ibm4690Packed' or 'bcd'. This representation stores a decimal digit in a 4 bit nibble. These nibbles must have a multiple of 4-bit alignment. It is a Schema Definition Error otherwise.
 
 ==== Example: AlignmentFill
 
@@ -267,7 +267,7 @@ Specifies an ordered whitespace separated list of alternative text strings that 
 
 This property can be computed by way of an expression which returns a string of whitespace separated list of values.  The expression must not contain forward references to elements which have not yet been processed.
 
-This property can be used to determine the length of an element as described in Section 12.3.2 dfdl:lengthKind 'delimited'.
+This property can be used to determine the length of an element as described in Section <<dfdl-lengthkind-delimited>> dfdl:lengthKind 'delimited'.
 
 Each string literal in the list, whether apparent in the schema, or returned as the value of an expression, is restricted to allow only certain kinds of DFDL String Literal syntax:
 
@@ -738,7 +738,7 @@ For a complex element, the length is that of the ComplexContent region.
 
 ===== Nested Prefix Lengths
 
-It is possible for a prefix length, as specified by dfdl:prefixLengthType, to itself have a prefix length . That is, an element can have a prefix length, which defines a PrefixLength region (see Section 9.2 DFDL Data Syntax Grammar), and the PrefixLength region can itself have a type which specifies a prefix length, thereby defining a PrefixPrefixLength region.footnote:[This feature allows DFDL to describe the needed "one more level" of prefix that is needed for modeling an ASN.1 format, but without the complexities of general recursion.]
+It is possible for a prefix length, as specified by dfdl:prefixLengthType, to itself have a prefix length . That is, an element can have a prefix length, which defines a PrefixLength region (see Section <<dfdl-data-syntax-grammar>> DFDL Data Syntax Grammar), and the PrefixLength region can itself have a type which specifies a prefix length, thereby defining a PrefixPrefixLength region.footnote:[This feature allows DFDL to describe the needed "one more level" of prefix that is needed for modeling an ASN.1 format, but without the complexities of general recursion.]
 
 It is a Schema Definition Error if the type associated with the PrefixPrefixLength is the same as the type associated with the PrefixLength. It is a Schema Definition Error if a PrefixPrefixLength region has a type which specifies a prefix length, that is, nesting of prefix lengths must not exceed a depth of 1. It is a Processing Error if a PrefixPrefixLength region has zero length.
 

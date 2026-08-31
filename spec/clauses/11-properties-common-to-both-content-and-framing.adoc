@@ -15,7 +15,7 @@ Valid values 'bigEndian', 'littleEndian'.
 
 This property can be computed by way of an expression which returns the string 'bigEndian' or 'littleEndian'. The expression must not contain forward references to elements which have not yet been processed.
 
-Note that there is, intentionally, no such thing as 'native' endianfootnote:[The concept of native-endian is avoided in DFDL since a DFDL schema containing such a property binding would not contain a complete description of data, but rather an incomplete one which would behave differently based on characteristics of the machine and implementation where the DFDL processor is executed. In DFDL this same behavior is achieved through the use of explicit parameterization using DFDL variables to set dfdl:byteOrder. See Section 7.7.1.2 Predefined Variables.].
+Note that there is, intentionally, no such thing as 'native' endianfootnote:[The concept of native-endian is avoided in DFDL since a DFDL schema containing such a property binding would not contain a complete description of data, but rather an incomplete one which would behave differently based on characteristics of the machine and implementation where the DFDL processor is executed. In DFDL this same behavior is achieved through the use of explicit parameterization using DFDL variables to set dfdl:byteOrder. See Section <<predefined-variables>> Predefined Variables.].
 
 This property applies to all Number, Calendar (date and time), and Boolean types with representation binary. Specifically, that is binary integers, binary booleans, all packed decimals, binary floats, binary seconds and binary milliseconds.
 
@@ -62,7 +62,7 @@ Values are one of:
 
 This property can be computed by way of an expression which returns an appropriate string value. The expression must not contain forward references to elements which have not yet been processed.
 
-Note that there is, deliberately, no concept of 'native' encodingfootnote:[The concept of native character encoding is avoided in DFDL since a DFDL schema containing such a property binding would not contain a complete description of data, but rather an incomplete one which would behave differently based on characteristics of the operating environment where the DFDL processor executes. In DFDL this same behavior is achieved through the use of explicit parameterization using DFDL variables to set dfdl:encoding. See Section 7.7.1.2 Predefined Variables.].
+Note that there is, deliberately, no concept of 'native' encodingfootnote:[The concept of native character encoding is avoided in DFDL since a DFDL schema containing such a property binding would not contain a complete description of data, but rather an incomplete one which would behave differently based on characteristics of the operating environment where the DFDL processor executes. In DFDL this same behavior is achieved through the use of explicit parameterization using DFDL variables to set dfdl:encoding. See Section <<predefined-variables>> Predefined Variables.].
 
 Conforming DFDL v1.0 processors MUST accept at least 'UTF-8', 'UTF-16', 'UTF-16BE', 'UTF-16LE', 'ASCII', and 'ISO-8859-1' as encoding names.
 
@@ -240,7 +240,7 @@ Other combinations MUST produce Schema Definition Errors.
 
 Consider a structure of 4 logical elements. The total length is 16 bits.
 
-Assume the lengths here are measured in bits (dfdl:lengthUnitsfootnote:[For dfdl:lengthUnits, see Section 12.3 Properties for Specifying Lengths.] is 'bits'), and that these are binary integers (dfdl:representation is 'binary', dfdl:binaryNumberRepfootnote:[For dfdl:binaryNumberRep, see Section 13.7 Properties Specific to Number with Binary Representation.] is 'binary'):
+Assume the lengths here are measured in bits (dfdl:lengthUnitsfootnote:[For dfdl:lengthUnits, see Section <<properties-for-specifying-lengths>> Properties for Specifying Lengths.] is 'bits'), and that these are binary integers (dfdl:representation is 'binary', dfdl:binaryNumberRepfootnote:[For dfdl:binaryNumberRep, see Section <<properties-specific-to-number-with-binary-representation>> Properties Specific to Number with Binary Representation.] is 'binary'):
 
 [source%unnumbered,xml]
 ----

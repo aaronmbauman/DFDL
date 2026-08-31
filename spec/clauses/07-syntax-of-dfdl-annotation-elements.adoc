@@ -460,7 +460,7 @@ Applies when testKind is 'pattern'
 
 A DFDL regular expression that is applied against the data stream starting at the data position corresponding to the beginning of the representation. Consequently, the framing (including any initiator) is visible to the pattern.at the start of the component on which the dfdl:assert is positioned.
 
-If the pattern matching of the regular expression reads data that cannot be decoded into characters of the current encoding, then the behavior is controlled by the dfdl:encodingErrorPolicy property. See Section 11.2.1   Property dfdl:encodingErrorPolicy for details.
+If the pattern matching of the regular expression reads data that cannot be decoded into characters of the current encoding, then the behavior is controlled by the dfdl:encodingErrorPolicy property. See Section <<property-dfdl-encodingerrorpolicy>>   Property dfdl:encodingErrorPolicy for details.
 
 If the length of the match is zero then the dfdl:assert evaluates to false and a Processing Error is raised.
 
@@ -621,7 +621,7 @@ Applies when testKind is 'pattern'
 
 A DFDL regular expression that is applied against the data stream starting at the data position corresponding to the beginning of the representation. Consequently, the framing (including any initiator) is visible to the pattern.at the start of the component on which the dfdl:discriminator is positioned.
 
-If the pattern matching of the regular expression reads data that cannot be decoded into characters of the current encoding, then the behavior is controlled by the dfdl:encodingErrorPolicy property. See Section 11.2.1   Property dfdl:encodingErrorPolicy for details.
+If the pattern matching of the regular expression reads data that cannot be decoded into characters of the current encoding, then the behavior is controlled by the dfdl:encodingErrorPolicy property. See Section <<property-dfdl-encodingerrorpolicy>>   Property dfdl:encodingErrorPolicy for details.
 
 If the length of the match is zero then the dfdl:discriminator evaluates to false and a Processing Error is raised.
 
