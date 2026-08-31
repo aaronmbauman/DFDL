@@ -26,3 +26,5 @@ include::clauses/09-dfdl-processing-introduction.adoc[]
 include::clauses/10-overview-representation-properties-and-their-format-semantic.adoc[]
 
 include::clauses/11-properties-common-to-both-content-and-framing.adoc[]
+
+include::clauses/12-framing.adoc[]
