@@ -784,7 +784,7 @@ The dfdl:textNumberPattern describes how to parse and unparse text representatio
 
 The length of the representation of the number is determined first, and the number pattern is used only for conversion of the content text to and from a numeric logical Infoset value.
 
-The pattern described below is derived from the ICU DecimalFormat class described here: [ICUDecimal]
+The pattern described below is derived from the ICU DecimalFormat class described here: [<<a-icudecimal,ICUDecimal>>]
 
 The pattern is an ICU-like syntax that defines where grouping separators, decimal separators, implied decimal points, exponents, positive signs and negative signs appear. It permits definition by either digits/fractions or significant digits.
 
@@ -1712,7 +1712,7 @@ Valid values specify a UTC time zone offset by matching the regular expression:
 
 In addition, empty string can be specified to indicate "no time zone" which simply leaves the time zone unknown/unspecified. Data which does not specify a time zone does not obtain a time zone from this property and so simply lacks time zone information.
 
-The IANA time zone format (also known as the Olson time zone format) may also be used. (e.g., America/New_York)) See [IANATimeZone].
+The IANA time zone format (also known as the Olson time zone format) may also be used. (e.g., America/New_York)) See [<<a-ianatimezone,IANATimeZone>>].
 
 Note that this property is used when parsing only.
 
@@ -1725,7 +1725,7 @@ Valid values are 'yes', 'no'
 
 Whether the time zone given in dfdl:calendarTimeZone observes daylight savings time.
 
-Ignored if dfdl:calendarTimeZone is specified in UTC format, or if dfdl:calendarTimeZone is empty string. That is, this property is used only if the dfdl:calendarTimeZone is in IANA (also known as Olson) format [IANATimeZone].
+Ignored if dfdl:calendarTimeZone is specified in UTC format, or if dfdl:calendarTimeZone is empty string. That is, this property is used only if the dfdl:calendarTimeZone is in IANA (also known as Olson) format [<<a-ianatimezone,IANATimeZone>>].
 
 This property applies to parsing only.
 
@@ -1775,7 +1775,7 @@ The expression must not contain forward references to elements which have not ye
 
 All DFDL Implementations MUST support dfdl:calendarLanguage value "en".
 
-DFDL implementations MAY support additional values, however, the value of the dfdl:calendarLanguage property is always interpreted as a Unicode Language Identifier as defined by [LDML], and [CLDR].
+DFDL implementations MAY support additional values, however, the value of the dfdl:calendarLanguage property is always interpreted as a Unicode Language Identifier as defined by [<<a-ldml,LDML>>], and [<<a-cldr,CLDR>>].
 
 Annotation: dfdl:element, dfdl:simpleType
 |===
@@ -1784,9 +1784,9 @@ Annotation: dfdl:element, dfdl:simpleType
 
 The dfdl:calendarPattern describes how to parse and unparse text and binary representations of dateTime, date and time logical types. The pattern is primarily used on unparsing to define the format but is also used to aid parsing.
 
-The pattern is derived from the ICU SimpleDatetimeFormat class described here: [ICUDateTime], which uses symbols defined by [LDML].
+The pattern is derived from the ICU SimpleDatetimeFormat class described here: [<<a-icudatetime,ICUDateTime>>], which uses symbols defined by [<<a-ldml,LDML>>].
 
-An extension is the formatting symbol I which means accept a subset of ISO 8601 [ISO8601] compliant calendars
+An extension is the formatting symbol I which means accept a subset of ISO 8601 [<<a-iso8601,ISO8601>>] compliant calendars
 
 .Symbols in the dfdl:calendarPattern Property
 [cols="1,2,3,1,4",options="header"]
@@ -2102,7 +2102,7 @@ An extension is the formatting symbol I which means accept a subset of ISO 8601 
 
 The count of pattern letters determines the format as indicated in the table.
 
-When numeric fields abut one another directly, with no intervening delimiter characters, they constitute a run of abutting numeric fields. Such runs are parsed specially as described at [ICUDateTime].
+When numeric fields abut one another directly, with no intervening delimiter characters, they constitute a run of abutting numeric fields. Such runs are parsed specially as described at [<<a-icudatetime,ICUDateTime>>].
 
 The maximum number of "S" symbols that may appear in the pattern is implementation-defined but MUST be at least three. The stored accuracy for fractional seconds is also implementation-defined but MUST be at least millisecond accuracy. When the number of "S" symbols in a pattern exceeds the supported accuracy, excess fractional seconds are truncated from the right (not rounded) when parsing, and zeros are added to the right when unparsing. For example, a DFDL processor allows up to six "S" symbols and has millisecond accuracy; for pattern "ss.SSSSSS", data "12.345678" would be parsed into Infoset xs:time "00:00:12:345", which would be unparsed into data "12.345000".
 
@@ -2118,7 +2118,7 @@ If dfdl:representation is binary, then the pattern can contain only characters a
 
 The symbols 'z', 'zz', and 'zzz' have identical meaning, as do 'Z', 'ZZ', and 'ZZZ'.
 
-The 'I' symbol must not be used with any other symbol except for 'escape for text'. It represents calendar formats that match those defined in the restricted profile of the ISO 8601 standard proposed by the W3C at [W3DateTime]. The formats are referred to as 'granularities'.
+The 'I' symbol must not be used with any other symbol except for 'escape for text'. It represents calendar formats that match those defined in the restricted profile of the ISO 8601 standard proposed by the W3C at [<<a-w3datetime,W3DateTime>>]. The formats are referred to as 'granularities'.
 
 * xs:dateTime. When parsing, the data must match one of the granularities. When unparsing, the fullest granularity is used.
 * xs:date. When parsing, the data must match one of the date-only granularities. When unparsing, the fullest date-only granularity is used.
@@ -2133,7 +2133,7 @@ When unparsing, and the pattern contains a formatting symbol that requires a com
 
 When parsing a calendar element with a packed decimal representation then the nibbles from the data are converted to text digits without any trimming of leading or trailing zeros, and the result is then matched against the pattern according to the usual rules.
 
-When unparsing, if a time zone symbol is not available for a particular time zone, a fallback may be used as defined in [ICUDateTime].
+When unparsing, if a time zone symbol is not available for a particular time zone, a fallback may be used as defined in [<<a-icudatetime,ICUDateTime>>].
 
 [[the-dfdl-calendarcheckpolicy-property]]
 ==== The dfdl:calendarCheckPolicy Property

@@ -12,7 +12,7 @@ The main uses of the expression language are as follows:
 . In a dfdl:outputValueCalc property to compute the value of an element on unparsing.
 . As the value in a dfdl:setVariable annotation or the dfdl:defaultValue in a dfdl:defineVariable or dfdl:newVariableInstance.
 
-The DFDL expression language is a subset of XPath 2.0 [XPath]. DFDL uses a subset of XML schema and has a simpler information model, so only a subset of XPath 2.0 expressions is meaningful in DFDL Schemas. For example, there are no attributes in DFDL, so the attribute axis is not needed.
+The DFDL expression language is a subset of XPath 2.0 [<<a-xpath,XPath>>]. DFDL uses a subset of XML schema and has a simpler information model, so only a subset of XPath 2.0 expressions is meaningful in DFDL Schemas. For example, there are no attributes in DFDL, so the attribute axis is not needed.
 
 XPath 2.0 specification [XPATH2] allows implementation-dependent evaluation of expressions thereby allowing either lazy (sequential) evaluation or full (parallel) evaluation of expressions with OR and AND clauses. This flexibility is not desirable in DFDL 1.0 implementations, so the specification is changed to prescribe lazy (sequential) evaluation left-to-right.
 
@@ -202,7 +202,7 @@ The result of evaluating the expression must be a single atomic value of the typ
 Additionally:
 
 * Every property that accepts an expression states exactly what the expression is expected to return. To ensure the returned value is of the correct type, an expression must use XPath constructors or the correct literal values.
-* What appears lexically as the syntax of an expression follows XPath 2.0 rules. Note specifically that this is not the same as XSD default and XSD fixed property lexical syntax. Specifically, XSD default and XSD fixed properties do not accept expressions. They are always interpreted as XML Schema string literals. See [XSD] for details.
+* What appears lexically as the syntax of an expression follows XPath 2.0 rules. Note specifically that this is not the same as XSD default and XSD fixed property lexical syntax. Specifically, XSD default and XSD fixed properties do not accept expressions. They are always interpreted as XML Schema string literals. See [<<a-xsdl,XSD>>] for details.
 * No extra auto-casting is performed over and above that provided by XPath 2.0. XPath 2.0 has rules for when it promotes types and when it allows types to be substituted. These are in Appendix B.1 of the XPath 2.0 spec.
 * If the property is not expecting an expression to return a DFDL string literal, the returned value is never treated as a DFDL string literal.
 * If expecting an expression to return a DFDL string literal, the returned value is always treated as a DFDL string literal.
@@ -210,7 +210,7 @@ Additionally:
 
 === DFDL Expression Syntax
 
-Refer to XML Path Language (XPath) 2.0 [XPath] for a description of XPath expressions
+Refer to XML Path Language (XPath) 2.0 [<<a-xpath,XPath>>] for a description of XPath expressions
 
 [[dfdl-expression-language-2]]
 .DFDL Expression Language
@@ -364,7 +364,7 @@ Notes:
 . Only the _child_, _parent_, and _self_ axes are supported
 . Predicates are only used to index arrays and so must be integer expressions otherwise a Schema Definition Error occurs
 . A subset of the XPath 2.0 operators is supported
-. NameTest - These QNames are path steps that refer to elements in the DFDL Infoset. If such an element is in a namespace, then the NameTest QName must have a prefix which is bound to the namespace. Specifically, any default namespace is not used to implicitly qualify these NameTest QNames. This behavior is consistent with XPath expression usage in XML Schema [Walmsley] such as in the path property of the xs:selector and xs:field elements within xs:key and xs:unique constraints, and in related XML standards such as XSLT. Note however, that this behavior is different from the way QNames are used in other places in XML and DFDL Schemas such as the ref property of an element reference, or the dfdl:ref property of a DFDL format annotation. There a QName with no prefix must always be referring to a global declaration or definition, and so is augmented with the default namespace when needed.
+. NameTest - These QNames are path steps that refer to elements in the DFDL Infoset. If such an element is in a namespace, then the NameTest QName must have a prefix which is bound to the namespace. Specifically, any default namespace is not used to implicitly qualify these NameTest QNames. This behavior is consistent with XPath expression usage in XML Schema <<walmsely,[Walmsley]>> such as in the path property of the xs:selector and xs:field elements within xs:key and xs:unique constraints, and in related XML standards such as XSLT. Note however, that this behavior is different from the way QNames are used in other places in XML and DFDL Schemas such as the ref property of an element reference, or the dfdl:ref property of a DFDL format annotation. There a QName with no prefix must always be referring to a global declaration or definition, and so is augmented with the default namespace when needed.
 . The _FilterExpr_ ".[1]" is the same as ".". The _FilterExpr_ ".[n]" where n is not equal to 1 returns an empty node sequence.
 
 === Constructors, Functions and Operators

@@ -2,7 +2,7 @@
 
 DFDL conformance can be claimed for schema documents and for processors
 
-A schema document conforms to this specification if it conforms to the subset of XML Schema 1.0 defined in Section 5.2 DFDL Subset of XML Schema and consists of components which individually and collectively satisfy all the relevant constraints specified in this document.
+A schema document conforms to this specification if it conforms to the subset of XML Schema 1.0 defined in Section <<dfdl-subset-of-xml-schema>> DFDL Subset of XML Schema and consists of components which individually and collectively satisfy all the relevant constraints specified in this document.
 
 Conformance may be claimed separately for a DFDL parser, a DFDL unparser or a DFDL processor that parses and unparses.
 
@@ -11,6 +11,6 @@ Conformance may be claimed separately for a DFDL parser, a DFDL unparser or a DF
 . An extended conforming DFDL processor conforms to the specification when it implements all the non-optional features and some of the optional features defined in this document.
 . A fully conforming DFDL processor conforms to the specification when it implements all the features defined in this document.
 
-See Section 23 Optional DFDL Features for the list of optional features
+See <<optional-dfdl-features>> Optional DFDL Features for the list of optional features
 
 It is the intention of the DFDL Work Group to provide a conformance test suit to help verify conformance with this specification.

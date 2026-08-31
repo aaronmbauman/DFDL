@@ -145,7 +145,7 @@ Example: the dfdl:nilValue property can be used to provide a logical value that 
 nilValue='0'
 ----
 
-* QName The property value is an XML Qualified Name as specified in "Namespaces in XML"  [XMLNamespaces]
+* QName The property value is an XML Qualified Name as specified in "Namespaces in XML"  [<<a-xmlnamespaces,XMLNamespaces>>]
 
 Example: The dfdl:escapeSchemeRef property refers to a named escape scheme definition via its qualified name. For example:
 

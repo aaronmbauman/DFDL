@@ -289,7 +289,7 @@ The expression language included within DFDL is strongly, statically type checka
 
 The term _particle_ is used in XSD to refer to a schema component that can have dimension (XSD minOccurs and/or XSD maxOccurs) expressed on it. In DFDL only local element declarations and element references are particles.
 
-A DFDL processor MUST implement the Schema Component Constraint: Unique Particle Attribution defined in _XML Schema Part 1: Structures_ [XSDLV1] that applies to the DFDL schema subset.
+A DFDL processor MUST implement the Schema Component Constraint: Unique Particle Attribution defined in _XML Schema Part 1: Structures_ [<<a-xsdl-part1,XSDLV1>>] that applies to the DFDL schema subset.
 
 Two elements *overlap* if
 

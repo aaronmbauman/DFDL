@@ -14,9 +14,9 @@ There is no requirement for DFDL-described data to be valid in order to have a D
 .DFDL Infoset Object Model
 image::images/image1.png[]
 
-The DFDL information set is presented above in <<dfdl-infoset-object-model>> DFDL Infoset Object Model as an object model using a Unified Modeling Language (UML) class diagram [UML].
+The DFDL information set is presented above in <<dfdl-infoset-object-model>> DFDL Infoset Object Model as an object model using a Unified Modeling Language (UML) class diagram [<<a-uml,UML>>].
 
-The structure of the information set follows the Composite design pattern [Composite]. In case of inconsistency or ambiguity, the following discussion takes precedence.
+The structure of the information set follows the Composite design pattern [<<a-composite,Composite>>]. In case of inconsistency or ambiguity, the following discussion takes precedence.
 
 DFDL describes the format of the physical representation for data whose structure conforms to this model. Note that this model allows hierarchically nested data but does not allow representation of arbitrary connected graphs of data objects.
 
@@ -28,7 +28,7 @@ The DFDL Information Set does not require or favor a specific implementation int
 
 The terms "information set" and "information item" are similar in meaning to the generic terms "tree" and "node", as they are used in computing. However, the former terms are used in this specification to reduce possible confusion with other specific data models.
 
-The DFDL Information Set is similar in purpose to the XML Information Set [XMLInfoset], however, it is not identical, nor a perfect subset, as there are important differences such as that the DFDL Infoset does not have 'text' nodes that are a primary feature of the XML Infoset, as well as that the contents of strings is much less restricted in the DFDL Infoset.
+The DFDL Information Set is similar in purpose to the XML Information Set [<<a-xmlinfoset,XMLInfoset>>], however, it is not identical, nor a perfect subset, as there are important differences such as that the DFDL Infoset does not have 'text' nodes that are a primary feature of the XML Infoset, as well as that the contents of strings is much less restricted in the DFDL Infoset.
 
 The DFDL Information Set does not have any specific support for comments. When a data format allows for textual data mixed with a comment syntax, then both that data and the content of the comments correspond to DFDL Information Items.
 
@@ -76,9 +76,9 @@ An element information item has the following members:
 * *[namespace]* String. The namespace, if any, of the element. If the element does not belong to a namespace, the value is the empty string.
 * *[nilled] Boolean. True if the nillable item is nil. False if the nillable item is not nil. If the element is not nillable this member has no value.*
 * *[parent]* The complex element information item which contains this information item in its *[children]* member. In the root element of an information set this member is empty.
-* *[schema]* String. A reference to a schema component associated with this information item, if any. If not empty, the value MUST be an absolute or relative Schema Component Designator [SCD].
-* **[unionMemberSchema]**footnote:[Also, to support PSVI [PSVI\] construction.] String. For simple element information items, this member contains an SCD reference to the member of the union that matched the value of the element. Empty if validation is not enabled. Empty if the element's type is not a union.
-* *[valid]* Booleanfootnote:[*The purpose of this member is to support construction of a W3C standard Post Schema Validation Infoset (PSVI)* [PSVI\]  *from a DFDL Infoset.*]. True if the element is valid as determined by a DFDL implementation that performs validation checking. A complex element information item is not valid if any of its *[children]* are not valid. Empty if validation is not enabled.
+* *[schema]* String. A reference to a schema component associated with this information item, if any. If not empty, the value MUST be an absolute or relative Schema Component Designator [<<a-scd,SCD>>].
+* **[unionMemberSchema]**footnote:[Also, to support PSVI <<a-psvi,[PSVI\]>> construction.] String. For simple element information items, this member contains an SCD reference to the member of the union that matched the value of the element. Empty if validation is not enabled. Empty if the element's type is not a union.
+* *[valid]* Booleanfootnote:[*The purpose of this member is to support construction of a W3C standard Post Schema Validation Infoset (PSVI)* <<a-psvi,[PSVI\]>>  *from a DFDL Infoset.*]. True if the element is valid as determined by a DFDL implementation that performs validation checking. A complex element information item is not valid if any of its *[children]* are not valid. Empty if validation is not enabled.
 
 On unparsing, any non-empty values for the *[valid]* or *[unionMemberSchema]* members are ignored. However, in the augmented Infoset which is built during the unparse operation *[valid]* will have a value, and *[unionMemberSchema]* may have a value.
 

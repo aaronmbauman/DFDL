@@ -8,7 +8,7 @@ Examples of DFDL schemas provided herein are for illustration purposes only and 
 
 This specification provides definitions of the terms it uses at the point of first use. However, as this specification will not generally be read linearly, but out of order, a complete glossary is provided in Appendix E: Glossary of Terms.
 
-The capitalized key words _MUST_, MUST NOT, SHALL, SHALL NOT, SHOULD, SHOULD NOT, MAY, REQUIRED, OPTIONAL, and RECOMMENDED in this document are to be interpreted as described in [RFC2119]. Such usage in capital letters is generally about DFDL implementations and their common or distinguishing characteristics.
+The capitalized key words _MUST_, MUST NOT, SHALL, SHALL NOT, SHOULD, SHOULD NOT, MAY, REQUIRED, OPTIONAL, and RECOMMENDED in this document are to be interpreted as described in [<<a-rfc2119,RFC2119>>]. Such usage in capital letters is generally about DFDL implementations and their common or distinguishing characteristics.
 
 When describing requirements for correct usage of the DFDL language by a DFDL Schema author, these same words are used but are not capitalized. For example, the specification may state "The DFDL fillByte property _must_ be a single byte or single character." What is intended by "_must_" here is that if  the value for that property does not conform, that it is a Schema Definition Error by the schema author.
 

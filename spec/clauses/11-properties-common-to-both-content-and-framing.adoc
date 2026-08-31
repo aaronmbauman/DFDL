@@ -55,8 +55,8 @@ a| Enum or DFDL Expression
 
 Values are one of:
 
-* IANA charset namefootnote:[IANA is the Internet Assigned Names Authority. See [IANA\]]
-* CCSIDfootnote:[CCSID stands for Coded Character Set ID, a decimal number syntax for a coded character set specifier. [CCSID\]]
+* IANA charset namefootnote:[IANA is the Internet Assigned Names Authority. See <<a-iana,[IANA\]>>]
+* CCSIDfootnote:[CCSID stands for Coded Character Set ID, a decimal number syntax for a coded character set specifier. <<a-ccsid,[CCSID\]>>]
 * DFDL standard encoding name
 * Implementation-specific encoding name
 
@@ -115,7 +115,7 @@ This property applies whenever dfdl:encoding is applicable.
 
 This property provides control of how decoding and encoding errors are handled when converting the data to text, or text to data. This includes converting when scanning for delimiters, matching regular expression length or test patterns, matching textual data type representation patterns against the data, and of course isolating the text content that becomes the value of an element (parsing) or constructing the content from the value (unparsing).
 
-When parsing, an error can occur when decoding characters from their encoded form into the DFDL Infoset character set, ISO 10646 [ISO10646]. This can occur due to invalid byte sequences, or not enough bytes found to make up the full encoding of a character.
+When parsing, an error can occur when decoding characters from their encoded form into the DFDL Infoset character set, ISO 10646 [<<a-iso10646,ISO10646>>]. This can occur due to invalid byte sequences, or not enough bytes found to make up the full encoding of a character.
 
 If 'replace', then the Unicode replacement character (U+FFFD) is substituted for the offending errors, one replacement character for any incorrect fragment of an encoding.
 
@@ -205,7 +205,7 @@ For unparsing, each encoding has a replacement/substitution character specified 
 
 There is one exception. When dfdl:lengthUnits is 'bytes', the 'not enough room' encoding error is ignored. The left-over bytes are filled with the dfdl:fillByte (they are skipped when parsing.)
 
-The definitions of these substitution characters can be conveniently found for many encodings in the ICU Converter Explorer [ICUConvExp].
+The definitions of these substitution characters can be conveniently found for many encodings in the ICU Converter Explorer [<<a-icuconvexp,ICUConvExp>>].
 
 An encoding error is a Processing Error if the encoding does not provide a substitution/replacement character definition. (This would be rare but can occur if a DFDL implementation allows many encodings beyond the minimum set.)
 

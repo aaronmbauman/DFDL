@@ -3,7 +3,7 @@
 
 A DFDL regular expression may be specified for the dfdl:lengthPattern format property and the dfdl:testPattern property of the dfdl:assert and dfdl:discriminator annotations. DFDL regular expressions do not interpret DFDL entities.
 
-A DFDL regular expression is defined by a set of valid pattern characters. For portability, a DFDL regular expression pattern is restricted to the inclusive subset of the ICU regular expression [ICURegex] and the pass-format:straightquotes[Java(R)] 7 regular expression [JavaRegex] with the Unicode flags UNICODE_CASE and UNICODE_CHARACTER_CLASS turned on.  DFDL regular expressions thereby conform to Unicode Technical Standard pass-format:straightquotes[#18] , Unicode Regular Expressions, level 1 [UnicodeRegex].
+A DFDL regular expression is defined by a set of valid pattern characters. For portability, a DFDL regular expression pattern is restricted to the inclusive subset of the ICU regular expression [<<a-icuregex,ICURegex>>] and the pass-format:straightquotes[Java(R)] 7 regular expression [<<a-javaregex,JavaRegex>>] with the Unicode flags UNICODE_CASE and UNICODE_CHARACTER_CLASS turned on.  DFDL regular expressions thereby conform to Unicode Technical Standard pass-format:straightquotes[#18] , Unicode Regular Expressions, level 1 [<<a-unicoderegex,UnicodeRegex>>].
 
 The following regular expression constructs are not common to both ICU and pass-format:straightquotes[Java(R)] 7 and it is a Schema Definition Error if any are used in a DFDL regular expression:
 
@@ -63,4 +63,4 @@ which is a larger set than ICU where \w is
 
 The use of \w is not recommended in DFDL regular expressions in conjunction with Unicode encodings, and an implementation MUST issue a warning if such usage is detected.
 
-Character properties are detailed by the Unicode Regular Expressions [UnicodeRegex].
+Character properties are detailed by the Unicode Regular Expressions [<<a-unicoderegex,UnicodeRegex>>].
