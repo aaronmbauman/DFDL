@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """Check that every cross-reference in the DFDL spec resolves.
 
 A dangling cross-reference is invisible in the AsciiDoc and nearly invisible
