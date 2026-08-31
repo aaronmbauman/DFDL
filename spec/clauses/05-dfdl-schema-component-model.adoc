@@ -145,7 +145,7 @@ XSD minOccurs and XSD maxOccurs are used in these definitions:
 
 When validating, XSD minOccurs and XSD maxOccurs are used to determine the minimum and maximum valid number of occurrences of an element.
 
-The XSD minOccurs and XSD maxOccurs values are interpreted in conjunction with the DFDL dfdl:occursCountKind property. See Section 16, Properties for Array Elements and Optional Elements, for more details.
+The XSD minOccurs and XSD maxOccurs values are interpreted in conjunction with the DFDL dfdl:occursCountKind property. See <<properties-for-array-elements-and-optional-elements>>, Properties for Array Elements and Optional Elements, for more details.
 
 ==== MinLength, MaxLength
 

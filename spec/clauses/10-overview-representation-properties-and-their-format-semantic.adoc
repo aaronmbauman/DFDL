@@ -12,10 +12,10 @@ The properties are organized as follows:
 * Common to both Content and Framing (see <<properties-common-to-both-content-and-framing>>)
 * Common Framing, Position, and Length (see <<framing>>)
 * Simple Type Content (see <<simple-types>>)
-* Sequence Groups (see 14)
-* Choice Groups (see 15)
-* Array elements and optional elements (see 16)
-* Calculated Values (see 17)
+* Sequence Groups (see <<sequence-groups>>)
+* Choice Groups (see <<choice-groups>>)
+* Array elements and optional elements (see <<properties-for-array-elements-and-optional-elements>>)
+* Calculated Values (see <<calculated-value-properties>>)
 
 Where properties are specific to a physical representation, the property name may choose to reflect this. Where properties are related to a specific logical type grouping (defined below), the property name may choose to reflect this.
 

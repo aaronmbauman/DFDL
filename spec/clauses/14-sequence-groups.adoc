@@ -85,7 +85,7 @@ Specifies a whitespace separated list of alternative DFDL String Literals that a
 
 This property can be computed by way of an expression which returns a string of whitespace separated values. The expression must not contain forward references to elements which have not yet been processed. It is a Schema Definition Error if the expression returns an empty string.
 
-This property can be used to determine the length of an element as described in Section 12.3.2 dfdl:lengthKind 'delimited'.
+This property can be used to determine the length of an element as described in Section <<dfdl-lengthkind-delimited>> dfdl:lengthKind 'delimited'.
 
 Each string literal in the list, whether apparent in the schema, or returned as the value of an expression, is restricted to allow only certain kinds of DFDL String Literal syntax:
 
@@ -460,7 +460,7 @@ This example is similar to the one used above in the discussion of parsing with 
 
 _unparse N occurrences (suppressing trailing zero length reps)_
 
-Assume unparsing an Infoset containing five values: 1, 0, nilfootnote:[An Infoset item value of nil means the Infoset item *[nilled\]* member is true, and the *[dataValue\]* member has no value. See Section 4.2.2 Element Information Items.], 4, nil. Five occurrences are unparsed; however, the last value is nil, which has a representation of '%ES;' meaning empty-string, and dfdl:nilvalueDelimiterPolicy is 'none' meaning no initiator or terminator is to appear in the data. Since the schema is suppressing trailing zero-length reps the unparse results in this output:
+Assume unparsing an Infoset containing five values: 1, 0, nilfootnote:[An Infoset item value of nil means the Infoset item *[nilled\]* member is true, and the *[dataValue\]* member has no value. See Section <<element-information-items>> Element Information Items.], 4, nil. Five occurrences are unparsed; however, the last value is nil, which has a representation of '%ES;' meaning empty-string, and dfdl:nilvalueDelimiterPolicy is 'none' meaning no initiator or terminator is to appear in the data. Since the schema is suppressing trailing zero-length reps the unparse results in this output:
 
 [source%unnumbered,xml]
 ----
@@ -713,4 +713,4 @@ When unparsing a hidden group, the behaviour is the same as when elements are mi
 
 When unparsing a hidden group, it is a Processing Error if an element information item is provided in the Infoset for a hidden element.
 
-Examples of hidden groups are in Section 17 Calculated Value Properties.
+Examples of hidden groups are in <<calculated-value-properties>> Calculated Value Properties.

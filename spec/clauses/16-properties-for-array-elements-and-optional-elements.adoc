@@ -118,11 +118,11 @@ It is a Schema Definition Error if any of the stop values provided by dfdl:occur
 
 === Default Values for Arrays
 
-When parsing, required occurrences that have empty representation may trigger the application of a default value, as described in Section 9.4.2 Element Defaults When Parsing.
+When parsing, required occurrences that have empty representation may trigger the application of a default value, as described in Section <<element-defaults-when-parsing>> Element Defaults When Parsing.
 
-When unparsing, required occurrences that are missing from the Infoset may trigger the application of a default value, as described in Section 9.4.3 Element Defaults When Unparsing.
+When unparsing, required occurrences that are missing from the Infoset may trigger the application of a default value, as described in Section <<element-defaults-when-unparsing>> Element Defaults When Unparsing.
 
-The application of default values is *not* dependent on dfdl:occursCountKind, only on whether the occurrence is required or optional, whether there is a default value specified, and whether the data contains the empty representation (parsing) or is missing (unparsing). Section 9.4 Element Defaults contains the details.
+The application of default values is *not* dependent on dfdl:occursCountKind, only on whether the occurrence is required or optional, whether there is a default value specified, and whether the data contains the empty representation (parsing) or is missing (unparsing). Section <<element-defaults>> Element Defaults contains the details.
 
 === Arrays with DFDL Expressions
 
@@ -130,7 +130,7 @@ If the value of a DFDL property of an array element (other than dfdl:occursCount
 
 === Points of Uncertainty
 
-Arrays can have points of uncertainty depending on the value of dfdl:occursCountKind. See Section 9.3.3 Resolving Points of Uncertainty for details.
+Arrays can have points of uncertainty depending on the value of dfdl:occursCountKind. See Section <<resolving-points-of-uncertainty>> Resolving Points of Uncertainty for details.
 
 === Arrays and Sequences
 
@@ -173,7 +173,7 @@ When parsing a single array, it is possible to extract occurrences that have dif
 
 Occurrences with nil representation are added to the Infoset with *[nilled]* member true.
 
-Occurrences with empty representation may or may not be added to the Infoset, as described in Section 9.4. If a required occurrence is not added to the Infoset, it may be a Processing Error, dependent on dfdl:occursCountKind as described in Section 16.1.
+Occurrences with empty representation may or may not be added to the Infoset, as described in Section <<element-defaults>>. If a required occurrence is not added to the Infoset, it may be a Processing Error, dependent on dfdl:occursCountKind as described in Section 16.1.
 
 Occurrences with absent representation are not added to the Infoset. For a required occurrence it may be a Processing Error, dependent on dfdl:occursCountKind as described in Section 16.1.
 

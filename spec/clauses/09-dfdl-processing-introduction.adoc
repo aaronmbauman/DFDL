@@ -411,7 +411,7 @@ If none of those hold because they are not applicable, then a schema component i
 
 Note that Validation Errors or Recoverable Errors do not cause a component to be known-not-to-exist.
 
-Note: based on the above, when processing a sequence for which a separator is defined, the presence of a match in the data for the separator is not sufficient to cause the parser to determine that an associated component is known-to-exist. See Section 14.2 Sequence Groups with Separators  for details.
+Note: based on the above, when processing a sequence for which a separator is defined, the presence of a match in the data for the separator is not sufficient to cause the parser to determine that an associated component is known-to-exist. See Section <<sequence-groups-with-separators>> Sequence Groups with Separators  for details.
 
 [[establishing-representation]]
 ==== Establishing Representation
@@ -471,7 +471,7 @@ An element in an unordered xs:sequence is always a point of uncertainty. It is r
 
 An element in a sequence with one or more floating elements is always a point of uncertainty. It is resolved by parsing for the expected element at that point in the data stream. If the expected element is known-not-to-exist then an occurrence of each floating element is parsed in schema definition order.
 
-When parsing an array or optional element, points of uncertainty only occur for certain values of dfdl:occursCountKindfootnote:[Property dfdl:occursCountKind is defined in Section 16.1.], as follows:
+When parsing an array or optional element, points of uncertainty only occur for certain values of dfdl:occursCountKindfootnote:[Property dfdl:occursCountKind is defined in Section <<the-dfdl-occurscountkind-property>>.], as follows:
 
 .Points of Uncertainty and dfdl:occursCountKind
 [cols="1,3",options="header"]
@@ -540,7 +540,7 @@ An occurrence of an element with an index greater than XSD minOccurs is said to 
 
 If _empty_ representation is established when parsing, the possibility of applying an element default arises. Essentially, if a required occurrence of an element has empty representation, then an element default is applied if present, though there are a couple of variations on this rule. Remember that in order to have established empty representation, the occurrence must be compliant with the dfdl:emptyValueDelimiterPolicy for the element, and for a complex element the parser must have descended into the type and returned with no unsuppressed Processing Error.
 
-The rules for applying element defaults are not dependent on dfdl:occursCountKind. However, if a required occurrence does not produce an item in the Infoset after the rules have been applied, then whether it is a Processing Error or a Validation Error (if validation is enabled) _does_ depend on dfdl:occursCountKind (see Section 16.1 dfdl:occursCountKind property).
+The rules for applying element defaults are not dependent on dfdl:occursCountKind. However, if a required occurrence does not produce an item in the Infoset after the rules have been applied, then whether it is a Processing Error or a Validation Error (if validation is enabled) _does_ depend on dfdl:occursCountKind (see Section <<the-dfdl-occurscountkind-property>> dfdl:occursCountKind property).
 
 The sections below indicate when an item is added to the Infoset, and whether it has a default or other value. If there is no Processing Error then regardless of whether an item is added to the Infoset or not, any side-effects due to dfdl:discriminator statements evaluating to true, or dfdl:setVariable statements, are retained.
 
@@ -659,7 +659,7 @@ These elements for E1 with E2 child would be added to the infoset.
 
 If an element is _missing_ from the Infoset when unparsing, the possibility of applying an element default arises.  Essentially if a required occurrence of an element is missing, then an element default is applied if present, and the resulting item is added to the _augmented Infoset (See Section_ <<unparser-infoset-augmentation-algorithm>>__)__
 
-The rules for applying element defaults are not dependent on dfdl:occursCountKind. However if a required occurrence does not produce an item in the augmented Infoset after the rules have been applied then whether it is a Processing Error or a Validation Error (if enabled) _is_  dependent on dfdl:occursCountKind (see Section 16.1 dfdl:occursCountKind property).
+The rules for applying element defaults are not dependent on dfdl:occursCountKind. However if a required occurrence does not produce an item in the augmented Infoset after the rules have been applied then whether it is a Processing Error or a Validation Error (if enabled) _is_  dependent on dfdl:occursCountKind (see Section <<the-dfdl-occurscountkind-property>> dfdl:occursCountKind property).
 
 There are two cases to consider.
 
@@ -780,7 +780,7 @@ There is also a function dfdl:checkConstraints available in the DFDL Expression 
 
 As unparsing progresses and fills in these defaultable and calculated elements, these new item values augment the Infoset, that is, make it bigger.
 
-The unparsing algorithm fills in default values for required elements that are not present, and computes calculated elements by use of the dfdl:outputValueCalc property (see Section 17 Calculated Value Properties).
+The unparsing algorithm fills in default values for required elements that are not present, and computes calculated elements by use of the dfdl:outputValueCalc property (see <<calculated-value-properties>> Calculated Value Properties).
 
 When unparsing, an element declaration and the Infoset are considered as follows. An implementation MAY use any technique consistent with this algorithm:
 
