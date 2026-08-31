@@ -1,2 +1,15 @@
 // Shared body. Included by both edition masters; the editions differ only
 // in the front matter each one includes.
+
+// Metanorma reads a clause titled "Introduction" as ISO prefatory matter
+// and leaves it unnumbered; the specification numbers it as Clause 1.
+[heading=clause]
+include::clauses/01-introduction.adoc[]
+
+include::clauses/02-overview-of-the-specification.adoc[]
+
+include::clauses/03-notational-and-definitional-conventions.adoc[]
+
+include::clauses/04-the-dfdl-information-set-infoset.adoc[]
+
+include::clauses/05-dfdl-schema-component-model.adoc[]

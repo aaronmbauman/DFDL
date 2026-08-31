@@ -1,0 +1,22 @@
+== Overview of the Specification
+
+The sections of the specification are
+
+* Section 3, Notational and Definitional Conventions - provides definitions used throughout the specification. Note that terminology is defined at point of first use, but there is a complete Glossary in Appendix E: Glossary of Terms.
+* Section 4, The DFDL Information Set (Infoset) - describes the abstract data structure produced by parsing data using a DFDL processor, and which is consumed by a DFDL processor when unparsing data. DFDL contains an expression language, and it is this data structure that the expression language operates on.
+* Section 5, DFDL Schema Component Model describes the components that makes up a DFDL schema, and the subset of XML Schema that is used to express them.
+* Sections 6, DFDL Syntax Basics and 7, Syntax of DFDL Annotation Elements - describes the syntactic structure of DFDL annotations and introduces the purposes of the various annotations.
+* Section 8, Property Scoping and DFDL Schema Checking describes the way DFDL annotations that provide format properties are combined across the parts of the DFDL schema, and also describes static checking that is done on the DFDL schema.
+* Section 9, DFDL Processing Introduction covers processing, including the core algorithms for parsing and unparsing data, as well as validation. It introduces the DFDL Data Syntax Grammar, which captures the structure of data that can be described with DFDL, and which is referenced throughout the rest of the specification.
+* Section 10, Overview: Representation Properties and their Format Semantics provides an overview of, and Sections 11 to 17 describe in detail, all the DFDL properties. The properties are organized as follows:
+** Common to both Content and Framing (see Section 11)
+** Common Framing, Position, and Length (see Section 12)
+** Simple Type Content (see Section 13 ) - This is the largest section as it covers properties for all the various simple types, starting with properties that apply to all simple types, then properties for all types with textual representation, and then proceeding through the types, covering textual and binary format properties for each type.
+** Sequence Groups (see Section 14 )
+** Choice Groups (see Section 15 )
+** Array (i.e., recurring) elements and optional elements (see Section 16 )
+** Calculated Values (see Section 17 )
+* Section 18, DFDL Expression Language covers the XPath-derived expression language that is embedded in DFDL and is used for computing the values of many properties dynamically, as well as for calculated value elements, and assertion checking.
+* Section 19, DFDL Regular Expressions, covers the regular expression language used when parsing to isolate elements within the data stream, as well as to check assertions.
+
+The remaining sections and appendices supply additional details of particular importance to implementors of DFDL, or they provide detail and reference material and are referenced from other parts of the specification.
