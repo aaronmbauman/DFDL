@@ -3,13 +3,14 @@
 # Metanorma runs inside a pinned Docker image, so nothing needs to be
 # installed locally and every build is reproducible.
 #
-#   make xml     semantic XML only (fast)
-#   make html    HTML
-#   make pdf     ISO-formatted PDF (slow)
-#   make all     pdf + html
-#   make lint    ruff + black over tools/ (host tools, not the container)
-#   make check   lint, then the validators in tools/ against the semantic XML
-#   make clean   remove build output
+#   make xml       semantic XML only (fast)
+#   make html      HTML
+#   make pdf       ISO-formatted PDF (slow)
+#   make all       pdf + html
+#   make editions  `all` for every edition, from one source state
+#   make lint      ruff + black over tools/ (host tools, not the container)
+#   make check     lint, then the validators in tools/ against the semantic XML
+#   make clean     remove build output
 #
 # EDITION selects which edition to build; output lands in build/$(EDITION)/.
 # Both editions render identically-named artifacts, so they need separate
@@ -26,6 +27,7 @@
 IMAGE := metanorma/metanorma:alpine-1.17.0
 STEM  := dfdl
 
+EDITIONS := iso ogf
 EDITION  ?= iso
 SPEC_iso := spec/dfdl.adoc
 SPEC_ogf := spec/dfdl-ogf.adoc
@@ -39,10 +41,17 @@ SRCSTEM  := $(basename $(notdir $(SPEC)))
 DOCKER   := docker run --rm -v "$(CURDIR):/metanorma" $(IMAGE)
 MN_FLAGS := --no-install-fonts --continue-without-fonts
 
-.PHONY: all xml html pdf lint check clean
+.PHONY: all editions xml html pdf lint check clean
 
 # One pdf pass also emits the HTML and the XML, so `all` is just `pdf`.
 all: pdf
+
+# Every edition in one invocation, so both come from the same source state.
+editions:
+	@for e in $(EDITIONS); do \
+		echo "==> $$e"; \
+		$(MAKE) --no-print-directory EDITION=$$e all || exit 1; \
+	done
 
 xml:  FORMATS := xml
 html: FORMATS := xml,html
