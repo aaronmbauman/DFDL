@@ -15,7 +15,7 @@ Often both parser and unparser are implemented in the same body of software and 
 [[parser-overview]]
 === Parser Overview
 
-The DFDL logical parser is a recursive-descent parserfootnote:[A "top-down" parser built from a set of mutually recursive procedures or a non-recursive equivalent where each such procedure usually implements one of the productions of the grammar. Thus, the structure of the resulting program closely mirrors that of the grammar it recognizes. See [RDP\].] having guided, but potentially unbounded look ahead__.__ A DFDL parser reads a specification (the DFDL schema) and it recursively walks down and up the schema as it processes the data. This is done in a manner consistent with the scoping of properties and variables described in Section 8 Property Scoping and DFDL Schema Checking.
+The DFDL logical parser is a recursive-descent parserfootnote:[A "top-down" parser built from a set of mutually recursive procedures or a non-recursive equivalent where each such procedure usually implements one of the productions of the grammar. Thus, the structure of the resulting program closely mirrors that of the grammar it recognizes. See [RDP\].] having guided, but potentially unbounded look ahead__.__ A DFDL parser reads a specification (the DFDL schema) and it recursively walks down and up the schema as it processes the data. This is done in a manner consistent with the scoping of properties and variables described in <<property-scoping-and-dfdl-schema-checking>> Property Scoping and DFDL Schema Checking.
 
 The unbounded look ahead means that there are situations where the parser MUST speculatively attempt to parse data where the occurrence of a Processing Error causes the parser to suppress the error, back out and make another attempt.
 
@@ -243,7 +243,7 @@ These additional concepts are also defined:
 * Zero-Length Representation
 * Missing
 
-These definitions are with respect to the grammar above, and they do reference some DFDL properties necessary for their definitions. These properties are defined in Sections 11 and beyond.
+These definitions are with respect to the grammar above, and they do reference some DFDL properties necessary for their definitions. These properties are defined in Sections <<properties-common-to-both-content-and-framing>> and beyond.
 
 Some examples follow the definitions.
 
@@ -368,7 +368,7 @@ A DFDL parser proceeds by determining the existence of occurrences of schema com
 
 These two activities are defined below. They are mutually recursive in the expected way as a DFDL schema is a recursive nest of schema components.
 
-The parsing algorithm described here has many aspects which depend on the definitions of numerous DFDL properties. The properties are defined in sections 10 and beyond.
+The parsing algorithm described here has many aspects which depend on the definitions of numerous DFDL properties. The properties are defined in sections <<overview-representation-properties-and-their-format-semantic>> and beyond.
 
 Establishing the representation of an occurrence of a schema component and resolving points of uncertainty involve the concepts of _known-to-exist_ and _known-not-to-exist_.
 
@@ -384,7 +384,7 @@ An occurrence of a schema component is said to be _known-to-exist_ when any of t
 
 If none of those hold because they are not applicable then the occurrence is still known-to-exist if ALL of the following hold, and no Processing Error occurs during their determination:
 
-. When there are dfdl:assertfootnote:[DFDL asserts are described in Section 7.5 The dfdl:assert Statement Annotation Element.] statements with failureType 'processingError' on the component, all their expressions evaluate to true or their regular expression patterns match.
+. When there are dfdl:assertfootnote:[DFDL asserts are described in Section <<the-dfdl-assert-statement-annotation-element>> The dfdl:assert Statement Annotation Element.] statements with failureType 'processingError' on the component, all their expressions evaluate to true or their regular expression patterns match.
 . It has nil, empty, or normal representation.
 . When it has normal representation the content of the representation is convertible to the element type without error.
 
@@ -721,7 +721,7 @@ Such discriminator evaluation has access to the DFDL Infoset of the attempted pa
 
 ==== Elements and setVariable
 
-The resolved set of dfdl:setVariable statements for an element are executed *after* the parsing of the element. This contrasts with the resolved set of dfdl:setVariable statements for a group which are executed *before* the parsing of the group. (Note that dfdl:setVariable for an element is only allowed on elements of simple type per Section 7.7.3.)
+The resolved set of dfdl:setVariable statements for an element are executed *after* the parsing of the element. This contrasts with the resolved set of dfdl:setVariable statements for a group which are executed *before* the parsing of the group. (Note that dfdl:setVariable for an element is only allowed on elements of simple type per Section <<the-dfdl-setvariable-statement-annotation-element>>.)
 
 For elements, this implies that these variables are set after the evaluation of expressions corresponding to any computed DFDL properties for that element, and so the variables may not be referenced from expressions that compute these DFDL properties.
 
@@ -761,7 +761,7 @@ Validation on unparsing takes place on the augmented Infoset that is created by 
 
 When resolving points of uncertainty (during parsing), Validation Errors are ignored.
 
-The way a Validation Error is presented to the execution context of a DFDL processor is not specified by the DFDL specification. The validity of an element is recorded in the DFDL Infoset, see Section 4 The DFDL Information Set (Infoset).
+The way a Validation Error is presented to the execution context of a DFDL processor is not specified by the DFDL specification. The validity of an element is recorded in the DFDL Infoset, see <<the-dfdl-information-set-infoset>> The DFDL Information Set (Infoset).
 
 The following DFDL schema constructs are allowed in DFDL and are checked if applicable when validating:
 

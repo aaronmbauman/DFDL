@@ -44,7 +44,7 @@ Value 'leastSignificantBitFirst' means:
 * In general, the 2^n^ bit has position _n_ {plus} 1__.__
 * The most significant bits of byte N are considered to be adjacent to the least significant bits of byte N+1.
 
-This property applies to all content and framing since it determines which bits of a byte occupy what bit positions. Content and framing are defined in terms of regions of the data stream, and these regions are defined in terms of the starting bit position and ending bit position; hence, dfdl:bitOrder is relevant to determining the specific bits of any grammar region (see Section 9.2 DFDL Data Syntax Grammar) when the region's starting bit position or ending bit position are not on a byte boundary.
+This property applies to all content and framing since it determines which bits of a byte occupy what bit positions. Content and framing are defined in terms of regions of the data stream, and these regions are defined in terms of the starting bit position and ending bit position; hence, dfdl:bitOrder is relevant to determining the specific bits of any grammar region (see Section <<dfdl-data-syntax-grammar>> DFDL Data Syntax Grammar) when the region's starting bit position or ending bit position are not on a byte boundary.
 
 The bit order can only change on byte boundaries, and alignment of up to 7 bits is skipped (parsing) or inserted (unparsing) to ensure byte-alignment whenever the bit order changes.
 
@@ -299,6 +299,6 @@ Often the specification documents for data formats using least-significant-bit-f
 
 ==== dfdl:bitOrder and Grammar Regions
 
-When any grammar region appears before (to the left of) or after (to the right of) another grammar region in the grammar rules of Section 9.2, and the boundary between the two falls within a byte rather than on a byte boundary, then the dfdl:bitOrder determines which bits are occupied by the regions.
+When any grammar region appears before (to the left of) or after (to the right of) another grammar region in the grammar rules of Section <<dfdl-data-syntax-grammar>>, and the boundary between the two falls within a byte rather than on a byte boundary, then the dfdl:bitOrder determines which bits are occupied by the regions.
 
 In general, the notion of _before_ means occupying lower-numbered bit positions, and the bit positions are numbered according to dfdl:bitOrder. Hence, when dfdl:bitOrder is 'mostSignificantBitFirst', grammar regions that are before, occupy more-significant bits, and when dfdl:bitOrder is 'leastSignificantBitFirst', grammar regions that are before occupy less-significant bits.

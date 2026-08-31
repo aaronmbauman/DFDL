@@ -9,7 +9,7 @@ Furthermore, no default values are provided for representation properties as bui
 
 The properties are organized as follows:
 
-* Common to both Content and Framing (see 11)
+* Common to both Content and Framing (see <<properties-common-to-both-content-and-framing>>)
 * Common Framing, Position, and Length (see 12)
 * Simple Type Content (see 13)
 * Sequence Groups (see 14)

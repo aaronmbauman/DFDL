@@ -179,7 +179,7 @@ Note: in DFDL XSD enumerations are not used as a means to define symbolic consta
 
 ==== Default
 
-The XSD default property is used both when parsing and unparsing, to provide the default value of an element when the situation warrants it. See 9.4 Element Defaults.
+The XSD default property is used both when parsing and unparsing, to provide the default value of an element when the situation warrants it. See <<element-defaults>> Element Defaults.
 
 Note that the XSD fixed and XSD default properties are mutually exclusive on an element declaration.
 

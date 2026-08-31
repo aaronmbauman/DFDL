@@ -528,7 +528,7 @@ If a Processing Error or Schema Definition Error occurs while evaluating the mes
 
 DFDL discriminator statement annotations are used during parsing to:
 
-. resolve _points of uncertainty_ (choices, optional elements, array repetition) that cannot be resolved by speculative parsing. See Section 9.1 Parser Overview.
+. resolve _points of uncertainty_ (choices, optional elements, array repetition) that cannot be resolved by speculative parsing. See Section <<parser-overview>> Parser Overview.
 . remove ambiguity during speculative parsing
 . improve diagnostic behavior when a DFDL parser encounters malformed data.
 
@@ -536,7 +536,7 @@ Discriminators are not used during unparsing.
 
 A DFDL discriminator may contain a test expression that evaluates to true or false. The discriminator is said to be successful if the test evaluates to true and unsuccessful (or fails) if the test evaluates to false. A discriminator may alternatively contain a test regular expression pattern and the discriminator is successful if the test pattern matches with non-zero length and is unsuccessful (or fails) if there is no match or a zero-length match.
 
-A discriminator determines the existence or non-existence of a schema component in the data stream. If the discriminator is successful, then the component is said to be _known to exist_, and any subsequent errors do not cause backtracking at the nearest point of uncertainty. Details of the behavior of a DFDL parser and the role of discriminators are given in Section 9.3 Parsing Algorithm.
+A discriminator determines the existence or non-existence of a schema component in the data stream. If the discriminator is successful, then the component is said to be _known to exist_, and any subsequent errors do not cause backtracking at the nearest point of uncertainty. Details of the behavior of a DFDL parser and the role of discriminators are given in Section <<parsing-algorithm>> Parsing Algorithm.
 
 Discriminators can also be used to force a resolution earlier during the parsing of a model group so that subsequent parsing errors are treated as Processing Errors of a known schema component rather than a failure to find that schema component. This may greatly improve the efficiency of DFDL parsing in some implementations, as well as improving the diagnostic information provided by a DFDL parser when given malformed data.
 
@@ -856,7 +856,7 @@ Note that the syntax supports both a defaultValue attribute and the default valu
 
 To set the default value to "" (empty string), the defaultValue attribute syntax must be used, or the expression { "" } must be used as the element value.
 
-The resolved set of annotations for a component may contain multiple dfdl:newVariableInstance statements. They must all be for unique variables; it is a Schema Definition Error otherwise. The order of execution is specified in Section 9.5 Evaluation Order for Statement Annotations.
+The resolved set of annotations for a component may contain multiple dfdl:newVariableInstance statements. They must all be for unique variables; it is a Schema Definition Error otherwise. The order of execution is specified in Section <<evaluation-order-for-statement-annotations>> Evaluation Order for Statement Annotations.
 
 There is no short form syntax for creating variable instances.
 
@@ -897,11 +897,11 @@ A dfdl:setVariable value expression may refer to the value of this element using
 
 The expression must not contain forward references to elements which have not yet been processed.
 
-In normal processing, the value of an instance can only be set once using dfdl:setVariable.  Attempting to set the value of the variable instance for a second time is a Schema Definition Error. In addition, if a reference to the variable's value has already occurred and returned a default or an externally supplied value, then no assignment (even a first one) can occur. An exception to this behavior occurs whenever the DFDL processor backtracks because it is processing multiple branches of a choice or as a result of speculative parsing. In this case the variable state is also rewound. See Section 9 DFDL Processing Introduction.
+In normal processing, the value of an instance can only be set once using dfdl:setVariable.  Attempting to set the value of the variable instance for a second time is a Schema Definition Error. In addition, if a reference to the variable's value has already occurred and returned a default or an externally supplied value, then no assignment (even a first one) can occur. An exception to this behavior occurs whenever the DFDL processor backtracks because it is processing multiple branches of a choice or as a result of speculative parsing. In this case the variable state is also rewound. See <<dfdl-processing-introduction>> DFDL Processing Introduction.
 
 A dfdl:setVariable overrides any default value specified on either dfdl:defineVariable or dfdl:newVariableInstance, or externally.
 
-The resolved set of annotations for an annotation point may contain multiple dfdl:setVariable statements. They must all be for unique variables (different name and/or namespace) and it is a Schema Definition Error otherwise. The order of execution is specified in Section 9.5 Evaluation Order for Statement Annotations.
+The resolved set of annotations for an annotation point may contain multiple dfdl:setVariable statements. They must all be for unique variables (different name and/or namespace) and it is a Schema Definition Error otherwise. The order of execution is specified in Section <<evaluation-order-for-statement-annotations>> Evaluation Order for Statement Annotations.
 
 There is no short form syntax for variable assignment.
 
