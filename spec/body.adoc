@@ -30,3 +30,11 @@ include::clauses/11-properties-common-to-both-content-and-framing.adoc[]
 include::clauses/12-framing.adoc[]
 
 include::clauses/13-simple-types.adoc[]
+
+include::clauses/14-sequence-groups.adoc[]
+
+include::clauses/15-choice-groups.adoc[]
+
+include::clauses/16-properties-for-array-elements-and-optional-elements.adoc[]
+
+include::clauses/17-calculated-value-properties.adoc[]
