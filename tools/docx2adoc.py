@@ -421,6 +421,7 @@ class Package:
         self.path = path
         self.zip = zipfile.ZipFile(path)
         self.document = self._parse("word/document.xml")
+        self.styles = self._parse("word/styles.xml")
         self.numbering = self._parse_optional("word/numbering.xml")
         self.rels = self._read_rels("word/_rels/document.xml.rels")
 
@@ -440,6 +441,17 @@ class Package:
         for rel in root:
             rels[rel.get("Id")] = (rel.get("Target"), rel.get("TargetMode", "Internal"))
         return rels
+
+    def table_styles_with_header(self) -> set:
+        """Style ids whose definition formats the first row differently."""
+        result = set()
+        for style in self.styles.findall(q("w", "style")):
+            if style.get(q("w", "type")) != "table":
+                continue
+            for spr in style.findall(q("w", "tblStylePr")):
+                if spr.get(q("w", "type")) == "firstRow":
+                    result.add(style.get(q("w", "styleId")))
+        return result
 
 
 class Numbering:
@@ -657,6 +669,16 @@ class AnchorIndex:
 
 
 @dataclass
+class Caption:
+    """The caption paragraph Word places after the block it names."""
+
+    title: str = ""
+    anchors: tuple = ()
+    comments: list = field(default_factory=list)
+    consumed: int = 0
+
+
+@dataclass
 class Clause:
     """One top-level (Heading 1) clause of the specification.
 
@@ -686,6 +708,7 @@ class Converter:
         self.pkg = package
         self.body = package.document[0]
         self.numbering = Numbering(package.numbering)
+        self.header_styles = package.table_styles_with_header()
         self.clauses = self._split_clauses()
         clause_of_block = {}
         for clause in self.clauses:
@@ -699,6 +722,7 @@ class Converter:
         }
         self.emitted_clauses = set()
         self.current = None
+        self.cell_depth = 0
 
     # -- setup ------------------------------------------------------------
 
@@ -965,6 +989,15 @@ class Converter:
         index = 0
         while index < len(blocks):
             block = blocks[index]
+            if block.tag == W_TBL:
+                caption = self._lookahead_caption(blocks, index + 1)
+                if is_bibliography_table(block):
+                    lines.extend(self._render_bibliography_table(block))
+                else:
+                    lines.extend(self.render_table(block, caption, depth))
+                lines.append("")
+                index += 1 + caption.consumed
+                continue
             if block.tag != W_P:
                 index += 1
                 continue
@@ -974,6 +1007,10 @@ class Converter:
                 continue
             if style in CODE_STYLES:
                 block_lines, index = self._render_code_run(blocks, index)
+                lines.extend(block_lines)
+                continue
+            if style == "Bibliography":
+                block_lines, index = self._render_bibliography(blocks, index)
                 lines.extend(block_lines)
                 continue
             if is_list_para(block):
@@ -986,17 +1023,23 @@ class Converter:
                 continue
             level = heading_level(style)
             if level is not None:
-                lines.extend(self._render_heading(block, level))
+                lines.extend(
+                    self._render_heading(
+                        block, level, opens_bibliography(blocks, index)
+                    )
+                )
                 index += 1
                 continue
             lines.extend(self._render_paragraph(block, style))
             index += 1
         return trim_blank_lines(lines)
 
-    def _render_heading(self, para, level) -> list:
-        lines = [""]
+    def _render_heading(self, para, level, bibliography=False) -> list:
+        lines = [""] + hidden_comment(para)
         annex = level == 1 and self.current is not None and self.current.is_annex
-        if annex:
+        if bibliography:
+            lines.append("[bibliography]")
+        elif annex:
             lines.append("[appendix]")
         lines.extend(f"[[{ident}]]" for ident in self._block_anchors(para))
         title = self.render_inline(para).strip()
@@ -1023,10 +1066,70 @@ class Converter:
         return tuple(idents)
 
     def _render_paragraph(self, para, style) -> list:
+        comments = hidden_comment(para)
         text = self.render_inline(para).strip()
         if not text:
-            return []
-        return [protect_line_start(text), ""]
+            return comments + [""] if comments else []
+        if self.pending_footnotes and style not in CAPTION_STYLES:
+            text += "".join(self.pending_footnotes)
+            self.pending_footnotes = []
+        text = escape_cell(text, self.cell_depth)
+        if style in CAPTION_STYLES:
+            # A block title has to be attached to the block it names; on its
+            # own it is a stray line that AsciiDoc silently drops, so an
+            # unattached caption is kept as ordinary text instead.
+            title = strip_caption_number(split_anchors(text)[0])
+            return (
+                comments
+                + [f"[[{ident}]]" for ident in self._block_anchors(para)]
+                + [protect_line_start(title)]
+                + [""]
+            )
+        return comments + [protect_line_start(text), ""]
+
+    def _lookahead_caption(self, blocks, index) -> Caption:
+        """Consume a caption paragraph that follows a table or figure.
+
+        Word puts the caption after the object it describes; AsciiDoc wants a
+        block title in front of it.
+        """
+        start = index
+        comments = []
+        while index < len(blocks):
+            block = blocks[index]
+            if block.tag != W_P:
+                break
+            comments.extend(hidden_comment(block))
+            if para_style(block) in CAPTION_STYLES:
+                title = split_anchors(self.render_inline(block).strip())[0]
+                return Caption(
+                    strip_caption_number(title),
+                    self._block_anchors(block),
+                    comments,
+                    index - start + 1,
+                )
+            if raw_text(block).strip():
+                break
+            index += 1
+        return Caption()
+
+    def _row_caption(self, rows) -> Caption:
+        """Take a caption that Word laid out as a row of the table itself.
+
+        Left in place it becomes a block title inside a cell, where AsciiDoc
+        reads the leading dot as markup and deletes the cell.
+        """
+        for row in list(rows):
+            paragraphs = [para for para in row.iter(W_P) if raw_text(para).strip()]
+            if not paragraphs:
+                continue
+            if not all(para_style(para) in CAPTION_STYLES for para in paragraphs):
+                continue
+            title = split_anchors(self.render_inline(paragraphs[0]).strip())[0]
+            anchors = self._block_anchors(paragraphs[0])
+            rows.remove(row)
+            return strip_caption_number(title), anchors
+        return None, ()
 
     def _render_xml_example(self, blocks, index) -> tuple:
         """Emit schema fragments that Word styled as body text as a listing.
@@ -1040,7 +1143,7 @@ class Converter:
             if block.tag != W_P:
                 break
             if is_xml_example(block):
-                text_lines.append(raw_text(block).strip())
+                text_lines.append(escape_cell(raw_text(block).strip(), self.cell_depth))
             elif raw_text(block).strip():
                 break
             index += 1
@@ -1057,7 +1160,9 @@ class Converter:
             block = blocks[index]
             if block.tag != W_P or para_style(block) != style:
                 break
-            text_lines.extend(code_lines(block))
+            text_lines.extend(
+                escape_cell(line, self.cell_depth) for line in code_lines(block)
+            )
             index += 1
         while text_lines and not text_lines[0].strip():
             text_lines.pop(0)
@@ -1065,11 +1170,18 @@ class Converter:
             text_lines.pop()
         if not text_lines:
             return [], index
+        # Word puts a listing's caption after it; AsciiDoc wants it in front,
+        # and drops it altogether if it is left standing on its own.
+        caption = self._lookahead_caption(blocks, index)
+        index += caption.consumed
         fence = "-" * 4
         while any(line.strip() == fence for line in text_lines):
             fence += "-"
-        lines = [""]
-        attrs = listing_attributes(language, False)
+        lines = [""] + caption.comments
+        lines.extend(f"[[{ident}]]" for ident in caption.anchors)
+        if caption.title:
+            lines.append("." + caption.title)
+        attrs = listing_attributes(language, bool(caption.title))
         if attrs:
             lines.append(attrs)
         lines.append(fence)
@@ -1092,9 +1204,10 @@ class Converter:
             else:
                 num_id, ilvl = numbering
                 kind = self.numbering.kind(num_id, ilvl)
-            text = self.render_inline(block).strip()
-            if text:
-                items.append((int(ilvl), kind, text))
+            text = escape_cell(self.render_inline(block).strip(), self.cell_depth)
+            comments = hidden_comment(block)
+            if text or comments:
+                items.append((int(ilvl), kind, text, comments))
             index += 1
         if not items:
             return [], index
@@ -1112,6 +1225,262 @@ class Converter:
             lines.append(f"{marker} {text}")
         lines.append("")
         return lines, index
+
+    def _render_bibliography(self, blocks, index) -> tuple:
+        entries = []
+        while index < len(blocks):
+            block = blocks[index]
+            if block.tag != W_P or para_style(block) != "Bibliography":
+                break
+            text = escape_cell(self.render_inline(block).strip(), self.cell_depth)
+            label = re.fullmatch(r"\\?\[([^\]]+)\]", text)
+            if label:
+                ident = None
+                for bookmark in block.iter(q("w", "bookmarkStart")):
+                    anchor = self.anchors.lookup(bookmark.get(q("w", "name")) or "")
+                    if anchor:
+                        ident = anchor.ident
+                        break
+                entries.append(
+                    {
+                        "label": label.group(1),
+                        "ident": ident or slugify(label.group(1)),
+                        "body": [],
+                    }
+                )
+            elif text and entries:
+                entries[-1]["body"].append(text)
+            elif text:
+                entries.append({"label": None, "ident": None, "body": [text]})
+            index += 1
+        if not entries:
+            return [], index
+        lines = [""]
+        for entry in entries:
+            body = " ".join(entry["body"]).strip()
+            if entry["label"]:
+                lines.append(
+                    "* [[[{},{}]]] {}".format(entry["ident"], entry["label"], body)
+                )
+            else:
+                lines.append(f"* {body}")
+        lines.append("")
+        return lines, index
+
+    def _render_bibliography_table(self, tbl) -> list:
+        """Render the reference list, which Word lays out as a two-column table.
+
+        The left column holds the citation label and its bookmark, the right
+        column the reference text; AsciiDoc wants one bibliography entry per
+        list item.
+        """
+        lines = [""]
+        for row in tbl.findall(W_TR):
+            cells = row.findall(W_TC)
+            if not cells:
+                continue
+            head, idents = split_anchors(self._cell_text(cells[0]))
+            body = " ".join(self._cell_text(cell) for cell in cells[1:]).strip()
+            label = re.fullmatch(r"\\?\[(.+)\]", head.strip())
+            if label and idents:
+                extra = "".join(f"[[{ident}]]" for ident in idents[1:])
+                lines.append(f"* [[[{idents[0]},{label.group(1)}]]] {extra}{body}")
+            elif label:
+                lines.append(f"* [{label.group(1)}] {body}")
+            else:
+                lines.append(f"* {head} {body}".strip())
+        lines.append("")
+        return lines
+
+    def _cell_text(self, cell) -> str:
+        parts = [self.render_inline(para).strip() for para in cell.iter(W_P)]
+        return " ".join(part for part in parts if part)
+
+    # -- tables -----------------------------------------------------------
+
+    def render_table(self, tbl, caption: Caption, depth=0) -> list:
+        separator = "|" if depth == 0 else "!"
+        rows = tbl.findall(W_TR)
+        if not rows:
+            return []
+        if not caption.title:
+            row = self._row_caption(rows)
+            caption = Caption(
+                row.title,
+                caption.anchors or row.anchors,
+                caption.comments + row.comments,
+                caption.consumed,
+            )
+        layout = self._table_layout(rows)
+        columns = self._grid_columns(tbl) or max(
+            (
+                row["covered"] + sum(cell["span"] for cell in row["cells"])
+                for row in layout
+            ),
+            default=1,
+        )
+        for row in layout:
+            fit_row_to_grid(row, columns)
+        # A rowspan may not start in the header row: Metanorma rejects a merge
+        # that crosses out of the head, so such a table is emitted headerless.
+        header = self._has_header_row(tbl, rows) and not any(
+            cell["rows"] > 1 for cell in layout[0]["cells"]
+        )
+        lines = [""] + caption.comments
+        lines.extend(f"[[{ident}]]" for ident in caption.anchors)
+        if caption.title:
+            lines.append("." + caption.title)
+        attrs = [f'cols="{self._cols_spec(tbl, columns)}"']
+        if header:
+            attrs.append('options="header"')
+        lines.append("[" + ",".join(attrs) + "]")
+        lines.append(separator + "===")
+        for index, row in enumerate(layout):
+            lines.append("")
+            for cell in row["cells"]:
+                lines.extend(
+                    self._render_cell(cell, header and index == 0, depth, separator)
+                )
+            lines.extend([separator] * row["pad"])
+        lines.append(separator + "===")
+        return lines
+
+    def _grid_columns(self, tbl) -> int:
+        grid = tbl.find(q("w", "tblGrid"))
+        return 0 if grid is None else len(grid.findall(q("w", "gridCol")))
+
+    def _table_layout(self, rows) -> list:
+        """Flatten rows into cells, resolving Word's horizontal/vertical merges.
+
+        Returns one dict per row: the cells that AsciiDoc has to emit, and how
+        many grid columns are already taken by a rowspan from further up.
+        """
+        layout = []
+        for row in rows:
+            cells = []
+            column = 0
+            for tc in row.findall(W_TC):
+                tcPr = tc.find(q("w", "tcPr"))
+                span = 1
+                merge = None
+                if tcPr is not None:
+                    grid_span = tcPr.find(q("w", "gridSpan"))
+                    if grid_span is not None:
+                        span = max(1, int(grid_span.get(W_VAL) or 1))
+                    vmerge = tcPr.find(q("w", "vMerge"))
+                    if vmerge is not None:
+                        merge = vmerge.get(W_VAL) or "continue"
+                cells.append(
+                    {
+                        "tc": tc,
+                        "span": span,
+                        "merge": merge,
+                        "column": column,
+                        "rows": 1,
+                    }
+                )
+                column += span
+            layout.append(cells)
+        # Fold vertically merged continuation cells into the cell that started
+        # the merge, and drop them from the output.
+        covered = [0] * len(layout)
+        for index, row in enumerate(layout):
+            for cell in row:
+                if cell["merge"] != "restart":
+                    continue
+                depth = index + 1
+                while depth < len(layout):
+                    follower = next(
+                        (
+                            other
+                            for other in layout[depth]
+                            if other["column"] == cell["column"]
+                            and other["merge"] == "continue"
+                        ),
+                        None,
+                    )
+                    if follower is None:
+                        break
+                    follower["dropped"] = True
+                    cell["rows"] += 1
+                    covered[depth] += cell["span"]
+                    depth += 1
+        return [
+            {
+                "cells": [cell for cell in row if not cell.get("dropped")],
+                "covered": covered[index],
+            }
+            for index, row in enumerate(layout)
+        ]
+
+    def _render_cell(self, cell, in_header=False, depth=0, separator="|") -> list:
+        sources = [cell["tc"]] + list(cell.get("extra", ()))
+        children = [
+            child for source in sources for child in source if child.tag in (W_P, W_TBL)
+        ]
+        nested = any(child.tag == W_TBL for child in children)
+        self.cell_depth += 1
+        try:
+            content = trim_blank_lines(self.render_blocks(children, depth + 1))
+        finally:
+            self.cell_depth -= 1
+        if in_header:
+            content = [strip_bold(line) for line in content]
+        # AsciiDoc writes a span as {colspan}.{rowspan}+, either part optional.
+        spec = ""
+        if cell["span"] > 1 and cell["rows"] > 1:
+            spec = f"{cell['span']}.{cell['rows']}+"
+        elif cell["span"] > 1:
+            spec = f"{cell['span']}+"
+        elif cell["rows"] > 1:
+            spec = f".{cell['rows']}+"
+        if not content:
+            return [spec + separator]
+        simple = (
+            len(content) == 1 and not nested and not BLOCK_START_RE.match(content[0])
+        )
+        if simple:
+            return [f"{spec}{separator} {content[0]}"]
+        if nested:
+            # A nested table has to start on its own line inside an AsciiDoc cell.
+            return [f"{spec}a{separator}"] + content
+        return [f"{spec}a{separator} {content[0]}"] + content[1:]
+
+    def _cols_spec(self, tbl, columns) -> str:
+        grid = tbl.find(q("w", "tblGrid"))
+        widths = []
+        if grid is not None:
+            for col in grid.findall(q("w", "gridCol")):
+                try:
+                    widths.append(int(col.get(q("w", "w")) or 0))
+                except ValueError:
+                    widths.append(0)
+        widths = [width for width in widths if width > 0]
+        if len(widths) != columns:
+            return ",".join(["1"] * columns)
+        smallest = min(widths)
+        return ",".join(
+            str(max(1, min(20, round(width / smallest)))) for width in widths
+        )
+
+    def _has_header_row(self, tbl, rows) -> bool:
+        if len(rows) < 2:
+            return False
+        tblPr = tbl.find(q("w", "tblPr"))
+        if tblPr is not None:
+            look = tblPr.find(q("w", "tblLook"))
+            style = tblPr.find(q("w", "tblStyle"))
+            styled = style is not None and style.get(W_VAL) in self.header_styles
+            first_row = look is not None and look.get(q("w", "firstRow")) == "1"
+            if styled and first_row:
+                return True
+        first = rows[0]
+        if any(run.find(q("w", "b")) is not None for run in first.iter(q("w", "rPr"))):
+            return True
+        return any(
+            tc.find(q("w", "tcPr") + "/" + q("w", "shd")) is not None
+            for tc in first.findall(W_TC)
+        )
 
     # -- entry points -----------------------------------------------------
 
@@ -1267,6 +1636,20 @@ def collapse_duplicate_xrefs(text: str) -> str:
     return text
 
 
+ANCHOR_RE = re.compile(r"\[\[([A-Za-z][\w.:-]*)\]\]")
+
+
+def split_anchors(text: str) -> tuple:
+    """Pull inline anchors out of rendered text so they can become block ids."""
+    anchors = ANCHOR_RE.findall(text)
+    return ANCHOR_RE.sub("", text).strip(), tuple(anchors)
+
+
+def strip_bold(line: str) -> str:
+    """Remove bold markup; header cells are emphasised by the table style."""
+    return re.sub(r"(?<!\\)\*([^*\n]+)\*", r"\1", line)
+
+
 #: Word's own caption number, including the "33-A" form used where a table
 #: was inserted without renumbering the ones after it.
 CAPTION_NUMBER_RE = re.compile(r"^(?:Table|Figure)\s*\d*(?:-[A-Za-z0-9]{1,3})?[.:]?\s+")
@@ -1309,6 +1692,70 @@ def code_lines(para) -> list:
                 parts.append("-")
     text = normalise_text("".join(parts)).replace("\t", "    ")
     return text.split("\n")
+
+
+def opens_bibliography(blocks, index) -> bool:
+    """True if this heading's own content is the reference list."""
+    for block in blocks[index + 1 :]:
+        if block.tag == W_P and heading_level(para_style(block)) is not None:
+            return False
+        if block.tag == W_TBL:
+            return is_bibliography_table(block)
+    return False
+
+
+def is_bibliography_table(tbl) -> bool:
+    """True for a table that is really a list of bibliographic references."""
+    paragraphs = [para for para in tbl.iter(W_P) if raw_text(para).strip()]
+    if len(paragraphs) < 4:
+        return False
+    styled = sum(1 for para in paragraphs if para_style(para) == "Bibliography")
+    return styled >= 0.8 * len(paragraphs)
+
+
+def fit_row_to_grid(row, columns: int) -> None:
+    """Make a row occupy exactly ``columns`` grid columns.
+
+    Word tolerates a ``gridSpan`` that overruns the table grid, and rows whose
+    cells do not add up.  AsciiDoc does not: it silently drops the surplus and
+    Metanorma then reports the table as inconsistent.
+    """
+    cells = row["cells"]
+    available = max(0, columns - row["covered"])
+    if not cells:
+        row["pad"] = available
+        return
+    if len(cells) > available:
+        # Degenerate row: fold the surplus cells into the last one we keep.
+        keep = max(1, available)
+        cells[keep - 1]["extra"] = cells[keep:]
+        row["cells"] = cells = cells[:keep]
+    total = 0
+    for cell in cells:
+        cell["span"] = max(1, cell["span"])
+        total += cell["span"]
+    for cell in reversed(cells):
+        if total <= available:
+            break
+        shrink = min(cell["span"] - 1, total - available)
+        cell["span"] -= shrink
+        total -= shrink
+    row["pad"] = max(0, available - total)
+
+
+def escape_cell(line: str, depth: int) -> str:
+    """Protect AsciiDoc cell separators inside table cell content.
+
+    ``depth`` is how many cells enclose this line.  The outer table always
+    separates on ``|``; a table nested one level down separates on ``!``, so
+    both have to be neutralised once we are inside one.
+    """
+    if depth < 1:
+        return line
+    line = line.replace("|", "\\|")
+    if depth > 1:
+        line = line.replace("!", "\\!")
+    return line
 
 
 def trim_blank_lines(lines) -> list:
