@@ -14,7 +14,7 @@ When describing requirements for correct usage of the DFDL language by a DFDL Sc
 
 Similarly, when describing characteristics of data being parsed or being unparsed, and whether that data conforms to the format described by a DFDL schema, these same words may be used. For example,the specification may state "The representation _must_ be followed by a terminating delimiter.", but what is intended by "_must_" in this case is that the consequence of the data not having that terminating delimiter is a Processing Error because the data does not comply with its format specification.
 
-When describing data, the uncapitalized terms _required_ and _optional_ in this document have specific formal meanings (introduced in Section 5.3.1,MinOccurs, MaxOccurs) having to do with the way element declarations are annotated in the DFDL language. The data corresponding to such an element declaration is also said to be either required or optional, and the DFDL element declaration is said to be for a required element, or an optional element.
+When describing data, the uncapitalized terms _required_ and _optional_ in this document have specific formal meanings (introduced in Section <<minoccurs-maxoccurs>>,MinOccurs, MaxOccurs) having to do with the way element declarations are annotated in the DFDL language. The data corresponding to such an element declaration is also said to be either required or optional, and the DFDL element declaration is said to be for a required element, or an optional element.
 
 === Failure Types
 

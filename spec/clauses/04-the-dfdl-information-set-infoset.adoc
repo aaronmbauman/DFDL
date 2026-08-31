@@ -69,7 +69,7 @@ An element information item has the following members:
 
 * *[array]* Boolean. True if the item is an array, meaning that it corresponds to an element having maxOccurs value greater than 1, or 'unbounded'.
 * *[children]* An ordered set of zero or more element information items. The order they appear in the set is the order implied by the DFDL Schema. 'Ordered set' is not formally defined here, but two operations are assumed: 'count' gives the number of information items, and 'at (index)' gives the element at ordinal position 'index' starting from 1. In a simple element information item this member has no value. In a document information item this member contains exactly one element information item. If the *[nilled]* member is true, then this member has no value.
-* *[dataType]* String. The name of the XML Schema 1.0 built-in simple type to which the value corresponds. DFDL supports a subset of these types listed in Section 5.1 DFDL Simple Types.
+* *[dataType]* String. The name of the XML Schema 1.0 built-in simple type to which the value corresponds. DFDL supports a subset of these types listed in Section <<dfdl-simple-types>> DFDL Simple Types.
 * *[dataValue] member has no value, and for a complex element the [children] member has no value. If this member is true, then the Infoset item is said to be nil or nilled.*
 * *[document]* The document information item representing the DFDL information set that contains this element. This element is empty except in the root element of an information set.
 * *[name]* String. The local part of the element name.
