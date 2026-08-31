@@ -9,3 +9,33 @@ This document provides a definition of a standard Data Format Description
 Language (DFDL). This language allows description of text, dense binary, and
 legacy data formats in a vendor-neutral declarative manner. DFDL is an
 extension to the XML Schema Description Language (XSD).
+
+// The specification numbers its own clauses from the Introduction, so the
+// sections that precede it stay unnumbered in both editions.
+
+[.preface]
+include::../clauses/front-02-document-change-history.adoc[]
+
+[.preface]
+include::../clauses/front-03-intellectual-property-statement.adoc[]
+
+[.preface]
+include::../clauses/front-04-disclaimer.adoc[]
+
+[.preface]
+include::../clauses/front-05-full-copyright-notice.adoc[]
+
+[.preface]
+include::../clauses/front-07-property-index.adoc[]
+
+[.preface]
+include::../clauses/front-08-authors-and-contributors.adoc[]
+
+[.preface]
+include::../clauses/front-09-scope-of-the-specification.adoc[]
+
+[.preface]
+include::../clauses/front-10-normative-references.adoc[]
+
+[.preface]
+include::../clauses/front-11-terms-and-definitions.adoc[]
