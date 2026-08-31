@@ -38,3 +38,7 @@ include::clauses/15-choice-groups.adoc[]
 include::clauses/16-properties-for-array-elements-and-optional-elements.adoc[]
 
 include::clauses/17-calculated-value-properties.adoc[]
+
+include::clauses/18-dfdl-expression-language.adoc[]
+
+include::clauses/19-dfdl-regular-expressions.adoc[]
