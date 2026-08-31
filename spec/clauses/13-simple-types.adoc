@@ -2283,6 +2283,7 @@ On unparsing, an element is nil if XSD nillable is 'true' AND the element inform
 
 For dfdl:nilKind 'literalValue' or 'literalCharacter' then dfdl:nilValueDelimiterPolicy determines whether any initiator or terminator also appear surrounding the literal nil in the output data.
 
+[[properties-for-nillable-elements]]
 === Properties for Nillable Elements
 
 These properties are used when the XSD 'nillable' property of an element is 'true', and they control when and how the representation data are interpreted as having the logical meaning 'nil'.

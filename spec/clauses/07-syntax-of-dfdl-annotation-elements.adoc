@@ -777,6 +777,7 @@ It is a Schema Definition Error if the type of the variable is a user-defined si
                      external="true">utf-8</dfdl:defineVariable>
 ----
 
+[[predefined-variables]]
 ===== Predefined Variables
 
 The following variables are predefined, and their names are in the DFDL namespace (http://www.ogf.org/dfdl/dfdl-1.0/)

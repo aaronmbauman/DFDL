@@ -216,6 +216,7 @@ Bit Position  87654321
 
 In the above the *AlignmentFill* region still appears before element 'B', and in this case that is in less significant bits of the byte than the bits of content of element 'B', and these bits are displayed to the right of the bits of element 'B'.
 
+[[properties-for-specifying-delimiters]]
 === Properties for Specifying Delimiters
 
 The following properties apply to all objects that use text delimiters to delimit, that is, to initiate and/or terminate data. Delimiters can apply to binary data; however, they are most often called 'text' delimiters because the concept is much more commonly used for textual data formats.
@@ -367,6 +368,7 @@ When 'treatAsAbsent' if an occurrence of an element has the empty representation
 
 Annotation: dfdl:element, dfdl:simpleType
 |===
+[[properties-for-specifying-lengths]]
 
 === Properties for Specifying Lengths
 

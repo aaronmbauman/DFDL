@@ -119,6 +119,7 @@ It is not possible for variable settings to be communicated from the speculative
 
 Nested choices can require unboundedfootnote:[Because DFDL v1.0 does not allow recursive definitions, the notion of unbounded here is limited by the depth of the DFDL schema, so is not truly unbounded as it would be if recursion were allowed.] look ahead into the data.
 
+[[resolving-choices-via-direct-dispatch]]
 ==== Resolving Choices via Direct Dispatch
 
 Direct dispatch provides a constant-time dispatch to a choice branch independent of how many choice branches there are.

@@ -88,6 +88,7 @@ The _resolved set of annotations_ for an annotation point is a combined set of a
 
 DFDL defining annotation elements may only appear at _top-level_, that is, as annotation children of the xs:schema element. The order of their appearance does not matter, nor does their position relative to other children of the xs:schema.
 
+[[dfdl-properties]]
 === DFDL Properties
 
 A DFDL _property_ is a specific DFDL construct that tells the DFDL processor some characteristic about the data format.

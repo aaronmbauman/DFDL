@@ -282,6 +282,7 @@ More formally, an element occurrence has an _absent representation_ if the occur
 
 As an example of an absent representation: during unparsing, if an optional element does not have an item in the Infoset then nothing is output. However, if a separator of an enclosing structure is subsequently output as the immediate next thing, then a subsequent parse of the element may return a representation of length zero. If this happens, and this zero-length representation does not conform to any of the nil representation, the empty representation, or the normal representation, then it is the absent representation, and it behaves _as if the element occurrence is 'missing'_. (The term 'missing' is defined below.)
 
+[[zero-length-representation]]
 ==== Zero-length Representation
 
 The term _zero-length representation_ is used to describe the situations where any of the above representations turn out to be of length zero due to specific combinations of data type and format properties:

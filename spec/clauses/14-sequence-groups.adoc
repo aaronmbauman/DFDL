@@ -593,6 +593,7 @@ These checks are the same as those performed for an ordered sequence group. Howe
 
 When unparsing, the behavior is exactly as if dfdl:sequenceKind is 'ordered'. The members of the unordered sequence group are output in schema declaration order.
 
+[[floating-elements]]
 === Floating Elements
 
 Elements within an ordered sequence can be designated as floating which means that they can appear in any position within the sequence.footnote:[The NTE segment in the X12 EDI standard is an example of a floating element.]

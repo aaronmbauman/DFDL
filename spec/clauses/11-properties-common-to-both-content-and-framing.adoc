@@ -151,6 +151,7 @@ When unparsing, these are the errors that can occur when encoding characters fro
 
 The subsections below describe how these errors are handled.
 
+[[property-dfdl-encodingerrorpolicy]]
 ==== Property dfdl:encodingErrorPolicy
 
 The property dfdl:encodingErrorPolicy has two possible values: 'error' and 'replace'.

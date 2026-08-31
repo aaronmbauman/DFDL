@@ -183,6 +183,7 @@ The XSD default property is used both when parsing and unparsing, to provide the
 
 Note that the XSD fixed and XSD default properties are mutually exclusive on an element declaration.
 
+[[fixed]]
 ==== Fixed
 
 The XSD fixed property is used in the same ways as the XSD default property but in addition:
