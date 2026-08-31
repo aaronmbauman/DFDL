@@ -7,6 +7,8 @@
 #   make html    HTML
 #   make pdf     ISO-formatted PDF (slow)
 #   make all     pdf + html
+#   make lint    ruff + black over tools/ (host tools, not the container)
+#   make check   lint, then the validators in tools/ against the semantic XML
 #   make clean   remove build output
 #
 # EDITION selects which edition to build; output lands in build/$(EDITION)/.
@@ -37,7 +39,7 @@ SRCSTEM  := $(basename $(notdir $(SPEC)))
 DOCKER   := docker run --rm -v "$(CURDIR):/metanorma" $(IMAGE)
 MN_FLAGS := --no-install-fonts --continue-without-fonts
 
-.PHONY: all xml html pdf clean
+.PHONY: all xml html pdf lint check clean
 
 # One pdf pass also emits the HTML and the XML, so `all` is just `pdf`.
 all: pdf
@@ -56,6 +58,29 @@ xml html pdf:
 		mv -f "$$f" "$(BUILD)/$(STEM)$${f#$(dir $(SPEC))$(SRCSTEM)}"; \
 	done
 	@echo "Output in $(BUILD)/"
+
+# ruff and black run on the host, not in the Metanorma container.
+lint:
+	@if ls tools/*.py >/dev/null 2>&1; then \
+		ruff check tools/ && black --check tools/; \
+	else \
+		echo "No Python in tools/ yet; nothing to lint."; \
+	fi
+
+# Runs every executable in tools/, plus any tools/check*.py, over the
+# build. Tolerant of tools/ being empty or absent.
+check: lint html
+	@checkers=$$({ find tools -maxdepth 1 -type f -perm -u+x; \
+		ls tools/check*.py; } 2>/dev/null | sort -u); \
+	if [ -z "$$checkers" ]; then \
+		echo "No validators in tools/ yet; nothing to check."; \
+	else \
+		for c in $$checkers; do \
+			echo "==> $$c"; \
+			if [ -x "$$c" ]; then "$$c" $(BUILD)/$(STEM).xml; \
+			else python3 "$$c" $(BUILD)/$(STEM).xml; fi || exit 1; \
+		done; \
+	fi
 
 clean:
 	rm -rf build .ruff_cache
