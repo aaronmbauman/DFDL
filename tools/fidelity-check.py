@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """Fidelity differential for the DFDL spec conversion.
 
 Compares the normalised text inventory of the MS-Word source against the

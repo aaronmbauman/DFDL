@@ -53,16 +53,18 @@ The first two answer questions that stay live for as long as the document is
 edited: an erratum can strand a caption or break a reference, and neither shows
 up in a diff a reviewer would notice.
 
-`fidelity-check.py` is different. It exists to prove the conversion lost and
-invented nothing, and that job finishes when this conversion is accepted. The
-first deliberate change to the specification is *supposed* to differ from
-GFD.240, and from then on the check can only fail. **Retire it from `make check`
-at that point** rather than weakening it — a fidelity check that has been taught
-to ignore differences is worse than none, because it still reports PASS.
+`fidelity-check.py` is not one of them, and is not run by `make check`. It
+compares the build against the Word source character for character, which proves
+the conversion but fails on any deliberate change to the specification: an
+erratum is *supposed* to differ from GFD.240. Run it on its own:
 
-It stays in `tools/` after that. "What has changed since GFD.240?" is the
-question an ISO submission has to answer, and this is the tool that answers it,
-clause by clause.
+    make check-conversion
+
+Never teach it to ignore differences. A fidelity check that has been relaxed is
+worse than none, because it still reports PASS.
+
+It keeps a second use. "What has changed since GFD.240?" is a question an ISO
+submission has to answer, and this answers it clause by clause.
 
 ## The two editions
 

@@ -47,7 +47,7 @@ MN_FLAGS := --no-install-fonts --continue-without-fonts
 
 RELEASE  := docs/releases/$(VERSION)
 
-.PHONY: all editions release xml html pdf lint check clean
+.PHONY: all editions release xml html pdf lint check check-conversion clean
 
 # One pdf pass also emits the HTML and the XML, so `all` is just `pdf`.
 all: pdf
@@ -111,6 +111,13 @@ check: lint html
 			else python3 "$$c" $(BUILD)/$(STEM).xml; fi || exit 1; \
 		done; \
 	fi
+
+# Compares the build against the Word source, character for character. This
+# proves the conversion; it is not part of `make check`, because a deliberate
+# change to the specification is supposed to differ from GFD.240 and would
+# fail it correctly. See spec/BUILD.md.
+check-conversion: xml
+	python3 tools/fidelity-check.py $(BUILD)/$(STEM).xml
 
 clean:
 	rm -rf build .ruff_cache
