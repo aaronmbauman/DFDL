@@ -786,7 +786,7 @@ The unparsing algorithm fills in default values for required elements that are n
 When unparsing, an element declaration and the Infoset are considered as follows. An implementation MAY use any technique consistent with this algorithm:
 
 . If the element declaration has a dfdl:outputValueCalc property, then the expression which is the dfdl:outputValueCalc property value is evaluated, and the resulting value becomes the value of the element item in the augmented Infoset. Any pre-existing value for the Infoset item is superseded by this new value.
-
++
 References to other augmented Infoset items from within the dfdl:outputValueCalc expression MUST obtain their values from the augmented Infoset directly (when the value is already present) or by recursively using these methods (a) and (b) as needed.
 
 . If the element declaration has no corresponding value in the augmented Infoset, and the element declaration is for a _required_ occurrence, and it _has a default value specified_, then an element item having the default value is created in the augmented Infoset.
