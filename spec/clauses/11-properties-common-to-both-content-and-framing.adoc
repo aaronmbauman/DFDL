@@ -177,7 +177,7 @@ When parsing, character decoding errors MUST be detected when
 
 When unparsing, character encoding errors MUST be detected when
 
-[loweralpha]
+[loweralpha,start=4]
 . an unmapped character appears in the Infoset value of an element.
 
 In all other cases, character set decoding and encoding errors MAY not be detected.
