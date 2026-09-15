@@ -8,6 +8,7 @@
 :title-intro-en: Information technology
 :title-main-en: Data Format Description Language (DFDL) v1.0 Specification
 :mn-document-class: iso
+:i18nyaml: i18n-en.yaml
 :mn-output-extensions: xml,html,pdf,rxl
 :local-cache-only:
 :data-uri-image:
