@@ -2,7 +2,7 @@
 
 // This section will become part of the Forward in an ISO PAS submission.
 
-[cols="1,5"]
+[%unnumbered,cols="1,5"]
 |===
 
 a| 2026-01-15

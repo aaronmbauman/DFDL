@@ -6,7 +6,7 @@
 
 // Keep alphabetical order here please.
 
-[cols="1,1,1",options="header"]
+[%unnumbered,cols="1,1,1",options="header"]
 |===
 
 | A-K
