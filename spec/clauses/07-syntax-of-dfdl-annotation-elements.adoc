@@ -360,7 +360,7 @@ On parsing, the escape scheme is applied after pad characters are trimmed and on
 
 DFDL does not perform any substitutions for ampersand notations like ``+++&amp;lt;+++``.
 
-The properties of dfdl:escapeScheme are defined in Section <<the-dfdl-escapescheme-properties>> *The dfdl:escapeScheme Properties*.
+The properties of dfdl:escapeScheme are defined in Section <<the-dfdl-escapescheme-properties>> The dfdl:escapeScheme Properties.
 
 [[the-dfdl-assert-statement-annotation-element]]
 === The dfdl:assert Statement Annotation Element
