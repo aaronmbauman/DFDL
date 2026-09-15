@@ -805,14 +805,14 @@ It is a Schema Definition Error if:
 * any other represented element is defined between this element and the end of the enclosing component.
 * the parent is an element with dfdl:lengthKind 'implicit' or 'delimited'.
 * the element has text representation, does not have a single-byte character set encoding, and the _effective length units of the parent_ is not 'characters'.
-
++
 The _effective length units of the parent_ are defined by:
-
-* dfdl:lengthUnits if parent is an element with dfdl:lengthKind 'explicit' or 'prefixed';
-* 'characters' if parent is an element with dfdl:lengthKind 'pattern';
-* 'bytes' if parent is a choice with dfdl:choiceLengthKind 'explicit';
-* 'characters' if the element is the document root;
-* the effective length units of the parent's parent if parent is an element with dfdl:lengthKind 'endOfParent'
++
+** dfdl:lengthUnits if parent is an element with dfdl:lengthKind 'explicit' or 'prefixed';
+** 'characters' if parent is an element with dfdl:lengthKind 'pattern';
+** 'bytes' if parent is a choice with dfdl:choiceLengthKind 'explicit';
+** 'characters' if the element is the document root;
+** the effective length units of the parent's parent if parent is an element with dfdl:lengthKind 'endOfParent'
 
 If the element is in a sequence then it is a Schema Definition Error if:
 
