@@ -1,4 +1,5 @@
 [appendix]
+[[appendix-f-specific-errors-classified]]
 == Appendix F: Specific Errors Classified
 
 This appendix clarifies which errors are Schema Definition Errors and which are Processing Errors.
