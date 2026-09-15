@@ -57,6 +57,7 @@ To XML Schema this is an empty sequence group; hence it is a Schema Definition E
 
 Additional properties apply to sequence groups that use text delimiters to separate one occurrence of a member of the group from the next. Such a delimiter is called a separator. DFDL provides several properties that control the parsing and writing of separators, and satisfy the requirement to model sequences where:
 
+[arabic]
 . A separator has alternative potential representations in the data.
 . A separator is placed before, after, or between occurrences in the data.
 . Separators are used to indicate the position of occurrences in the data
@@ -175,6 +176,7 @@ The following are definitions for terminology used in this section:
 
 *Potentially trailing element* – An array or optional element describes an occurrence that is said to be _potentially trailing_ if the element can have a zero length representation and is followed in its enclosing group definition by only these kinds of schema components:
 
+[arabic]
 . calculated elements (those having dfdl:inputValueCalc)
 . additional potentially trailing elements
 . potentially trailing groups
@@ -503,6 +505,7 @@ It is a Schema Definition Error if an unordered sequence has no members.
 
 When parsing, the semantics of an unordered sequence are expressed by way of:
 
+[arabic]
 . a source-to-source transformation of the sequence group definition, and
 . a post-processing transformation of the Infoset .
 
@@ -563,6 +566,7 @@ If a member element is found to have the empty representation then the parsing o
 
 Post-processing consists of the following steps:
 
+[arabic]
 . Sort the temporary Infoset to produce the real Infoset
 . Check scalar elements and validate
 

@@ -18,6 +18,7 @@
 
 *Binary* - There are two meanings for this word depending on context.
 
+[arabic]
 . Data is divided into two broad categories of representations, which are _text_ and _binary_. Hence, binary representation includes any kind of non-text representation.
 . Within binary (not text) data, one distinguishes base-10 representations which are called _packed decimal_, from base-2 representations which are called _binary_. The common _twos-complement_ representation used for signed integers is a base-2 binary representation.
 
@@ -69,6 +70,7 @@
 
 *Decimal* - This term is used several different ways distinguished by context:
 
+[arabic]
 . Base 10. When data has text representation, a decimal number has base-10 digits.
 . Type xs:decimal - a logical type of number that has an integer component and an optional base-10 fractional component. This type subsumes all integer types, as they are of type xs:decimal but with the further restriction that the fractional part doesn't exist. Note that a base-10 fraction has different rounding properties than a base-2 or floating point numeric fraction; hence, xs:decimal is the type commonly used to represent currency/money in data.
 . Packed Decimal - A binary data representation. See separate glossary entry below.
@@ -173,6 +175,7 @@
 
 *Resolved Set of Annotations* - When DFDL annotations appear on
 
+[arabic]
 . a simple type definition and the base simple type it references (recursively, if the base simple type also references another base simple type).
 . an element declaration and the simple type definition from (1) it references.
 . an element reference and the global element declaration from (2) it references.

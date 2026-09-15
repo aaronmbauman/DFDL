@@ -473,6 +473,7 @@ dfdl:lengthKind 'delimited' may be specified for
 
 The rules for resolving ambiguity between delimiters are:
 
+[arabic]
 . When two delimiters have a common prefix, the longest delimiter is tried first.
 . When two delimiters have the same length, but on different schema components, the innermost (most deeply nested) delimiter is tried first.
 . When the separator and terminator on a group have the same value, then at a point in the data where either the separator or terminator could be found, the separator is tried first. (Speculative execution may try the terminator subsequently).
@@ -639,6 +640,7 @@ Annotation: dfdl:element, dfdl:simpleType
 
 The representation of the element is in two parts.
 
+[arabic]
 . The 'prefix length' is an integer which specifies the length of the element's content. The representation of the length prefix is described by a simple type which is identified using the dfdl:prefixLengthType property.
 . The content of the element.
 

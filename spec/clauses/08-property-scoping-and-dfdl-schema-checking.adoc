@@ -129,6 +129,7 @@ The DFDL properties from the following types of reference are combined using the
 
 Rules
 
+[arabic]
 . Create (a) an empty working set of "explicit" properties, and (b) an empty working set of "default" properties.
 . Move to the innermost schema component in the chain of references.
 . Assemble its applicable "explicit" properties from its local dfdl:ref (if present) and its local properties (if present), the latter overriding the former (that is, local wins over referenced).
@@ -272,6 +273,7 @@ The locally defined dfdl:alignment property with value '16' from the xs:simpleTy
 
 The DFDL properties applied to the xs:sequence in xs:group "ggrp1" in SCHEMA2 when referenced from the group reference in SCHEMA1 are
 
+[arabic]
 . dfdl:separator "," from the group reference in SCHEMA1
 . dfdl:separatorPosition "infix" from the group declaration in SCHEMA2
 . dfdl:encoding "UTF-8", dfdl:initiator ''"  from the default dfdl:format annotation in SCHEMA2

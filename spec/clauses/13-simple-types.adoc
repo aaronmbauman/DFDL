@@ -2140,6 +2140,7 @@ When unparsing, if a time zone symbol is not available for a particular time zon
 
 The differences in behavior between 'strict' and 'lax' for this property can be subtle. Both are quite lenient in enforcement of many variations in format, with the 'lax' value adding additional tolerance of more format variations to those already allowed by the 'strict' value.
 
+[arabic]
 . Lenient parsing behaviour when in 'strict' policy:
 .. Case insensitive matching for text fields
 .. MMM, MMMM, and MMMMM all accept either short or long form of Month
@@ -2266,6 +2267,7 @@ DFDL allows elements of complex type to be nillable. However, to avoid the conce
 
 On parsing, an element occurrence is nil if the element has XSD nillable 'true' and the data is a nil representation as defined in Section <<nil-representation>>. Specifically:
 
+[arabic]
 . When dfdl:nilKind is 'literalValue', the *NilLiteralValue* region of the data stream matches any of the dfdl:nilValue values.
 . When dfdl:nilKind is 'literalCharacter', all characters in the *NilLiteralCharacters* region of the data stream match the dfdl:nilValue character.
 . When dfdl:nilKind is 'logicalValue', the data contains a normal representation, and the *NilLogicalValue* region of the data stream, converted to the element's logical type, matches any of the dfdl:nilValue values.
@@ -2277,6 +2279,7 @@ For dfdl:nilKind 'literalValue' or 'literalCharacter':
 
 On unparsing, an element is nil if XSD nillable is 'true' AND the element information item in the augmented Infoset has the *[nilled]* member as true, in which case what is output to the data stream is one of the following:
 
+[arabic]
 . When dfdl:nilKind is 'logicalValue' then the first value of dfdl:nilValue converted to the physical representation is output as the *NilLogicalValue* region.
 . When dfdl:nilKind is 'literalValue' then the first value of dfdl:nilValue is output as the *NilLiteralValue* region.
 . When dfdl:nilKind is 'literalCharacter' then the character from dfdl:nilValue, repeated to the needed length, is output as the *NilLiteralCharacters* region.

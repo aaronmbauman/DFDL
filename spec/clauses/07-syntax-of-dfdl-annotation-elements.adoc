@@ -107,6 +107,7 @@ A dfdl:format annotation at the top level of a schema, that is as an annotation 
 
 A _property binding_ is the syntax in a DFDL schema that gives a value to a property. Up to this point, the examples in this document have all used a specific syntax for property bindings called _attribute form_. However, the format properties may be specified in any one of three forms:
 
+[arabic]
 . Attribute form
 . Element form
 . Short form
@@ -528,6 +529,7 @@ If a Processing Error or Schema Definition Error occurs while evaluating the mes
 
 DFDL discriminator statement annotations are used during parsing to:
 
+[arabic]
 . resolve _points of uncertainty_ (choices, optional elements, array repetition) that cannot be resolved by speculative parsing. See Section <<parser-overview>> Parser Overview.
 . remove ambiguity during speculative parsing
 . improve diagnostic behavior when a DFDL parser encounters malformed data.

@@ -12,6 +12,7 @@ However, if implemented, then a conformant DFDL implementation MUST follow the s
 
 Additional encoding names are needed for several reasons:
 
+[arabic]
 . Incomplete Information: the definitions of IANA [<<a-iana,IANA>>] and CCSID [<<a-ccsid,CCSID>>] character set encodings are not sufficiently specific about the encoding, omitting important characteristics such as alignment or bit order. An example of this is the encoding X-DFDL-US-ASCII-7-BIT-PACKED, defined herein.
 . Unnamed or Legacy Encodings: There are many legacy encodings that have no IANA or CCSID identifiers. For example, ITA2 [<<a-ita2,ITA2>>] is a 5-bit-per character encoding that is very old, yet still has modern uses.
 
@@ -29,6 +30,7 @@ Decimal numbers have no prefix when the context is clear and are explicitly labe
 
 A DFDL standard encoding specification SHOULD include:
 
+[arabic]
 . _Name_: All DFDL standard encoding names begin with the prefix "X-DFDL-". Note that encoding names are not case-sensitive.
 . _Translation table:_ An encoding/decoding algorithm that provides a complete bi-directional mapping between encoded characters and UTF-16 character codes. Many encodings share character code definitions and describe only different ways of representing those values; hence, this section may reference other IANA, CCSID or DFDL standard encoding definitions.
 . _Width_: Whether the character set is fixed or variable width. If fixed width, the size of a code unit in bits or bytes.

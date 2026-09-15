@@ -141,11 +141,13 @@ DFDL does not provide any special treatment of Unicode Byte-Order Marks. They ar
 
 When parsing, these are the errors that can occur when decoding characters into Unicode/ISO 10646.
 
+[arabic]
 . The data is broken - invalid bit/byte sequences are found which do not match the definition of a character for the encoding.
 . Not enough data is found to make up the entire encoding of a character. That is, a fragment of a valid encoding is found.
 
 When unparsing, these are the errors that can occur when encoding characters from Unicode/ISO 10646 into the specified encoding.
 
+[arabic]
 . No mapping provided by the encoding specification.
 . Not enough room to output the entire encoding of the character (e.g., need 3 bytes for a character encoding that uses 3-bytes for that character, but only 1 byte remains in the available length.
 
@@ -168,12 +170,14 @@ Detection of character set decoding errors is often implementation-dependent bec
 
 When parsing, character decoding errors MUST be detected when
 
+[loweralpha]
 . the decoding results in a character being placed into the DFDL Infoset
 . the decoding is necessary to identify a delimiter
 . the decoding is necessary to determine a match or non-match of a regular expression in a dfdl:assert or dfdl:discriminator with testKind='pattern'.
 
 When unparsing, character encoding errors MUST be detected when
 
+[loweralpha]
 . an unmapped character appears in the Infoset value of an element.
 
 In all other cases, character set decoding and encoding errors MAY not be detected.
@@ -230,6 +234,7 @@ It is suggested that if a DFDL schema author wants to preserve information conta
 
 Byte order and bit order are separate concepts. However, of the possible combinations, only the following are allowed:
 
+[arabic]
 . 'bigEndian' with 'mostSignificantBitFirst'
 . 'littleEndian' with 'mostSignificantBitFirst'
 . 'littleEndian' with 'leastSignificantBitFirst' footnote:[Used by data format MIL-STD-2045]

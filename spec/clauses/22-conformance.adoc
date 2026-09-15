@@ -6,6 +6,7 @@ A schema document conforms to this specification if it conforms to the subset of
 
 Conformance may be claimed separately for a DFDL parser, a DFDL unparser or a DFDL processor that parses and unparses.
 
+[arabic]
 . A DFDL processor claiming conformance MUST identify the level of conformance and version specification claimed.
 . A minimal conforming DFDL processor conforms to this specification when it implements all the non-optional features defined in this document.
 . An extended conforming DFDL processor conforms to the specification when it implements all the non-optional features and some of the optional features defined in this document.

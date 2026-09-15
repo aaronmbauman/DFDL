@@ -23,6 +23,7 @@ At any single annotation point of the schema there can be only one format annota
 
 The _resolved set of annotations_ for an annotation point is a combined set of annotations taken from:
 
+[arabic]
 . a simple type definition and the base simple type it references.
 . an element declaration and the type definition from (1) it references.
 . an element reference and the global element declaration from (2) it references.

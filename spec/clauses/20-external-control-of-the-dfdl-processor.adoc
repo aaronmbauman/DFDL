@@ -5,6 +5,7 @@ In addition to providing the DFDL schema and data to be parsed or serialized, DF
 
 DFDL processors can provide implementation-defined means to specify:
 
+[arabic]
 . The data to be processed: a data stream when parsing or an Infoset when unparsing.
 . The DFDL schema to be used
 . The _distinguished global element declaration_ to be used (specifying both name of element and namespace of that name)

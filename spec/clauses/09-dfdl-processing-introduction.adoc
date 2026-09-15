@@ -65,6 +65,7 @@ Data in a format describable via a DFDL schema obeys the grammar given here. A g
 
 The bits of the data are divided into two broad categories:
 
+[arabic]
 . Content
 . Framing
 
@@ -364,6 +365,7 @@ To avoid this issue, one can use validation, along with a pattern that prevents 
 
 A DFDL parser proceeds by determining the existence of occurrences of schema components. It does this by examining the data and the schema, to:
 
+[loweralpha]
 . Establish representation
 . Resolve points of uncertainty
 
@@ -379,12 +381,14 @@ Establishing the representation of an occurrence of a schema component and resol
 
 An occurrence of a schema component is said to be _known-to-exist_ when any of these positive determinations hold:
 
+[arabic]
 . There is a dfdl:discriminatorfootnote:[DFDL discriminators are described in Section: 7.6 The dfdl:discriminator Statement Annotation Element.] applying to the component and its expression evaluates to true or regular expression pattern matches.
 . The component is a direct child of an xs:sequence or xs:choice with dfdl:initiatedContentfootnote:[For dfdl:initiator and dfdl:initiatedContent, see Section <<properties-for-specifying-delimiters>> Properties for Specifying Delimiters.] 'yes' and a dfdl:initiator defined for the component is found.
 . The component is a direct child of an xs:choice with dfdl:choiceDispatchKeyfootnote:[For dfdl:choiceDispatchKey and dfdl:choiceBranchKey, see Section <<resolving-choices-via-direct-dispatch>> Resolving Choices via Direct Dispatch.] and the result of the dfdl:choiceDispatchKey expression matches one of the dfdl:choiceBranchKey property values of the child.
 
 If none of those hold because they are not applicable then the occurrence is still known-to-exist if ALL of the following hold, and no Processing Error occurs during their determination:
 
+[arabic]
 . When there are dfdl:assertfootnote:[DFDL asserts are described in Section <<the-dfdl-assert-statement-annotation-element>> The dfdl:assert Statement Annotation Element.] statements with failureType 'processingError' on the component, all their expressions evaluate to true or their regular expression patterns match.
 . It has nil, empty, or normal representation.
 . When it has normal representation the content of the representation is convertible to the element type without error.
@@ -399,6 +403,7 @@ Note that it is possible for an occurrence of a schema component to be known-to-
 
 An occurrence of a schema component is _known-not-to-exist_ when any of these _negative determinations_ holds:
 
+[arabic]
 . There is a dfdl:discriminator applying to the component and its expression evaluates to false or regular expression pattern fails to match, or a Processing Error occurs while processing the dfdl:discriminator.
 . The component is a direct child of an xs:sequence or xs:choice with dfdl:initiatedContent 'yes' and an initiator defined for the component is not found.
 . The component is a direct child of an xs:choice with dfdl:choiceDispatchKey and the result of the dfdl:choiceDispatchKey expression does not match any of the dfdl:choiceBranchKey property values of the child.
@@ -406,6 +411,7 @@ An occurrence of a schema component is _known-not-to-exist_ when any of these _n
 
 If none of those hold because they are not applicable, then a schema component is known-not-to-exist when any of the following hold:
 
+[arabic]
 . The occurrence is missing
 . There is a dfdl:assert with failureType 'processingError' on the component and its expression evaluates to false or its regular expression pattern fails to match, or a Processing Error occurs while processing the dfdl:assert.
 . A Processing Error occurs when parsing the component. Processing Errors include, but are not limited to, inability to identify any of nil, empty, normal or absent representations, or failure to convert a value to the built-in logical type.
@@ -433,6 +439,7 @@ The first step is to see if the SimpleContent or ComplexContent region is of len
 
 If the result is length zero as described above, the representation is then established by checking, in order, for:
 
+[arabic]
 . nil representation (if %ES; or %WSP*; on its own is a literal nil value).
 . empty representation.
 . normal representation (xs:string or xs:hexBinary only)
@@ -440,6 +447,7 @@ If the result is length zero as described above, the representation is then esta
 
 If the result is not length zero, the representation is then established by checking, in order, for:
 
+[arabic]
 . nil representation (as a literal nil value)
 . nil representation (as a logical nil value)
 . normal representation
@@ -452,6 +460,7 @@ If the result is length zero as described above, the representation is then esta
 
 To establish any other representations requires that the parser descends into the complex type for the element, and returns successfully (that is, no unsuppressed Processing Error occurs). If the result is zero bits consumed, the representation is then established by checking, in order, for:
 
+[arabic]
 . empty representation.
 . absent representation (if none of the prior representations apply).
 
@@ -526,6 +535,7 @@ A DFDL processor can create element defaults in the Infoset for both simple and 
 
 A simple element has a default value if any of these are true:
 
+[arabic]
 . The XSD default property exists. The default value is the XSD default property's value.
 . The XSD fixedfootnote:[For the XSD fixed property see Section <<fixed>>.] property exists. The default value is the XSD fixed property's value.
 . The element has XSD nillable is 'true' and dfdl:useNilForDefaultfootnote:[For dfdl:useNilForDefault see Section <<properties-for-nillable-elements>>.] is 'yes'. The corresponding Infoset item has the *[nilled]* member true, and the *[dataValue]* member has no value.
@@ -575,6 +585,7 @@ Optional occurrence: if dfdl:emptyValueDelimiterPolicy is applicable and is not 
 
 For both required and optional occurrences, the parser, by recursive descent, may create the Infoset item and a single child Infoset item. This can occur when:
 
+[arabic]
 . the first child element of the complex type is a required simple element, then an empty string (type xs:string), empty hexBinary (type xs:hexBinary), or default value is alsoadded to the Infoset.
 . the first child element of the complex type is a required complex element, then an item is added to the Infoset (which may itself have a child via (1))
 
@@ -691,6 +702,7 @@ Of these, some are statement annotations and the order of their evaluation relat
 
 For elements and element references:
 
+[arabic]
 . dfdl:discriminator or dfdl:assert(s) with testKind 'pattern' (parsing only)
 . dfdl:element following property scoping rules, which includes establishing representation as described in Section <<establishing-representation>> and conversion to the element type for simple types
 . dfdl:setVariable(s) - in lexical order, innermost schema component first
@@ -698,6 +710,7 @@ For elements and element references:
 
 For sequences, choices and group references:
 
+[arabic]
 . dfdl:discriminator or dfdl:assert(s) with testKind 'pattern' (parsing only)
 . dfdl:newVariableInstance(s) - in lexical order, innermost schema component first
 . dfdl:setVariable(s) - in lexical order, innermost schema component first
@@ -766,6 +779,7 @@ The way a Validation Error is presented to the execution context of a DFDL proce
 
 The following DFDL schema constructs are allowed in DFDL and are checked if applicable when validating:
 
+[arabic]
 . XSD pattern facet
 . XSD minLength, maxLength
 . XSD minInclusive, minExclusive, maxInclusive, maxExclusive
@@ -785,6 +799,7 @@ The unparsing algorithm fills in default values for required elements that are n
 
 When unparsing, an element declaration and the Infoset are considered as follows. An implementation MAY use any technique consistent with this algorithm:
 
+[loweralpha]
 . If the element declaration has a dfdl:outputValueCalc property, then the expression which is the dfdl:outputValueCalc property value is evaluated, and the resulting value becomes the value of the element item in the augmented Infoset. Any pre-existing value for the Infoset item is superseded by this new value.
 +
 References to other augmented Infoset items from within the dfdl:outputValueCalc expression MUST obtain their values from the augmented Infoset directly (when the value is already present) or by recursively using these methods (a) and (b) as needed.

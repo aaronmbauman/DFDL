@@ -4,6 +4,7 @@ Data interchange is critically important for most computing. Grid computing, Clo
 
 One can envisage three dominant kinds of data in the future, as follows:
 
+[arabic]
 . Textual data defined by a format specific schema such as XML[<<a-xml10,XML>>] or JSON[<<a-json,JSON>>].
 . Binary data in standard formats.
 . Data with DFDL descriptors.
@@ -234,6 +235,7 @@ Many properties are repeatedly expressed in the example for the sake of simplici
 
 DFDL maps data from a native textual or binary representation to an instance of an information set. This can be thought of as a data transformation. However, DFDL is not intended to be a general transformation language and DFDL does not intend to provide a mechanism to map data to arbitrary XML models. There are specific limitations on the data models that DFDL can work to:
 
+[arabic]
 . DFDL uses a subset of XML Schema; in particular, XML attributes cannot be used in the data model.
 . The order of the data in the data model must correspond to the order and structure of the data being described.
 . Recursive definitions are not supported.
@@ -248,6 +250,7 @@ DFDL is also not intended for describing generic formats like XML or JSON (for w
 
 The goals of version 1.0 are as follows:
 
+[arabic]
 . Leverage XML technology and concepts
 . Support very efficient parsers/formatters
 . Avoid features  that require unnecessary data copying
@@ -257,6 +260,7 @@ The goals of version 1.0 are as follows:
 
 The general features of version 1.0 are as follows:
 
+[loweralpha]
 . Text and binary data parsing and unparsing
 . Validate the data when parsing and unparsing using XSD validation.
 . Defaulted input and output for missing representations

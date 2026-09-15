@@ -5,6 +5,7 @@ The DFDL expression language allows the processing of values conforming to the d
 
 The main uses of the expression language are as follows:
 
+[arabic]
 . When a DFDL property needs to be set dynamically at parse time from the value of one or more elements of the data. Properties such as dfdl:initiator, dfdl:terminator, dfdl:length, dfdl:occursCount, and dfdl:separator accept an expression.
 . In a dfdl:assert annotation
 . In a dfdl:discriminator annotation to resolve uncertainty when parsing
@@ -360,6 +361,7 @@ Refer to XML Path Language (XPath) 2.0 [<<a-xpath,XPath>>] for a description of 
 
 Notes:
 
+[arabic]
 . Only _If_ and _path_ expression types are supported
 . Only the _child_, _parent_, and _self_ axes are supported
 . Predicates are only used to index arrays and so must be integer expressions otherwise a Schema Definition Error occurs

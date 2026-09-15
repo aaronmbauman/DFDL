@@ -50,6 +50,7 @@ The following regular expression constructs are not common to both ICU and pass-
 
 Notes:
 
+[arabic]
 . Implementations using Java 7 MUST set flag UNICODE_CASE by default to match ICU.
 . Implementations using Java 7 MUST set flag UNICODE_CHARACTER_CLASS by default to match ICU.
 
