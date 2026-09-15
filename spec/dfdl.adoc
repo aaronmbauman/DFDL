@@ -12,6 +12,7 @@
 :mn-output-extensions: xml,html,pdf,rxl
 :local-cache-only:
 :data-uri-image:
+:source-highlighter: false
 :publisher: ISO
 :technical-committee-number: 1
 :technical-committee: Information technology

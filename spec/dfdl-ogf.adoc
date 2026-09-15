@@ -12,6 +12,7 @@
 :mn-output-extensions: xml,html,pdf,rxl
 :local-cache-only:
 :data-uri-image:
+:source-highlighter: false
 :publisher: Open Grid Forum
 :docstage: 60
 :docsubstage: 60
