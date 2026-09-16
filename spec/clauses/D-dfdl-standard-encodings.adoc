@@ -144,20 +144,20 @@ XXXXXXX**0**
 
 The bits corresponding to the characters are shown in distinct colors below. The characters that each bit contributes to are written below each of the bits and in the corresponding color.
 
-[source%unnumbered,xml]
+[source%unnumbered,subs="+macros"]
 ----
-     01010101 01100111 10010010 00011010 10010011 11001101 01101000
+pass:[<span style="color:#FF0000">     0</span>]1010101 pass:[<span style="color:#92D050">01</span>]pass:[<span style="color:#FF0000">100111</span>] pass:[<span style="color:#7030A0">100</span>]pass:[<span style="color:#92D050">10010</span>] pass:[<span style="color:#FFC000">0001</span>]pass:[<span style="color:#7030A0">1010</span>] pass:[<span style="color:#00B0F0">10010</span>]pass:[<span style="color:#FFC000">011</span>] pass:[<span style="color:#C00000">110011</span>]pass:[<span style="color:#00B0F0">01</span>] 0110100pass:[<span style="color:#C00000">0</span>]
 Byte -----1-- -----2-- -----3-- -----4-- -----5-- -----6-- -----7--
-Char NUUUUUUU IINNNNNN TTTIIIII 1111TTTT 22222111 33333322 44444443
+Char pass:[<span style="color:#FF0000">N</span>]UUUUUUU pass:[<span style="color:#92D050">II</span>]pass:[<span style="color:#FF0000">NNNNNN </span>]pass:[<span style="color:#7030A0">TTT</span>]pass:[<span style="color:#92D050">IIIII</span>] pass:[<span style="color:#FFC000">1111</span>]pass:[<span style="color:#7030A0">TTTT</span>] pass:[<span style="color:#00B0F0">22222</span>]pass:[<span style="color:#FFC000">111</span>] pass:[<span style="color:#C00000">333333</span>]pass:[<span style="color:#00B0F0">22 </span>]4444444pass:[<span style="color:#C00000">3</span>]
 ----
 
 This kind of data is often better visualized by numbering the bytes in the opposite direction that is _right to left_, which leads to this presentation:
 
-[source%unnumbered,xml]
+[source%unnumbered,subs="+macros"]
 ----
-     01101000 11001101 10010011 00011010 10010010 01100111 01010101
+     0110100pass:[<span style="color:#FF0000">0 110011</span>]pass:[<span style="color:#00B0F0">01 10010</span>]pass:[<span style="color:#FFC000">011 0001</span>]pass:[<span style="color:#7030A0">1010 100</span>]pass:[<span style="color:#92D050">10010 01</span>]pass:[<span style="color:#FF0000">100111 0</span>]1010101
 Byte -----7-- -----6-- -----5-- -----4-- -----3-- -----2-- -----1--
-Char 44444443 33333322 22222111 1111TTTT TTTIIIII IINNNNNN NUUUUUUU
+Char 4444444pass:[<span style="color:#FF0000">3 333333</span>]pass:[<span style="color:#00B0F0">22 22222</span>]pass:[<span style="color:#FFC000">111 1111</span>]pass:[<span style="color:#7030A0">TTTT TTT</span>]pass:[<span style="color:#92D050">IIIII II</span>]pass:[<span style="color:#FF0000">NNNNNN N</span>]UUUUUUU
 ----
 
 In the above, the bits corresponding to each character code unit are more easily recognized, but the characters appear right-to-left (i.e., backward for English).
