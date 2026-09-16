@@ -92,4 +92,22 @@
     </xsl:attribute>
   </xsl:attribute-set>
 
+  <!--
+    Framing code examples.  GFD.240 draws a thin box round its code blocks and
+    fills it a light grey: 846 of its 860 code paragraphs carry a half-point
+    border on all four sides, and the published PDF renders the inside of the
+    box as #F3F3F3 against a white page.  The ISO stylesheet sets neither, so
+    the examples ran into the surrounding prose with nothing to mark them off.
+  -->
+  <xsl:attribute-set name="sourcecode-style">
+    <xsl:attribute name="background-color">#F3F3F3</xsl:attribute>
+    <xsl:attribute name="border">0.5pt solid black</xsl:attribute>
+    <xsl:attribute name="padding">4pt</xsl:attribute>
+    <xsl:attribute name="white-space">pre</xsl:attribute>
+    <xsl:attribute name="wrap-option">wrap</xsl:attribute>
+    <xsl:attribute name="role">Code</xsl:attribute>
+    <xsl:attribute name="font-family">Courier New, <xsl:value-of select="$font_noto_sans_mono"/></xsl:attribute>
+    <xsl:attribute name="margin-bottom">12pt</xsl:attribute>
+  </xsl:attribute-set>
+
 </xsl:stylesheet>
