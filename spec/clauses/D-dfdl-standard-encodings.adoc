@@ -184,6 +184,7 @@ byte:     7F         87         1C          0F
 byte pos: 4          3          2           1
 ----
 
+[[encoding-x-dfdl-us-ascii-6-bit-packed]]
 === Encoding X-DFDL-US-ASCII-6-BIT-PACKED
 
 This encoding is used by MIL-STD-6016D (See [<<a-milstd6016,MILSTD6016>>]) and a variety of related binary data standards.

@@ -110,4 +110,43 @@
     <xsl:attribute name="margin-bottom">12pt</xsl:attribute>
   </xsl:attribute-set>
 
+  <!--
+    Starting each clause on a new page.  GFD.240 sets a page break before 32 of
+    its 46 top-level headings; the ones without are front matter and the three
+    mandatory clauses that deliberately share a page.  Those three do not sit
+    among the numbered clauses here, so every clause at that level takes a break
+    except the first.
+
+    Metanorma's own <<< is not usable for this: at the top level it rewrites the
+    document into separate page sequences, which collapsed the PDF when tried.
+    The break goes on the heading because the clause block is built without an
+    attribute set to override, and the test counts clause ancestors rather than
+    naming the parent, because by the time this runs the clause has been
+    rewrapped and is no longer a child of sections.
+  -->
+  <xsl:attribute-set name="title-style">
+    <xsl:attribute name="font-size">13pt</xsl:attribute>
+    <xsl:attribute name="font-weight">bold</xsl:attribute>
+    <xsl:attribute name="space-after">8pt</xsl:attribute>
+    <xsl:attribute name="keep-with-next">always</xsl:attribute>
+    <xsl:attribute name="break-before">
+      <xsl:choose>
+        <xsl:when test="count(ancestor::*[local-name()='clause']) = 1
+                    and not(ancestor::*[local-name()='preface'])
+                    and not(ancestor::*[local-name()='annex'])
+                    and parent::*/preceding-sibling::*[local-name()='clause']">page</xsl:when>
+        <!--
+          GFD.240 also breaks before four headings a level down.  They are named
+          rather than matched by rule because nothing distinguishes them from
+          their neighbours: the source simply breaks before these four.
+        -->
+        <xsl:when test="parent::*/@anchor = 'properties-specific-to-number-with-binary-representation'
+                     or parent::*/@anchor = 'properties-specific-to-float-double-with-binary-representati'
+                     or parent::*/@anchor = 'sequence-groups-with-separators'
+                     or parent::*/@anchor = 'encoding-x-dfdl-us-ascii-6-bit-packed'">page</xsl:when>
+        <xsl:otherwise>auto</xsl:otherwise>
+      </xsl:choose>
+    </xsl:attribute>
+  </xsl:attribute-set>
+
 </xsl:stylesheet>
