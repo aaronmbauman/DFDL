@@ -15,8 +15,18 @@
 
   <xsl:attribute-set name="p-style">
     <xsl:attribute name="text-align">left</xsl:attribute>
-    <xsl:attribute name="margin-bottom">8pt</xsl:attribute>
     <xsl:attribute name="line-height">1.13</xsl:attribute>
+    <!--
+      List items sit closer together than paragraphs do.  GFD.240 gives a
+      bulleted item 3pt above and below where a paragraph gets 6pt after, so
+      its lists read as a group rather than as a run of separate paragraphs.
+    -->
+    <xsl:attribute name="margin-bottom">
+      <xsl:choose>
+        <xsl:when test="ancestor::*[local-name()='li']">3pt</xsl:when>
+        <xsl:otherwise>8pt</xsl:otherwise>
+      </xsl:choose>
+    </xsl:attribute>
   </xsl:attribute-set>
 
   <xsl:attribute-set name="note-style">
