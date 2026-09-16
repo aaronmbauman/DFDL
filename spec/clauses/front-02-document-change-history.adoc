@@ -1,3 +1,4 @@
+[[document-change-history]]
 == Document Change History
 
 // This section will become part of the Forward in an ISO PAS submission.

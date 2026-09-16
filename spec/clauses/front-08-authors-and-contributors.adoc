@@ -72,10 +72,7 @@ Foreword
 
 Obsoletes
 
-This document incorporates all errata and clarifications to earlier DFDL v1.0 specification documents and therefore obsoletes both:
-
-* GFD-P-R.207 dated September 2014 <<ref-obsolete-dfdl-207,[OBSOLETE_DFDL_207]>>
-* GFD-P-R.174 dated January 2011 <<ref-obsolete-dfdl-174,[OBSOLETE_DFDL_174]>>.
+include::../obsoletes.adoc[]
 
 This document has several errata corrections since the original February 2021 version that are detailed in the Document Change History on page ii.
 

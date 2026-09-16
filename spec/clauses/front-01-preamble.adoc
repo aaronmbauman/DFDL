@@ -60,12 +60,9 @@ Highlighted text here and in the Document Change History is to be deleted.
 
 [.underline]#Obsoletes#
 
-This document incorporates all errata and clarifications to earlier DFDL v1.0 specification documents and therefore obsoletes both:
+include::../obsoletes.adoc[]
 
-* GFD-P-R.207 dated September 2014 <<ref-obsolete-dfdl-207,[OBSOLETE_DFDL_207]>>
-* GFD-P-R.174 dated January 2011 <<ref-obsolete-dfdl-174,[OBSOLETE_DFDL_174]>>.
-
-This document has several errata corrections since the original February 2021 version that are detailed on the next page in the Document Change History.
+This document has several errata corrections since the original February 2021 version that are detailed in <<document-change-history,Document Change History>>.
 
 [.underline]#Copyright Notice#
 
