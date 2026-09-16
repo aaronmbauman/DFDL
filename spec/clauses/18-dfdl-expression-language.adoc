@@ -77,7 +77,7 @@ Note that the above algorithm ensures that each time a dfdl:newVariableInstance 
 The flags in the variable memory tuples are interpreted and modified as follows:
 
 .Memory States for Expression Language Variables
-[cols="3,1,2,1,1,2,2"]
+[cols="3,1,2,1,1,2,2",keep-lines-together=true]
 |===
 
 .2+| *DFDL annotation*
