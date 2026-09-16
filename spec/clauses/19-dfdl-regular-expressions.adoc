@@ -56,11 +56,17 @@ Notes:
 
 Additionally, the behaviour of the word character construct (\w) is not consistent in ICU and Java 7. In Java 7 \w is
 
-{empty}[\p\{Alpha}\p{gc=Mn}\p{gc=Me}\p{gc=Mc}\p\{Digit}\p{gc=Pc}],
+[%plain%unnumbered,cols="1,9"]
+|===
+|  | {empty}[\p\{Alpha}\p{gc=Mn}\p{gc=Me}\p{gc=Mc}\p\{Digit}\p{gc=Pc}],
+|===
 
 which is a larger set than ICU where \w is
 
-{empty}[\p\{Ll}\p\{Lu}\p\{Lt}\p\{Lo}\p\{Nd}].
+[%plain%unnumbered,cols="1,9"]
+|===
+|  | {empty}[\p\{Ll}\p\{Lu}\p\{Lt}\p\{Lo}\p\{Nd}].
+|===
 
 The use of \w is not recommended in DFDL regular expressions in conjunction with Unicode encodings, and an implementation MUST issue a warning if such usage is detected.
 
