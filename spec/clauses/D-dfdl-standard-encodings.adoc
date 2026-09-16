@@ -168,19 +168,21 @@ The bits below represent a 3-bit unsigned integer containing value 7, followed b
 
 The bits are written in increasing position and place value from _right-to-left_:
 
+[source%unnumbered]
+----
 1111111 1000011 1000010 1000001 111
-
 DEL     C       B       A       7
+----
 
 In the above example, if one numbers the bits from the right, starting with position 1, the character code for 'A' occupies bits 4 to 10. Ifone divides the data above into bytes with vertical bars one must start on the right to get:
 
+[source%unnumbered]
+----
 char:      DEL       C       B         A
-
 bits:     01111111 | 1000011 1 |000010 10 | 00001 111
-
 byte:     7F         87         1C          0F
-
 byte pos: 4          3          2           1
+----
 
 === Encoding X-DFDL-US-ASCII-6-BIT-PACKED
 

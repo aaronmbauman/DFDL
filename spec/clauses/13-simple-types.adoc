@@ -1464,15 +1464,29 @@ Now examine the 13 bits beginning at position 2, in the context where dfdl:byteO
 
 In this case, the bit positions are assigned differently. Below the bytes are shown left-to-right:
 
-Positions: 00000000 11111110 22222111 87654321 65432109 43210987 Bits: 01011010 10010010 00000000
-
-Hex values    5   A    9   2    0   0
+[source%unnumbered,subs="+quotes"]
+----
+Positions:
+00000000 11111110 22222111
+87654321 65432109 43210987
+Bits:
+##0101101##0 10##010010## 00000000
+Hex values
+   5   A    9   2    0   0
+----
 
 The bits of interest are highlighted above. Redisplaying this same data, but reversing the order of the bytes to right-to-left, then one gets:
 
-Positions: 22222111 11111110 00000000 43210987 65432109 87654321 Bits: 00000000 10010010 01011010
-
-Hex values    0   0    9   2    5   A
+[source%unnumbered,subs="+quotes"]
+----
+Positions:
+22222111 11111110 00000000
+43210987 65432109 87654321
+Bits:
+00000000 10##010010## ##0101101##0
+Hex values
+   0   0    9   2    5   A
+----
 
 The above shows more clearly the contiguous region of bits containing:
 
@@ -2243,9 +2257,9 @@ Annotation: dfdl:element, dfdl:simpleType
 
 Examples of packed decimal format calendars for December 14, 1923 and dfdl:calendarPattern of 'MMddyy' would be:
 
-* packed: (hexadecimal) 01 21 42 3C
-* bcd: (hexadecimal) 12 14 23
-* ibm4690Packed: (hexadecimal) 12 14 23
+* packed: (hexadecimal) `01 21 42 3C`
+* bcd: (hexadecimal) `12 14 23`
+* ibm4690Packed: (hexadecimal) `12 14 23`
 
 The 'C' nibble at the end of the 'packed' representation is a sign nibble, and the leading 0 nibble is just to align to a byte boundary..
 
