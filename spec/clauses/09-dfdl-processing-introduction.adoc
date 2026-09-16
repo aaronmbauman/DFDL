@@ -111,7 +111,7 @@ In the grammar tables below, the terminal symbols are shown in bold italic font.
 
 | AbsentElementRep
 | ::=
-| *Absent*
+| *_Absent_*
 
 | SimpleEmptyElementRep
 | ::=
@@ -123,31 +123,31 @@ In the grammar tables below, the terminal symbols are shown in bold italic font.
 
 | EmptyElementLeftFraming
 | ::=
-| LeadingAlignment *EmptyElementInitiator* PrefixLength
+| LeadingAlignment *_EmptyElementInitiator_* PrefixLength
 
 | EmptyElementRightFraming
 | ::=
-| *EmptyElementTerminator* TrailingAlignment
+| *_EmptyElementTerminator_* TrailingAlignment
 
 | SimpleLiteralNilElementRep
 | ::=
-| NilElementLeftFraming [*NilLiteralCharacters* \| NilElementLiteralContent] NilElementRightFraming
+| NilElementLeftFraming [*_NilLiteralCharacters_* \| NilElementLiteralContent] NilElementRightFraming
 
 | ComplexLiteralNilElementRep
 | ::=
-| NilElementLeftFraming *NilLiteralValue* NilElementRightFraming
+| NilElementLeftFraming *_NilLiteralValue_* NilElementRightFraming
 
 | NilElementLeftFraming
 | ::=
-| LeadingAlignment *NilElementInitiator* PrefixLength
+| LeadingAlignment *_NilElementInitiator_* PrefixLength
 
 | NilElementRightFraming
 | ::=
-| *NilElementTerminator* TrailingAlignment
+| *_NilElementTerminator_* TrailingAlignment
 
 | NilElementLiteralContent
 | ::=
-| *LeftPadding* *NilLiteralValue* RightPadOrFill
+| *_LeftPadding_* *_NilLiteralValue_* RightPadOrFill
 
 | SimpleNormalRep
 | ::=
@@ -159,11 +159,11 @@ In the grammar tables below, the terminal symbols are shown in bold italic font.
 
 | LeftFraming
 | ::=
-| LeadingAlignment *Initiator*
+| LeadingAlignment *_Initiator_*
 
 | RightFraming
 | ::=
-| *Terminator* TrailingAlignment
+| *_Terminator_* TrailingAlignment
 
 | PrefixLength
 | ::=
@@ -175,15 +175,15 @@ In the grammar tables below, the terminal symbols are shown in bold italic font.
 
 | SimpleContent
 | ::=
-| *LeftPadding* [ SimpleLogicalValue ]  RightPadOrFill
+| *_LeftPadding_* [ SimpleLogicalValue ]  RightPadOrFill
 
 | SimpleLogicalValue
 | ::=
-| *SimpleNormalValue* \| *NilLogicalValue*
+| *_SimpleNormalValue_* \| *_NilLogicalValue_*
 
 | ComplexContent
 | ::=
-| ComplexValue *ElementUnused*
+| ComplexValue *_ElementUnused_*
 
 | ComplexValue
 | ::=
@@ -195,7 +195,7 @@ In the grammar tables below, the terminal symbols are shown in bold italic font.
 
 | SequenceContent
 | ::=
-| {empty}[ *PrefixSeparator*  EnclosedContent [ *Separator* EnclosedContent ]* *PostfixSeparator* ]
+| {empty}[ *_PrefixSeparator_*  EnclosedContent [ *_Separator_* EnclosedContent ]* *_PostfixSeparator_* ]
 
 | Choice
 | ::=
@@ -203,7 +203,7 @@ In the grammar tables below, the terminal symbols are shown in bold italic font.
 
 | ChoiceContent
 | ::=
-| {empty}[ EnclosedContent ] *ChoiceUnused*
+| {empty}[ EnclosedContent ] *_ChoiceUnused_*
 
 | EnclosedContent
 | ::=
@@ -211,7 +211,7 @@ In the grammar tables below, the terminal symbols are shown in bold italic font.
 
 | Array
 | ::=
-| {empty}[ EnclosedElement [ *Separator* EnclosedElement ]*  [ *Separator* StopValue] ]
+| {empty}[ EnclosedElement [ *_Separator_* EnclosedElement ]*  [ *_Separator_* StopValue] ]
 
 | StopValue
 | ::=
@@ -219,15 +219,15 @@ In the grammar tables below, the terminal symbols are shown in bold italic font.
 
 | LeadingAlignment
 | ::=
-| *LeadingSkip* *AlignmentFill*
+| *_LeadingSkip_* *_AlignmentFill_*
 
 | TrailingAlignment
 | ::=
-| *TrailingSkip*
+| *_TrailingSkip_*
 
 | RightPadOrFill
 | ::=
-| *RightPadding* \| *RightFill* \| *RightPadding RightFill*
+| *_RightPadding_* \| *_RightFill_* \| *_RightPadding RightFill_*
 |===
 
 XML Schema and DFDL properties are used to control constraints on the terminals of the above grammar, as well as repetition (the "*" operator), and alternatives (the "|" operator). For a given set of XML Schema and DFDL properties, and prior data, any terminal may be allowed to be length zero, to contain specific data, or to contain a variety of different admissible data.
@@ -253,15 +253,15 @@ Some examples follow the definitions.
 
 An element occurrence has a _nil representation_ if the element declaration has XSD nillable property 'true' and the occurrence either:
 
-* conforms to the grammar for SimpleNilLiteralElementRep or ComplexNilLiteralElementRep. Specifically, the *NilElementInitiator* and *NilElementTerminator* regions must be conformant with property dfdl:nilValueDelimiterPolicyfootnote:[For dfdl:nilValueDelimiterPolicy, see Section <<properties-for-nillable-elements>> Properties for Nillable Elements.]. (If non-conformant it is not a Processing Error and the representation is not nil).
-* conforms to the grammar for SimpleNormalRep and its SimpleLogicalValue is *NilLogicalValue*.
+* conforms to the grammar for SimpleNilLiteralElementRep or ComplexNilLiteralElementRep. Specifically, the *_NilElementInitiator_* and *_NilElementTerminator_* regions must be conformant with property dfdl:nilValueDelimiterPolicyfootnote:[For dfdl:nilValueDelimiterPolicy, see Section <<properties-for-nillable-elements>> Properties for Nillable Elements.]. (If non-conformant it is not a Processing Error and the representation is not nil).
+* conforms to the grammar for SimpleNormalRep and its SimpleLogicalValue is *_NilLogicalValue_*.
 
 The LeadingAlignment, TrailingAlignment, PrefixLength regions may be present.
 
 [[empty-representation]]
 ==== Empty Representation
 
-An element occurrence has an _empty representation_ if the occurrence does not have a nil representation and it conforms to the grammar for SimpleEmptyElementRep or ComplexEmptyElementRep. Specifically, the *EmptyElementInitiator* and *EmptyElementTerminator* regions must be conformant with dfdl:emptyValueDelimiterPolicyfootnote:[For dfdl:emptyValueDelimiterPolicy, see Section <<properties-for-specifying-delimiters>> Properties for Specifying Delimiters.] and the occurrence's SimpleContent or ComplexContent region in the data must be of length zero. (If non-conformant it is not a Processing Error and the representation is not empty).
+An element occurrence has an _empty representation_ if the occurrence does not have a nil representation and it conforms to the grammar for SimpleEmptyElementRep or ComplexEmptyElementRep. Specifically, the *_EmptyElementInitiator_* and *_EmptyElementTerminator_* regions must be conformant with dfdl:emptyValueDelimiterPolicyfootnote:[For dfdl:emptyValueDelimiterPolicy, see Section <<properties-for-specifying-delimiters>> Properties for Specifying Delimiters.] and the occurrence's SimpleContent or ComplexContent region in the data must be of length zero. (If non-conformant it is not a Processing Error and the representation is not empty).
 
 LeadingAlignment, TrailingAlignment, PrefixLength regions may be present.
 

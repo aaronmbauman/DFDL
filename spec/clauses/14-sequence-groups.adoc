@@ -68,9 +68,9 @@ These properties combine to define the syntax for a sequence group with dfdl:seq
 
 In some sequences, the presence of separators alone is enough to establish occurrences within the sequence. Such a sequence is called a _positional_ sequence.
 
-*Positional sequence -* Each occurrence in the sequence can be identified by its position in the data. Typically, the components of such a sequence do not have an initiator. In some such sequences, the separators for optional zero-length occurrences may or must be omitted when at the end of the group. In DFDL, a sequence is considered positional if it contains only required elements and/or optional and array elements that have dfdl:occursCountKind 'implicit', 'fixed' or 'expression', and it has dfdl:separatorSuppressionPolicy 'never', 'trailingEmptyStrict'  or 'trailingEmpty'.
+*_Positional sequence -_* Each occurrence in the sequence can be identified by its position in the data. Typically, the components of such a sequence do not have an initiator. In some such sequences, the separators for optional zero-length occurrences may or must be omitted when at the end of the group. In DFDL, a sequence is considered positional if it contains only required elements and/or optional and array elements that have dfdl:occursCountKind 'implicit', 'fixed' or 'expression', and it has dfdl:separatorSuppressionPolicy 'never', 'trailingEmptyStrict'  or 'trailingEmpty'.
 
-*Non-positional sequence* - Occurrences in the sequence cannot be identified by their position in the data alone. Often the components of such a sequence have an initiator. Such sequences sometimes allow the separator to be omitted for optional zero-length occurrences anywhere in the sequence. Speculative parsing might need to be employed by the parser to identify each occurrence.  In DFDL, a sequence is non-positional if it contains any optional or array elements that have dfdl:occursCountKind 'parsed' or 'stopValue', and/or it has dfdl:separatorSuppressionPolicy 'anyEmpty'.
+*_Non-positional sequence_* - Occurrences in the sequence cannot be identified by their position in the data alone. Often the components of such a sequence have an initiator. Such sequences sometimes allow the separator to be omitted for optional zero-length occurrences anywhere in the sequence. Speculative parsing might need to be employed by the parser to identify each occurrence.  In DFDL, a sequence is non-positional if it contains any optional or array elements that have dfdl:occursCountKind 'parsed' or 'stopValue', and/or it has dfdl:separatorSuppressionPolicy 'anyEmpty'.
 
 .Properties for Sequence Groups with Separators
 [cols="1,3",options="header"]
@@ -98,7 +98,7 @@ Each string literal in the list, whether apparent in the schema, or returned as 
 
 If the above rules are not followed it is a Schema Definition Error.
 
-The *Separator, PrefixSeparator* and *PostfixSeparator*  regions contain one of the strings specified by the dfdl:separator property. When this property has "" (empty string) as its value then the separator region is of length zero.
+The *_Separator, PrefixSeparator_* and *_PostfixSeparator_*  regions contain one of the strings specified by the dfdl:separator property. When this property has "" (empty string) as its value then the separator region is of length zero.
 
 When parsing, the list of values is processed in a greedy manner, meaning it takes all the separators, that is, each of the string literals in the whitespace separated list, and matches them each against the data. The separator with the longest match is the one that is selected as having been 'found'. Once a matching separator is found, no other matches are subsequently attempted (i.e., there is no backtracking).
 
@@ -115,11 +115,11 @@ a| Enum
 
 Valid values 'infix', 'prefix', 'postfix'
 
-'infix' means the separator occurs between the elements in the *Separator* grammar region.
+'infix' means the separator occurs between the elements in the *_Separator_* grammar region.
 
-'prefix' means the separator occurs before each element in the *Separator* grammar region and the *PrefixSeparator* grammar region.
+'prefix' means the separator occurs before each element in the *_Separator_* grammar region and the *_PrefixSeparator_* grammar region.
 
-'postfix' means the separator occurs after each element in the *Separator* grammar region and the *PostfixSeparator* grammar region.
+'postfix' means the separator occurs after each element in the *_Separator_* grammar region and the *_PostfixSeparator_* grammar region.
 
 Annotation: dfdl:sequence, dfdl:group (sequence).
 
@@ -174,7 +174,7 @@ Where to expect a separator for optional content of zero-length is controlled by
 
 The following are definitions for terminology used in this section:
 
-*Potentially trailing element* – An array or optional element describes an occurrence that is said to be _potentially trailing_ if the element can have a zero length representation and is followed in its enclosing group definition by only these kinds of schema components:
+*_Potentially trailing element_* – An array or optional element describes an occurrence that is said to be _potentially trailing_ if the element can have a zero length representation and is followed in its enclosing group definition by only these kinds of schema components:
 
 [arabic]
 . calculated elements (those having dfdl:inputValueCalc)
@@ -183,9 +183,9 @@ The following are definitions for terminology used in this section:
 
 Intuitively, the array or optional element occurrence could be last.
 
-*Potentially trailing group* – A group is said to be _potentially trailing_ if the group has no framing and contains only potentially trailing element declarations/references, or recursively similar sequence or choice groups, and is followed in its enclosing group definition by only additional potentially trailing elements or potentially trailing groups.
+*_Potentially trailing group_* – A group is said to be _potentially trailing_ if the group has no framing and contains only potentially trailing element declarations/references, or recursively similar sequence or choice groups, and is followed in its enclosing group definition by only additional potentially trailing elements or potentially trailing groups.
 
-*Trailing or Actually Trailing* – An element occurrence or group occurrence in the data is said to be _actually trailing_ if it is potentially trailing and has zero-length representation and is not followed in the data by any other non-zero length element occurrence or group occurrence limited by the end of the enclosing sequence group.
+*_Trailing or Actually Trailing_* – An element occurrence or group occurrence in the data is said to be _actually trailing_ if it is potentially trailing and has zero-length representation and is not followed in the data by any other non-zero length element occurrence or group occurrence limited by the end of the enclosing sequence group.
 
 In the sections that follow, it is important to remember that the dfdl:separatorSuppressionPolicy property is carried on the sequence, while the XSD minOccurs, XSD maxOccurs and dfdl:occursCountKind properties are carried on an _element_ in that sequence.
 
@@ -256,13 +256,13 @@ The notation in each cell uses the "~" symbol to mean "followed by" in the data 
 
 The descriptions found in the cells of the matrix do not provide a parsing algorithm, but rather state declaratively a pattern that the data must match in order to be correctly parsed.
 
-*RepDef(min)* is short for "representation" and "defaultable". It means XSD minOccurs occurrences of nil, empty or normal representationfootnote:[Absent representation implies Processing Error for 'implicit' when less than or equal to XSD minOccurs.]. These are required occurrences, so default rules apply for empty representations. XSD minOccurs may be 0, in which case there are no required occurrences.
+*_RepDef(min)_* is short for "representation" and "defaultable". It means XSD minOccurs occurrences of nil, empty or normal representationfootnote:[Absent representation implies Processing Error for 'implicit' when less than or equal to XSD minOccurs.]. These are required occurrences, so default rules apply for empty representations. XSD minOccurs may be 0, in which case there are no required occurrences.
 
-*Rep(M)* means M occurrences of nil, empty, normal or absent representation. These are optional occurrences, so default rules do not apply for empty representations.
+*_Rep(M)_* means M occurrences of nil, empty, normal or absent representation. These are optional occurrences, so default rules do not apply for empty representations.
 
-*RepNonZero(1)* means an occurrence of a nil, empty or normal representation where such a representation does not have zero-lengthfootnote:[Absent representation always implies zero-length. Nil, empty, and normal representations can also be zero-length with the right combinations of properties. See Section <<zero-length-representation>> Zero-length Representation.]. This is an optional occurrence, so default rules do not apply.
+*_RepNonZero(1)_* means an occurrence of a nil, empty or normal representation where such a representation does not have zero-lengthfootnote:[Absent representation always implies zero-length. Nil, empty, and normal representations can also be zero-length with the right combinations of properties. See Section <<zero-length-representation>> Zero-length Representation.]. This is an optional occurrence, so default rules do not apply.
 
-A notation like *Rep(M pass-format:straightquotes[<=] max – min)* means that there are M occurrences, where M is some value between the values of the XSD minOccurs and XSD maxOccurs properties. When an unbounded number of occurrences is possible this is shown explicitly by _Rep(M < INF)_ , INF meaning infinity or unbounded.
+A notation like *_Rep(M pass-format:straightquotes[<=] max – min)_* means that there are M occurrences, where M is some value between the values of the XSD minOccurs and XSD maxOccurs properties. When an unbounded number of occurrences is possible this is shown explicitly by _Rep(M < INF)_ , INF meaning infinity or unbounded.
 
 ===== Errors When the Sequence is Positional
 
@@ -430,13 +430,13 @@ The behaviour for 'implicit' is more fully expressed in matrix form. The cells i
 
 The notation in each cell uses the "~" symbol to mean "followed by" in the output data stream.
 
-*N* stands for the number of elements in the augmented Infoset, which includes any defaults.
+*_N_* stands for the number of elements in the augmented Infoset, which includes any defaults.
 
-*unparse N occurrences* means output N unparsed Infoset items and associated separators.
+*_unparse N occurrences_* means output N unparsed Infoset items and associated separators.
 
-*unparse(M) trailing zero length occurrences* means output M adjacent separators (according to dfdl:separatorPosition) as if separating M element occurrences.
+*_unparse(M) trailing zero length occurrences_* means output M adjacent separators (according to dfdl:separatorPosition) as if separating M element occurrences.
 
-*(suppressing trailing zero-length reps)* implies the unparser MUST look ahead into the Infoset and determine when the representations are zero-length, and then identify those in trailing position. No separators are output corresponding to the trailing zero-length representations.
+*_(suppressing trailing zero-length reps)_* implies the unparser MUST look ahead into the Infoset and determine when the representations are zero-length, and then identify those in trailing position. No separators are output corresponding to the trailing zero-length representations.
 
 ===== Example Unparsing Scenarios
 

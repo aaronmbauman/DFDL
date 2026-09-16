@@ -28,7 +28,7 @@ a| Integer
 
 Only used when dfdl:choiceLengthKind is 'explicit'.
 
-Specifies the length of the choice in bytes, so the ChoiceContent region is fixed-length regardless of which branch appears. A *ChoiceUnused* region is therefore possible which when unparsing is filled with dfdl:fillByte.
+Specifies the length of the choice in bytes, so the ChoiceContent region is fixed-length regardless of which branch appears. A *_ChoiceUnused_* region is therefore possible which when unparsing is filled with dfdl:fillByte.
 
 Annotation: dfdl:choice, dfdl:group (choice)
 
@@ -88,9 +88,9 @@ A choice can have a dfdl: initiator and/or a dfdl:terminator as described earlie
 
 The explanation of choices requires this terminology:
 
-*Branch* - A _branch_ is one of the available alternatives within a choice. A branch can be an element of simple type or complex type, or it can be an embedded sequence, choice or group reference.
+*_Branch_* - A _branch_ is one of the available alternatives within a choice. A branch can be an element of simple type or complex type, or it can be an embedded sequence, choice or group reference.
 
-*Root of the Branch* - Each branch conceptually has a single schema component at its root which is an element, sequence, choice or group reference. This component is known as the Root of the Branch
+*_Root of the Branch_* - Each branch conceptually has a single schema component at its root which is an element, sequence, choice or group reference. This component is known as the Root of the Branch
 
 The Root of the Branch must not be optional. That is XSD minOccurs must be greater than zero.
 

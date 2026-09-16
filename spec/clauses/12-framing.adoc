@@ -21,7 +21,7 @@ The following properties are used to define alignment rules.
 | alignment
 a| Non-negative Integer or 'implicit'
 
-A non-negative number that gives the alignment required for the beginning of the item. If alignment is needed then the size of the *AlignmentFill* grammar region is non-zero if the item must be aligned to a boundary.
+A non-negative number that gives the alignment required for the beginning of the item. If alignment is needed then the size of the *_AlignmentFill_* grammar region is non-zero if the item must be aligned to a boundary.
 
 'implicit' specifies that the natural alignment for the representation type is used. See the table of implicit alignments <<implicit-alignment-in-bits>> Implicit Alignment in bits for simple elements. The 'implicit' alignment of a complex element is the alignment of its model group. The 'implicit' alignment of a model group is always 1. If alignment is 'implicit' then dfdl:alignmentUnits is ignored.
 
@@ -47,7 +47,7 @@ A single byte specified as a DFDL byte value entity or a single character. If a 
 
 Used on unparsing to fill empty space such as between two aligned elements.
 
-Used to fill these regions specified in the grammar: *RightFill*, *ElementUnused*, *ChoiceUnused,* *LeadingSkip*, *AlignmentFill*, and *TrailingSkip*.
+Used to fill these regions specified in the grammar: *_RightFill_*, *_ElementUnused_*, *ChoiceUnused,* *_LeadingSkip_*, *_AlignmentFill_*, and *_TrailingSkip_*.
 
 Annotation: dfdl:element, dfdl:simpleType, dfdl:sequence, dfdl:choice, dfdl:group
 
@@ -68,7 +68,7 @@ If dfdl:trailingSkip is specified when dfdl:lengthKind is 'delimited' then a dfd
 Annotation: dfdl:element, dfdl:simpleType, dfdl:sequence, dfdl:choice, dfdl:group
 |===
 
-There are two properties which control the data alignment by controlling the length of the *AlignmentFill* region
+There are two properties which control the data alignment by controlling the length of the *_AlignmentFill_* region
 
 * alignment - an integer 1 or greater
 * alignmentUnits - bits or bytes
@@ -77,9 +77,9 @@ An element's representation is aligned to N units if P is the first position in 
 
 For example, if dfdl:alignment is 4, and dfdl:alignmentUnits is 'bytes', then the element's representation must begin at 1 or 1 plus a multiple of 4 bytes.  That is, 1, 5, 9, 13, 17 and so on.
 
-The length of the *AlignmentFill* region is measured in bits. If alignmentUnits is 'bytes' then the processor multiplies the alignment value by 8 to get the bit alignment,  If the position in the data stream of the start of the *AlignmentFill* region is bit position N, then the length of the *AlignmentFill* region is the smallest non-negative integer L such that (L {plus} N) mod B = 1.  The position of the first bit of the aligned component is P = L {plus} N.
+The length of the *_AlignmentFill_* region is measured in bits. If alignmentUnits is 'bytes' then the processor multiplies the alignment value by 8 to get the bit alignment,  If the position in the data stream of the start of the *_AlignmentFill_* region is bit position N, then the length of the *_AlignmentFill_* region is the smallest non-negative integer L such that (L {plus} N) mod B = 1.  The position of the first bit of the aligned component is P = L {plus} N.
 
-The *LeadingSkip* and *TrailingSkip* regions length are controlled by two properties of corresponding names and the dfdl:alignmentUnits property.
+The *_LeadingSkip_* and *_TrailingSkip_* regions length are controlled by two properties of corresponding names and the dfdl:alignmentUnits property.
 
 ==== Implicit Alignment
 
@@ -144,7 +144,7 @@ Note: The above table specifies the implicit alignment in bits, but this does no
 [[mandatory-alignment-for-textual-data]]
 ==== Mandatory Alignment for Textual Data
 
-*Textual Data* – This term is used to describe data of type xs:string, data with dfdl:representation "text", as well as data being matched to delimiters (parsing) or output as delimiters (unparsing), and data being matched to regular expressions (parsing only pass-format:straightquotes[-] as in a dfdl:assert with testKind 'pattern', or an element with dfdl:lengthKind 'pattern').
+*_Textual Data_* – This term is used to describe data of type xs:string, data with dfdl:representation "text", as well as data being matched to delimiters (parsing) or output as delimiters (unparsing), and data being matched to regular expressions (parsing only pass-format:straightquotes[-] as in a dfdl:assert with testKind 'pattern', or an element with dfdl:lengthKind 'pattern').
 
 Textual data has mandatory alignment that is character-set-encoding dependent. That is, these mandates come from the character set encoding specified by the dfdl:encoding property.
 
@@ -166,13 +166,13 @@ Packed decimal data is data with dfdl:binaryNumberRepfootnote:[For dfdl:binaryNu
 
 ==== Example: AlignmentFill
 
-When dfdl:alignmentUnits is 'bits', and the dfdl:alignment is not a multiple of 8, then the dfdl:bitOrder property affects the alignment by controlling which bits are skipped as part of the grammar *AlignmentFill* region.
+When dfdl:alignmentUnits is 'bits', and the dfdl:alignment is not a multiple of 8, then the dfdl:bitOrder property affects the alignment by controlling which bits are skipped as part of the grammar *_AlignmentFill_* region.
 
-In general, the *AlignmentFill* region is _before_ the regions it is aligning, and within a byte, the meaning of _'before'_ is interpreted with respect to the dfdl:bitOrder.
+In general, the *_AlignmentFill_* region is _before_ the regions it is aligning, and within a byte, the meaning of _'before'_ is interpreted with respect to the dfdl:bitOrder.
 
-When dfdl:bitOrder is 'mostSignificantBitFirst', then bits with more significance are before bits with less significance, so the *AlignmentFill* region occupies the most significant bits of the byte.
+When dfdl:bitOrder is 'mostSignificantBitFirst', then bits with more significance are before bits with less significance, so the *_AlignmentFill_* region occupies the most significant bits of the byte.
 
-When dfdl:bitOrder is 'leastSignificantBitFirst', then bits with less significance are before bits with more significance, so the *AlignmentFill* region occupies the least significant bits of the byte.
+When dfdl:bitOrder is 'leastSignificantBitFirst', then bits with less significance are before bits with more significance, so the *_AlignmentFill_* region occupies the least significant bits of the byte.
 
 Consider a structure of 2 logical elements. Assume the length and alignment units are bits. (dfdl:lengthUnits='bits', dfdl:alignmentUnits='bits'), and that the data is binary with twos-complement binary integers (dfdl:representation='binary', dfdl:binaryNumberRep='binary'), and assume the data is at the beginning of the data stream.
 
@@ -202,7 +202,7 @@ Significance  M      L
 
 Bit Position  12345678
 
-In the above, the *AlignmentFill* region is marked with 'x' characters and contains all 0 bit values.
+In the above, the *_AlignmentFill_* region is marked with 'x' characters and contains all 0 bit values.
 
 In a format where dfdl:bitOrder is 'leastSignificantBitFirst' the presentation is different:
 
@@ -214,7 +214,7 @@ Significance  M      L
 
 Bit Position  87654321
 
-In the above the *AlignmentFill* region still appears before element 'B', and in this case that is in less significant bits of the byte than the bits of content of element 'B', and these bits are displayed to the right of the bits of element 'B'.
+In the above the *_AlignmentFill_* region still appears before element 'B', and in this case that is in less significant bits of the byte than the bits of content of element 'B', and these bits are displayed to the right of the bits of element 'B'.
 
 [[properties-for-specifying-delimiters]]
 === Properties for Specifying Delimiters
@@ -246,15 +246,15 @@ Each string literal in the list, whether apparent in the schema, or returned as 
 
 If the above rules are not followed it is a Schema Definition Error.
 
-The *Initiator* region contains one of the initiator strings defined by dfdl:initiator.
+The *_Initiator_* region contains one of the initiator strings defined by dfdl:initiator.
 
 When parsing, once a matching initiator is found, no other matches are subsequently attempted (i.e., there is no backtracking).
 
 When an initiator is specified, it is a Processing Error if the component is required and one of the values is not found.
 
-If dfdl:initiator is "" (the empty string), that is the way a DFDL schema expresses a format which does not use initiators. Hence, the *Initiator* region is of length zero.
+If dfdl:initiator is "" (the empty string), that is the way a DFDL schema expresses a format which does not use initiators. Hence, the *_Initiator_* region is of length zero.
 
-On unparsing the first initiator in the list is automatically inserted into the *Initiator* region.
+On unparsing the first initiator in the list is automatically inserted into the *_Initiator_* region.
 
 If dfdl:ignoreCase is 'yes' then the case of the string is ignored by the parser.
 
@@ -278,9 +278,9 @@ Each string literal in the list, whether apparent in the schema, or returned as 
 
 If the above rules are not followed it is a Schema Definition Error.
 
-The *Terminator* grammar region contains one of the terminator strings defined by dfdl:terminator.
+The *_Terminator_* grammar region contains one of the terminator strings defined by dfdl:terminator.
 
-If dfdl:terminator is "" (the empty string), that is the way a DFDL schema expresses a format which does not use terminators. Hence, the *Terminator* region is of length zero. It is not permitted for an expression to return an empty string, that is a Schema Definition Error.
+If dfdl:terminator is "" (the empty string), that is the way a DFDL schema expresses a format which does not use terminators. Hence, the *_Terminator_* region is of length zero. It is not permitted for an expression to return an empty string, that is a Schema Definition Error.
 
 When parsing, once a matching terminator is found, no other matches are subsequently attempted (i.e., there is no backtracking).
 
@@ -842,14 +842,14 @@ The use of dfdl:lengthKind 'endOfParent' is distinct from the situation where th
 
 When parsing an element with dfdl:lengthKind 'endOfParent', delimiter scanning is turned off and in-scope terminating delimiters are not looked for within the element.
 
-When unparsing an element with dfdl:lengthKind 'endOfParent', if the parent is a complex element with dfdl:lengthKind 'explicit' where dfdl:length is not an expression, or a choice with dfdl:choiceLengthKind 'explicit', then the element with dfdl:lengthKind 'endOfParent' is padded or filled in the usual manner to the required length, by completing the *LeftPadding*, *RightPad*, *RightFill*, *ElementUnused*, or *ChoiceUnused* regions of the data syntax grammar (Section <<dfdl-data-syntax-grammar>>) as appropriate.
+When unparsing an element with dfdl:lengthKind 'endOfParent', if the parent is a complex element with dfdl:lengthKind 'explicit' where dfdl:length is not an expression, or a choice with dfdl:choiceLengthKind 'explicit', then the element with dfdl:lengthKind 'endOfParent' is padded or filled in the usual manner to the required length, by completing the *_LeftPadding_*, *_RightPad_*, *_RightFill_*, *_ElementUnused_*, or *_ChoiceUnused_* regions of the data syntax grammar (Section <<dfdl-data-syntax-grammar>>) as appropriate.
 
 [[elements-of-specified-length]]
 ==== Elements of Specified Length
 
 An element has a specified length when dfdl:lengthKind is 'explicit', 'implicit' (simple type only)  or 'prefixed'. The units that the length represents are specified by the dfdl:lengthUnits property except where noted in Section <<dfdl-lengthkind-implicit>>.
 
-Using specified length, it is possible for an element to have content length longer than needed to represent just the data value. For example, a simple text element may be padded in the *RightPadding* region if the data is not long enough.
+Using specified length, it is possible for an element to have content length longer than needed to represent just the data value. For example, a simple text element may be padded in the *_RightPadding_* region if the data is not long enough.
 
 When an element has specified length but appears inside a complex type element having delimited length kind, delimiter scanning is turned off and in-scope delimiters are not looked for within or between elements.
 
@@ -880,8 +880,8 @@ For a textual element, the dfdl:lengthUnits property can be either 'bytes' or 'c
 
 If a textual element has dfdl:lengthUnits of 'bytes', and the dfdl:encoding is not SBCS, then it is possible for a partial character encoding to appear after the code units of the characters. In this case, the following rules apply:
 
-* When parsing, as many characters as possible are extracted from the bytes of the simple content region. Any left-over bytes are skipped. (They are considered part of the grammar *RightFill* region).
-* When unparsing, if the simple content region is larger than the encoded length of the element (as padded when dfdl:textPadKind is not 'none') then the remaining bytes, which are insufficient to hold another character code, are filled with dfdl:fillByte (Again, this is the grammar *RightFill* region.)
+* When parsing, as many characters as possible are extracted from the bytes of the simple content region. Any left-over bytes are skipped. (They are considered part of the grammar *_RightFill_* region).
+* When unparsing, if the simple content region is larger than the encoded length of the element (as padded when dfdl:textPadKind is not 'none') then the remaining bytes, which are insufficient to hold another character code, are filled with dfdl:fillByte (Again, this is the grammar *_RightFill_* region.)
 
 It is a Schema Definition Error if type is xs:string and dfdl:textPadKind is not 'none' and dfdl:lengthUnits is 'bytes' and dfdl:encoding is not an SBCS encoding and the XSD minLength facet is not zero. This prevents a scenario where validation against the XSD minLength facet is in characters, but padding would be performed in bytes.
 
@@ -1012,6 +1012,6 @@ The dfdl:fillByte is *not* used to trim an element of type xs:hexBinary when par
 
 A complex element of specified length is defining a 'box' in which its child elements exist. An example of this would be a fixed-length record element with a variable number of children elements. The dfdl:lengthUnits may be 'bytes' or 'characters' and it is a Schema Definition Error otherwise.
 
-It is possible that the children may not entirely fill the full length of the complex element. An example is a complex element with a specified length of 100 characters, which contains a sequence of child elements that use up less than 100 characters of data, perhaps because an optional element is not present. In this case the remaining unused data is called the ElementUnused region in the data syntax grammar of Section <<dfdl-data-syntax-grammar>>. Another example is a complex element with a specified length of 100 bytes, which contains a sequence of child elements the last of which has dfdl:lengthKind 'endOfParent', dfdl:representation 'text' and a multi-byte dfdl:encoding such that the element does not use up all the bytes of data. In this case the remaining unused bytes comprise the child element's *RightFill* region in the data syntax grammar of Section <<dfdl-data-syntax-grammar>>. In both examples, the unused area is skipped when parsing, and is filled with the dfdl:fillByte on unparsing.
+It is possible that the children may not entirely fill the full length of the complex element. An example is a complex element with a specified length of 100 characters, which contains a sequence of child elements that use up less than 100 characters of data, perhaps because an optional element is not present. In this case the remaining unused data is called the ElementUnused region in the data syntax grammar of Section <<dfdl-data-syntax-grammar>>. Another example is a complex element with a specified length of 100 bytes, which contains a sequence of child elements the last of which has dfdl:lengthKind 'endOfParent', dfdl:representation 'text' and a multi-byte dfdl:encoding such that the element does not use up all the bytes of data. In this case the remaining unused bytes comprise the child element's *_RightFill_* region in the data syntax grammar of Section <<dfdl-data-syntax-grammar>>. In both examples, the unused area is skipped when parsing, and is filled with the dfdl:fillByte on unparsing.
 
 Note that a poorly chosen value for dfdl:fillByte may fill the region with data that cannot be decoded in the character set encoding, resulting in a decode error when this data is subsequently parsed again. When dfdl:lengthUnits is 'characters' the value for dfdl:fillByte must be chosen to avoid this error.

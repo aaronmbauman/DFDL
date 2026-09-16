@@ -202,9 +202,9 @@ A DFDL string literal is therefore able to describe any arbitrary sequence of by
 
 Details on how a string literal is matched against the data stream for parsing are given in <<appendix-c-processing-of-dfdl-string-literals,Appendix C: Processing of DFDL String literals>>.
 
-*Empty String:* The special DFDL entity %ES; is provided for describing an empty string or an empty byte sequence. The %ES; entity is the only way to do this. A DFDL string literal with value "" (the empty string) is usually invalid. There are a few properties that explicitly allow an empty DFDL String Literal, and these properties assign a property-specific meaning to the empty string value.
+*_Empty String:_* The special DFDL entity %ES; is provided for describing an empty string or an empty byte sequence. The %ES; entity is the only way to do this. A DFDL string literal with value "" (the empty string) is usually invalid. There are a few properties that explicitly allow an empty DFDL String Literal, and these properties assign a property-specific meaning to the empty string value.
 
-*Whitespace:* When whitespace must be used as part of a property value, the DFDL string literal must use entities (such as %WSP;) to represent the whitespace. (This allows a property to represent lists of DFDL string literals by using literal spaces to separate list elements.)
+*_Whitespace:_* When whitespace must be used as part of a property value, the DFDL string literal must use entities (such as %WSP;) to represent the whitespace. (This allows a property to represent lists of DFDL string literals by using literal spaces to separate list elements.)
 
 ===== Character strings in DFDL String Literals
 

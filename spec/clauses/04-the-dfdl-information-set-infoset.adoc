@@ -1,7 +1,7 @@
 [[the-dfdl-information-set-infoset]]
 == The DFDL Information Set (Infoset)
 
-This section defines an abstract data set called the *DFDL Information Set* (*Infoset*). Its purpose is to define what is provided:
+This section defines an abstract data set called the *DFDL Information Set* (*_Infoset_*). Its purpose is to define what is provided:
 
 * to an invoking application by a DFDL parser when parsing DFDL-described data using a DFDL Schema;
 * to a DFDL unparser by an invoking application when generating DFDL-described data using a DFDL Schema
@@ -22,7 +22,7 @@ DFDL describes the format of the physical representation for data whose structur
 
 DFDL information sets may be created by methods (not described in this specification) other than parsing DFDL-described data.
 
-A DFDL information set consists of a number of *information items*; or just _items_ for short. The information set for any well-formed DFDL-described data contains at least a document information item and one element information item. An information item is an abstract description of a part of some DFDL-described data: each information item has a set of associated named *members*. In this specification, the member names are shown in square brackets, *[thus]*. The types of information item are listed in Section <<information-items>> Information Items.
+A DFDL information set consists of a number of *information items*; or just _items_ for short. The information set for any well-formed DFDL-described data contains at least a document information item and one element information item. An information item is an abstract description of a part of some DFDL-described data: each information item has a set of associated named *_members_*. In this specification, the member names are shown in square brackets, *[thus]*. The types of information item are listed in Section <<information-items>> Information Items.
 
 The DFDL Information Set does not require or favor a specific implementation interface paradigm. This specification presents the information set as a modified tree for the sake of clarity and simplicity, but there is no requirement that the DFDL Information Set be made available through a tree structure; other types of interfaces, including (but not limited to) event-based and query-based interfaces, are also capable of providing information conforming to the DFDL Information Set.
 
@@ -34,7 +34,7 @@ The DFDL Information Set does not have any specific support for comments. When a
 
 === "No Value''
 
-In the discussion of Information Items and their members below, some members may sometimes have the value *no value*, and it is said that such a member has no value. This value is distinct from all other values. In particular it is distinct from the empty string, the empty set, and the empty list, each of which simply has no members. The concept of no-value is also orthogonal to how nillable elements are represented in the Infoset, which uses a separate *[nilled]* boolean flag, not a distinguished value.
+In the discussion of Information Items and their members below, some members may sometimes have the value *_no value_*, and it is said that such a member has no value. This value is distinct from all other values. In particular it is distinct from the empty string, the empty set, and the empty list, each of which simply has no members. The concept of no-value is also orthogonal to how nillable elements are represented in the Infoset, which uses a separate *[nilled]* boolean flag, not a distinguished value.
 
 [[information-items]]
 === Information Items
@@ -57,9 +57,9 @@ The document information item has the following members:
 [[element-information-items]]
 ==== Element Information Items
 
-There is an *element information item* for each value parsed from the non-hidden DFDL-described data. This corresponds to an occurrence of a non-hidden element declaration of simple type in the DFDL Schema and is known as a *simple element information item*.
+There is an *element information item* for each value parsed from the non-hidden DFDL-described data. This corresponds to an occurrence of a non-hidden element declaration of simple type in the DFDL Schema and is known as a *_simple element information item_*.
 
-There is an *element information item* for each explicitly declared structure in the DFDL-described data. This corresponds to an occurrence of an element declaration of complex type in the DFDL Schema and is known as a *complex element information item*.
+There is an *element information item* for each explicitly declared structure in the DFDL-described data. This corresponds to an occurrence of an element declaration of complex type in the DFDL Schema and is known as a *_complex element information item_*.
 
 In this information set, as in an XML document, an array is just a set of adjacent elements with the same name and namespace.
 

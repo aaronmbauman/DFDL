@@ -102,11 +102,11 @@ a| Enum
 
 Valid values 'none', 'padChar'.
 
-Indicates whether to pad the data value on unparsing. This controls the contents of the *LeftPadding* and *RightPadding* regions of the data syntax grammar in Section <<dfdl-data-syntax-grammar>>
+Indicates whether to pad the data value on unparsing. This controls the contents of the *_LeftPadding_* and *_RightPadding_* regions of the data syntax grammar in Section <<dfdl-data-syntax-grammar>>
 
 'none': No padding occurs. When dfdl:lengthKind is 'implicit' or  'explicit' (and dfdl:length is not an expression) the unparsed data value must match the expected length otherwise it is a Processing Error.
 
-'padChar': The data value is padded using the dfdl:textStringPadCharacter, dfdl:textNumberPadCharacter, dfdl:textBooleanPadCharacter or dfdl:textCalendarPadCharacter  depending on the type of the element. The padding characters populate the *LeftPadding* and/or *RightPadding* regions depending on dfdl:textStringJustification(see Section <<properties-specific-to-string>>), dfdl:textNumberJustification (see Section <<properties-specific-to-number-with-text-representation>>), dfdl:textBooleanJustification (see Section <<properties-specific-to-boolean-with-text-representation>>), or dfdl:textCalendarJustification (see Section <<properties-specific-to-calendar-with-text-representation>>), depending on the type of the element.
+'padChar': The data value is padded using the dfdl:textStringPadCharacter, dfdl:textNumberPadCharacter, dfdl:textBooleanPadCharacter or dfdl:textCalendarPadCharacter  depending on the type of the element. The padding characters populate the *_LeftPadding_* and/or *_RightPadding_* regions depending on dfdl:textStringJustification(see Section <<properties-specific-to-string>>), dfdl:textNumberJustification (see Section <<properties-specific-to-number-with-text-representation>>), dfdl:textBooleanJustification (see Section <<properties-specific-to-boolean-with-text-representation>>), or dfdl:textCalendarJustification (see Section <<properties-specific-to-calendar-with-text-representation>>), depending on the type of the element.
 
 When dfdl:lengthKind is 'implicit' the data value is padded to the implicit length for the type.
 
@@ -123,11 +123,11 @@ a| Enum
 
 Valid values 'none', 'padChar'
 
-Indicates whether to trim data on parsing. This controls the expected contents of the *LeftPadding* and *RightPadding* regions of the data syntax grammar in Section <<dfdl-data-syntax-grammar>>.
+Indicates whether to trim data on parsing. This controls the expected contents of the *_LeftPadding_* and *_RightPadding_* regions of the data syntax grammar in Section <<dfdl-data-syntax-grammar>>.
 
 When 'none' no trimming takes place.
 
-When 'padChar' the element is trimmed of the dfdl:textStringPadCharacter, dfdl:textNumberPadCharacter, dfdl:textBooleanPadCharacter or dfdl:textCalendarPadCharacter  depending on the type of the element.  The padding characters populate the *LeftPadding* and/or *RightPadding* regions depending on dfdl:textStringJustification, dfdl:textNumberJustification, or dfdl:textCalendarJustification, depending on the type of the element.
+When 'padChar' the element is trimmed of the dfdl:textStringPadCharacter, dfdl:textNumberPadCharacter, dfdl:textBooleanPadCharacter or dfdl:textCalendarPadCharacter  depending on the type of the element.  The padding characters populate the *_LeftPadding_* and/or *_RightPadding_* regions depending on dfdl:textStringJustification, dfdl:textNumberJustification, or dfdl:textCalendarJustification, depending on the type of the element.
 
 Annotation: dfdl:element , dfdl:simpleType
 
@@ -2268,9 +2268,9 @@ DFDL allows elements of complex type to be nillable. However, to avoid the conce
 On parsing, an element occurrence is nil if the element has XSD nillable 'true' and the data is a nil representation as defined in Section <<nil-representation>>. Specifically:
 
 [arabic]
-. When dfdl:nilKind is 'literalValue', the *NilLiteralValue* region of the data stream matches any of the dfdl:nilValue values.
-. When dfdl:nilKind is 'literalCharacter', all characters in the *NilLiteralCharacters* region of the data stream match the dfdl:nilValue character.
-. When dfdl:nilKind is 'logicalValue', the data contains a normal representation, and the *NilLogicalValue* region of the data stream, converted to the element's logical type, matches any of the dfdl:nilValue values.
+. When dfdl:nilKind is 'literalValue', the *_NilLiteralValue_* region of the data stream matches any of the dfdl:nilValue values.
+. When dfdl:nilKind is 'literalCharacter', all characters in the *_NilLiteralCharacters_* region of the data stream match the dfdl:nilValue character.
+. When dfdl:nilKind is 'logicalValue', the data contains a normal representation, and the *_NilLogicalValue_* region of the data stream, converted to the element's logical type, matches any of the dfdl:nilValue values.
 
 For dfdl:nilKind 'literalValue' or 'literalCharacter':
 
@@ -2280,9 +2280,9 @@ For dfdl:nilKind 'literalValue' or 'literalCharacter':
 On unparsing, an element is nil if XSD nillable is 'true' AND the element information item in the augmented Infoset has the *[nilled]* member as true, in which case what is output to the data stream is one of the following:
 
 [arabic]
-. When dfdl:nilKind is 'logicalValue' then the first value of dfdl:nilValue converted to the physical representation is output as the *NilLogicalValue* region.
-. When dfdl:nilKind is 'literalValue' then the first value of dfdl:nilValue is output as the *NilLiteralValue* region.
-. When dfdl:nilKind is 'literalCharacter' then the character from dfdl:nilValue, repeated to the needed length, is output as the *NilLiteralCharacters* region.
+. When dfdl:nilKind is 'logicalValue' then the first value of dfdl:nilValue converted to the physical representation is output as the *_NilLogicalValue_* region.
+. When dfdl:nilKind is 'literalValue' then the first value of dfdl:nilValue is output as the *_NilLiteralValue_* region.
+. When dfdl:nilKind is 'literalCharacter' then the character from dfdl:nilValue, repeated to the needed length, is output as the *_NilLiteralCharacters_* region.
 
 For dfdl:nilKind 'literalValue' or 'literalCharacter' then dfdl:nilValueDelimiterPolicy determines whether any initiator or terminator also appear surrounding the literal nil in the output data.
 

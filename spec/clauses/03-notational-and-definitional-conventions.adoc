@@ -22,9 +22,9 @@ Where the phrase "MUST be consistent with" is used, it is assumed that a conform
 
 There are several kinds of failures that can occur when a DFDL processor is handling data and/or a DFDL schema. These are:
 
-* *Schema Definition Error* or *SDE* for short - these indicate the DFDL schema is not meaningful. They are generally fatal errors that prevent or stop processing of data.
-* *Processing Error* - These are errors that occur when parsing or unparsing.
+* *_Schema Definition Error_* or *_SDE_* for short - these indicate the DFDL schema is not meaningful. They are generally fatal errors that prevent or stop processing of data.
+* *_Processing Error_* - These are errors that occur when parsing or unparsing.
 ** At parse time, Processing Errors can cause the parser to search (such as via backtracking) for alternative ways to parse the data as are allowed by the DFDL schema. In that sense parse-time Processing Errors guide the parsing, and when the parser finds an alternative way to parse the data, a prior parse error is said to have been _suppressed_. A parse error that is not suppressed MUST terminate parsing with a diagnostic message.
 ** At unparse-time, Processing Errors are generally fatal. They MUST cause unparsing to stop with a diagnostic message.
-* *Validation Error* - These are errors when optional validation checking is available and enabled. Validation Errors MUST NOT stop, nor influence, parsing or unparsing behavior. Validation Errors are effectively warnings indicating lack of conformance of the parser output, or the unparser input, with the XML Schema facet constraints, or  the XSD maxOccurs and XSD minOccurs values.
-* *Recoverable Error* - In addition to using XML Schema validation, DFDL also provides the ability to add Recoverable Error assertions to a DFDL schema. These cause diagnostic messages to be created but MUST NOT stop, nor influence, parsing or unparsing behavior.
+* *_Validation Error_* - These are errors when optional validation checking is available and enabled. Validation Errors MUST NOT stop, nor influence, parsing or unparsing behavior. Validation Errors are effectively warnings indicating lack of conformance of the parser output, or the unparser input, with the XML Schema facet constraints, or  the XSD maxOccurs and XSD minOccurs values.
+* *_Recoverable Error_* - In addition to using XML Schema validation, DFDL also provides the ability to add Recoverable Error assertions to a DFDL schema. These cause diagnostic messages to be created but MUST NOT stop, nor influence, parsing or unparsing behavior.
