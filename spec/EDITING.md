@@ -9,6 +9,22 @@ Before pushing, run:
 
 which lints the tools, builds the document and runs the validators against it.
 
+## How the source is written
+
+One sentence per line. Line breaks never reach the page, and a diff then names
+the sentence that changed rather than the whole paragraph.
+
+No line-length limit. Some sentences here are very long, and wrapping them puts
+the breaks in arbitrary places that move on the next edit. Set your editor to
+soft-wrap.
+
+Don't reflow a paragraph you aren't otherwise changing. It rewrites every line
+and buries the edit.
+
+The converted text doesn't follow the sentence rule everywhere yet; about a
+fifth of its prose lines hold more than one. Split those as you touch them
+rather than sweeping the document.
+
 ## Changing existing text
 
 Edit the clause file. The names carry the clause number the specification gives
