@@ -5,7 +5,6 @@
 :copyright-year: 2026
 :language: en
 :script: Latn
-:title-intro-en: Information technology
 :title-main-en: Data Format Description Language (DFDL) v1.0 Specification
 :mn-document-class: iso
 :i18nyaml: i18n-en.yaml
