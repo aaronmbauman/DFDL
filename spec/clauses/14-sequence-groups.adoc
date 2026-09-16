@@ -73,7 +73,7 @@ In some sequences, the presence of separators alone is enough to establish occur
 *_Non-positional sequence_* - Occurrences in the sequence cannot be identified by their position in the data alone. Often the components of such a sequence have an initiator. Such sequences sometimes allow the separator to be omitted for optional zero-length occurrences anywhere in the sequence. Speculative parsing might need to be employed by the parser to identify each occurrence.  In DFDL, a sequence is non-positional if it contains any optional or array elements that have dfdl:occursCountKind 'parsed' or 'stopValue', and/or it has dfdl:separatorSuppressionPolicy 'anyEmpty'.
 
 .Properties for Sequence Groups with Separators
-[cols="1,3",options="header"]
+[cols="2,5",options="header"]
 |===
 
 | Property Name

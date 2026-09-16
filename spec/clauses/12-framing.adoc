@@ -224,7 +224,7 @@ The following properties apply to all objects that use text delimiters to delimi
 When parsing, there can be multiple delimiter candidates to be matched against the data stream. The matching is performed in a _longest-match preferred_ manner. That is, each of the delimiter candidates is matched against the data, taking the longest match possible for that candidate. Then across all the delimiter candidates, the one with the longest match is the one that is selected as having been found. Once a matching delimiter is found, no other matches are subsequently attempted (i.e., there is no backtracking to try shorter matches.) Additional details on the matching of DFDL String Literals are given in <<appendix-c-processing-of-dfdl-string-literals,Appendix C: Processing of DFDL String literals>>.
 
 .Properties for Specifying Delimiters
-[cols="1,2",options="header"]
+[cols="2,3",options="header"]
 |===
 
 | Property Name

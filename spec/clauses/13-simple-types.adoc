@@ -91,7 +91,7 @@ The permitted representation properties for each logical type are shown in <<log
 === Properties Common to All Simple Types with Text representation
 
 .Properties Common to All Simple Types with Text Representation
-[cols="1,4",options="header"]
+[cols="2,7",options="header"]
 |===
 
 | Property Name
@@ -2213,7 +2213,7 @@ Annotation: dfdl:element, dfdl:simpleType
 === Properties Specific to Calendar with Binary Representation
 
 .Properties Specific to Calendar with Binary Representation
-[cols="1,4",options="header"]
+[cols="2,7",options="header"]
 |===
 
 | Property Name
