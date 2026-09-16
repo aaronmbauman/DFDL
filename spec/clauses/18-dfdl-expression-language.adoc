@@ -746,7 +746,9 @@ a| Returns the timezone component, if any, of $arg as an xs:string. The $arg is 
 
 If $arg has a timezone component, then the result is a string in the format of an ISO Time zone designator. Interpreted as an offset from UTC, its value may range from +14:00 to -14:00 hours, both inclusive. The UTC time zone is represented as "+00:00". If the $arg has no timezone component, then "" (empty string) is returned.
 
-| dfdl:checkRangeInclusive($node, $val1, $val2) dfdl:checkRangeExclusive($node, $val1, $val2)
+a| dfdl:checkRangeInclusive($node, $val1, $val2)
+
+dfdl:checkRangeExclusive($node, $val1, $val2)
 | Returns boolean true if the specified node value is in the range given by $val1 and $val2.  The type of $val1 and $val2 must be compatible with the type of $node, and must be a derivative of xs:decimal, xs:float or xs:double. It is a Schema Definition Error if the $node argument is a complex element.
 |===
 
