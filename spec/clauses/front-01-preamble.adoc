@@ -1,4 +1,5 @@
-Data Format Description Language (DFDL) v1.0 Specification
+[align=center]
+pass:[<span style="font-size:16;font-family:Arial"><strong>Data Format Description Language (DFDL) v1.0 Specification</strong></span>]
 
 // (The above must be style 'Heading', not 'Title" to avoid a ToC entry.)
 
@@ -47,7 +48,7 @@ Data Format Description Language (DFDL) v1.0 Specification
 // Add a bookmark at the primary table entry for the property. For properties I suggest the name is p_byteOrder, i.e., begin them all with 'p_'. Other things that are not actually properties like dfdl:format and dfdl:setVariable can still be done the same way, using 'p_' prefixes.
 // Insert a "link" to the bookmark (note: not a cross reference to it) See (3) above in the discussion of cross-reference and bibliography links.
 
-Status of This Document
+[.underline]#Status of This Document#
 
 Grid Final Draft (GFD)
 
@@ -57,7 +58,7 @@ Note that this preparation draft has change tracking enabled.
 
 Highlighted text here and in the Document Change History is to be deleted.
 
-Obsoletes
+[.underline]#Obsoletes#
 
 This document incorporates all errata and clarifications to earlier DFDL v1.0 specification documents and therefore obsoletes both:
 
@@ -66,12 +67,12 @@ This document incorporates all errata and clarifications to earlier DFDL v1.0 sp
 
 This document has several errata corrections since the original February 2021 version that are detailed on the next page in the Document Change History.
 
-Copyright Notice
+[.underline]#Copyright Notice#
 
 Copyright © Global Grid Forum (2004-2006).  Some Rights Reserved. Distribution is unlimited.
 
 Copyright © Open Grid Forum (2006-2026).  Some Rights Reserved. Distribution is unlimited.
 
-Abstract
+[.underline]#Abstract#
 
 This document provides a definition of a standard Data Format Description Language (DFDL).  This language allows description of text, dense binary, and legacy data formats in a vendor-neutral declarative manner. DFDL is an extension to the XML Schema Description Language (XSD).
