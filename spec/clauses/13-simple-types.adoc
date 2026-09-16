@@ -693,7 +693,7 @@ a| DFDL String Literal
 
 The value used to represent NaN.
 
-*NaN* is represented as a string and the positive or negative prefixes and suffixes from the dfdl:textNumberPattern are not used.
+NaN is represented as a string and the positive or negative prefixes and suffixes from the dfdl:textNumberPattern are not used.
 
 This property is applicable when dfdl:textNumberRep is 'standard', dfdl:textStandardBase is 10 and the simple type is float or double.
 

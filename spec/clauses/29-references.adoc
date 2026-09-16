@@ -2,7 +2,7 @@
 == References
 
 * [[[a-asn1,ASN1]]] "Introduction to ASN.1", link:https://www.itu.int/en/ITU-T/asn1/Pages/introduction.aspx[https://www.itu.int/en/ITU-T/asn1/Pages/introduction.aspx]
-* [[[a-asn1cer,ASN1CER]]] *X.690 : Information technology - ASN.1 encoding rules: Specification of Basic Encoding Rules (BER), Canonical Encoding Rules (CER) and Distinguished Encoding Rules (DER)* link:https://www.itu.int/rec/dologin_pub.asp?lang=e&id=T-REC-X.690-200811-S!!PDF-E&type=items[https://www.itu.int/rec/dologin_pub.asp?lang=e&id=T-REC-X.690-200811-S!!PDF-E&type=items]
+* [[[a-asn1cer,ASN1CER]]] X.690 : Information technology - ASN.1 encoding rules: Specification of Basic Encoding Rules (BER), Canonical Encoding Rules (CER) and Distinguished Encoding Rules (DER) link:https://www.itu.int/rec/dologin_pub.asp?lang=e&id=T-REC-X.690-200811-S!!PDF-E&type=items[https://www.itu.int/rec/dologin_pub.asp?lang=e&id=T-REC-X.690-200811-S!!PDF-E&type=items]
 * [[[ref-asn1ecn,ASN1ECN]]] "ASN.1 Encoding Control Notation," link:https://www.itu.int/en/ITU-T/asn1/Pages/ecn.aspx[https://www.itu.int/en/ITU-T/asn1/Pages/ecn.aspx]
 * [[[ref-asn1per,ASN1PER]]] [[a-asn1per]]"ASN.1 Packed Encoding Rules (PER)," link:https://www.itu.int/rec/dologin_pub.asp?lang=e&id=T-REC-X.691-200811-S!!PDF-E&type=items[https://www.itu.int/rec/dologin_pub.asp?lang=e&id=T-REC-X.691-200811-S!!PDF-E&type=items]
 * [[[a-avro,AVRO]]] "Avro," link:http://avro.apache.org/docs/1.3.0/spec.html[http://avro.apache.org/docs/1.3.0/spec.html]
