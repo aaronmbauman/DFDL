@@ -247,41 +247,39 @@ Consider a structure of 4 logical elements. The total length is 16 bits.
 
 Assume the lengths here are measured in bits (dfdl:lengthUnitsfootnote:[For dfdl:lengthUnits, see Section <<properties-for-specifying-lengths>> Properties for Specifying Lengths.] is 'bits'), and that these are binary integers (dfdl:representation is 'binary', dfdl:binaryNumberRepfootnote:[For dfdl:binaryNumberRep, see Section <<properties-specific-to-number-with-binary-representation>> Properties Specific to Number with Binary Representation.] is 'binary'):
 
-[source%unnumbered,xml]
+[source%unnumbered,subs="+macros"]
 ----
-<element name="A" type="xs:int" dfdl:length="3"/> <!-- having value 3 -->
-<element name="B" type="xs:int" dfdl:length="7"/> <!-- having value 9 -->
-<element name="C" type="xs:int" dfdl:length="4"/> <!-- having value 5 -->
-<element name="D" type="xs:int" dfdl:length="2"/> <!-- having value 1 -->
+pass:[<span style="color:#0070C0">&lt;element name="A" type="xs:int" dfdl:length="3"/&gt; &lt;!-- having value 3 --&gt;</span>]
+pass:[<span style="color:#FF0000">&lt;element name="B" type="xs:int" dfdl:length="7"/&gt; &lt;!-- having value 9 --&gt;</span>]
+pass:[<span style="color:#00B050">&lt;element name="C" type="xs:int" dfdl:length="4"/&gt; &lt;!-- having value 5 --&gt;</span>]
+pass:[<span style="color:#BF8F00">&lt;element name="D" type="xs:int" dfdl:length="2"/&gt; &lt;!-- having value 1 --&gt;</span>]
 ----
 
 The above are colorized to highlight the corresponding bits in the data below.
 
 In a format where dfdl:bitOrder is 'mostSignificantBitFirst':
 
-01100010 01010101
-
-AAABBBBB BBCCCCDD
-
+[source%unnumbered,subs="+macros"]
+----
+              pass:[<span style="color:#0070C0">011</span>]pass:[<span style="color:#FF0000">00010 01</span>]pass:[<span style="color:#00B050">0101</span>]pass:[<span style="color:#7030A0">01</span>]
+              pass:[<span style="color:#0070C0">AAA</span>]pass:[<span style="color:#FF0000">BBBBB BB</span>]pass:[<span style="color:#00B050">CCCC</span>]pass:[<span style="color:#7030A0">DD</span>]
 Significance  M      L M      L
-
-Bit Position  12345678 12345678
-
-Byte Position pass-format:straightquotes[----]1pass-format:straightquotes[---] pass-format:straightquotes[----]2pass-format:straightquotes[---]
+Bit Position  pass:[<span style="color:#00B0F0">123</span>]pass:[<span style="color:#FF0000">45678 12</span>]pass:[<span style="color:#00B050">3456</span>]pass:[<span style="color:#7030A0">78</span>]
+Byte Position ----1--- ----2---
+----
 
 As presented here, the bits corresponding to each element appear left to right, and all bits for an individual element are adjacent. Within the bits of an individual element the most significant bit is on the left, least significant on the right, consistent with the way the bytes themselves are presented.
 
 In contrast, in a format where dfdl:bitOrder is 'leastSignificantBitFirst':
 
-01001011 01010100
-
-BBBBBAAA DDCCCCBB
-
+[source%unnumbered,subs="+macros"]
+----
+              pass:[<span style="color:#FF0000">01001</span>]pass:[<span style="color:#0070C0">011</span>] pass:[<span style="color:#7030A0">01</span>]pass:[<span style="color:#00B050">0101</span>]pass:[<span style="color:#FF0000">00</span>]
+              pass:[<span style="color:#FF0000">BBBBB</span>]pass:[<span style="color:#0070C0">AAA</span>] pass:[<span style="color:#7030A0">DD</span>]pass:[<span style="color:#00B050">CCCC</span>]pass:[<span style="color:#FF0000">BB</span>]
 Significance  M      L M      L
-
-Bit Position  87654321 87654321
-
-Byte Position pass-format:straightquotes[----]1pass-format:straightquotes[---] pass-format:straightquotes[----]2pass-format:straightquotes[---]
+Bit Position  pass:[<span style="color:#FF0000">87654</span>]pass:[<span style="color:#0070C0">321</span>] pass:[<span style="color:#7030A0">87</span>]pass:[<span style="color:#00B050">6543</span>]pass:[<span style="color:#FF0000">21</span>]
+Byte Position ----1--- ----2---
+----
 
 In the above presentation note how the bits of the element 'B' do not appear adjacent to each other. The most significant bits of byte N are adjacent to the least significant bits of byte N+1.
 
@@ -289,15 +287,14 @@ In the above presentation note how the bits of the element 'B' do not appear adj
 
 When working exclusively with data having dfdl:bitOrder 'leastSignificantBitFirst', it is useful to present data with bytes Right to Left. That is, with the bytes starting at byte 1 on the right and increasing to the left.
 
-01010100 01001011
-
-DDCCCCBB BBBBBAAA
-
+[source%unnumbered,subs="+macros"]
+----
+              pass:[<span style="color:#7030A0">01</span>]pass:[<span style="color:#00B050">0101</span>]pass:[<span style="color:#FF0000">00 01001</span>]pass:[<span style="color:#0070C0">011</span>]
+              pass:[<span style="color:#7030A0">DD</span>]pass:[<span style="color:#00B050">CCCC</span>]pass:[<span style="color:#FF0000">BB BBBBB</span>]pass:[<span style="color:#0070C0">AAA</span>]
 Significance  M      L M      L
-
-Bit Position  87654321 87654321
-
-Byte Position pass-format:straightquotes[----]2pass-format:straightquotes[---] pass-format:straightquotes[----]1pass-format:straightquotes[---]
+Bit Position  pass:[<span style="color:#7030A0">87</span>]pass:[<span style="color:#00B050">6543</span>]pass:[<span style="color:#FF0000">21 87654</span>]pass:[<span style="color:#0070C0">321</span>]
+Byte Position ----2--- ----1---
+----
 
 With this reorientation, the bits of the element 'B' are once again displayed adjacently. Within the bits of an individual element the most significant bit is on the left, least significant on the right, consistent with the way the bytes themselves are presented.
 

@@ -176,43 +176,37 @@ When dfdl:bitOrder is 'leastSignificantBitFirst', then bits with less significan
 
 Consider a structure of 2 logical elements. Assume the length and alignment units are bits. (dfdl:lengthUnits='bits', dfdl:alignmentUnits='bits'), and that the data is binary with twos-complement binary integers (dfdl:representation='binary', dfdl:binaryNumberRep='binary'), and assume the data is at the beginning of the data stream.
 
-[source%unnumbered,xml]
+[source%unnumbered,subs="+macros"]
 ----
-<element name="A" type="xs:int" dfdl:length="2" dfdl:alignment='8'/>
+pass:[<span style="color:#0070C0">&lt;element name="A" type="xs:int" dfdl:length="2" dfdl:alignment='8'/&gt;</span>]
+pass:[<span style="color:#0070C0">&lt;!-- having value 1 --&gt;</span>]
+pass:[<span style="color:#FF0000">&lt;element name="B" type="xs:int" dfdl:length="4" dfdl:alignment='4'/&gt;</span>]
+pass:[<span style="color:#FF0000">&lt;!-- having value 5 --&gt;</span>]
 ----
-
-<!pass-format:straightquotes[--] having value 1 pass-format:straightquotes[-->]
-
-[source%unnumbered,xml]
-----
-<element name="B" type="xs:int" dfdl:length="4" dfdl:alignment='4'/>
-----
-
-<!pass-format:straightquotes[--] having value 5 pass-format:straightquotes[-->]
 
 The above are colorized to highlight the corresponding bits in the data below. The total length due to the alignment region appearing before element 'B' is 8 bits.
 
 In a format where dfdl:bitOrder is 'mostSignificantBitFirst' the data can be visualized as:
 
-01000101
-
-AAxxBBBB
-
+[source%unnumbered,subs="+macros"]
+----
+              pass:[<span style="color:#0070C0">01</span>]pass:[<span style="color:#00B050">00</span>]pass:[<span style="color:#FF0000">0101</span>]
+              pass:[<span style="color:#0070C0">AA</span>]pass:[<span style="color:#00B050">xx</span>]pass:[<span style="color:#FF0000">BBBB</span>]
 Significance  M      L
-
-Bit Position  12345678
+Bit Position  pass:[<span style="color:#00B0F0">12</span>]pass:[<span style="color:#00B050">34</span>]pass:[<span style="color:#FF0000">5678</span>]
+----
 
 In the above, the *_AlignmentFill_* region is marked with 'x' characters and contains all 0 bit values.
 
 In a format where dfdl:bitOrder is 'leastSignificantBitFirst' the presentation is different:
 
-01010001
-
-BBBBxxAA
-
+[source%unnumbered,subs="+macros"]
+----
+              pass:[<span style="color:#FF0000">0101</span>]pass:[<span style="color:#00B050">00</span>]pass:[<span style="color:#0070C0">01</span>]
+              pass:[<span style="color:#FF0000">BBBB</span>]pass:[<span style="color:#00B050">xx</span>]pass:[<span style="color:#0070C0">AA</span>]
 Significance  M      L
-
-Bit Position  87654321
+Bit Position  pass:[<span style="color:#FF0000">8765</span>]pass:[<span style="color:#00B050">43</span>]pass:[<span style="color:#00B0F0">21</span>]
+----
 
 In the above the *_AlignmentFill_* region still appears before element 'B', and in this case that is in less significant bits of the byte than the bits of content of element 'B', and these bits are displayed to the right of the bits of element 'B'.
 
