@@ -7,10 +7,7 @@
 [abstract]
 == Abstract
 
-This document provides a definition of a standard Data Format Description
-Language (DFDL). This language allows description of text, dense binary, and
-legacy data formats in a vendor-neutral declarative manner. DFDL is an
-extension to the XML Schema Description Language (XSD).
+include::../abstract.adoc[]
 
 // The specification numbers its own clauses from the Introduction, so the
 // sections that precede it stay unnumbered in both editions.

@@ -75,4 +75,4 @@ Copyright © Open Grid Forum (2006-2026).  Some Rights Reserved. Distribution is
 
 [.underline]#Abstract#
 
-This document provides a definition of a standard Data Format Description Language (DFDL).  This language allows description of text, dense binary, and legacy data formats in a vendor-neutral declarative manner. DFDL is an extension to the XML Schema Description Language (XSD).
+include::../abstract.adoc[]
