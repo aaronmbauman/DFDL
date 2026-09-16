@@ -33,7 +33,7 @@ STEM  := dfdl
 
 EDITIONS := iso ogf
 EDITION  ?= iso
-SPEC_iso := spec/dfdl.adoc
+SPEC_iso := spec/dfdl-iso.adoc
 SPEC_ogf := spec/dfdl-ogf.adoc
 SPEC     := $(SPEC_$(EDITION))
 BUILD    := build/$(EDITION)

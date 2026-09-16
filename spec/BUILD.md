@@ -70,7 +70,7 @@ submission has to answer, and this answers it clause by clause.
 
 The specification is published twice: as ISO/IEC 23415 and as OGF GFD.240. The
 normative text is identical, so `spec/body.adoc` holds all of it and is included
-by both masters — `spec/dfdl.adoc` and `spec/dfdl-ogf.adoc` — which differ only
+by both masters — `spec/dfdl-iso.adoc` and `spec/dfdl-ogf.adoc` — which differ only
 in document metadata and the front matter they pull in. Editing the body edits
 both editions.
 
