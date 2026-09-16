@@ -2156,11 +2156,13 @@ The differences in behavior between 'strict' and 'lax' for this property can be 
 
 [arabic]
 . Lenient parsing behaviour when in 'strict' policy:
+[loweralpha]
 .. Case insensitive matching for text fields
 .. MMM, MMMM, and MMMMM all accept either short or long form of Month
 .. E, EE, EEE, EEEE, EEEEE , and EEEEEE all accept either abbreviated, full, narrow and short forms of Day of Week
 .. Accepts truncated leftmost numeric field (e.g., pattern "HHmmss" allows "123456" (12:34:56) and "23456" (2:34:56) but not "3456")
 . Additional lenient parsing behaviour when in 'lax' policy is implementation-defined, but typically includes:
+[loweralpha]
 .. Values outside valid ranges are normalized (e.g., "March 32 1996" is treated as "April 1 1996")
 .. Ignoring a trailing dot after a non-numeric field
 .. Leading and trailing whitespace in the data but not in the pattern is accepted

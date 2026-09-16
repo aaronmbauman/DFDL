@@ -109,6 +109,7 @@ Speculative resolution works as follows:
 [arabic]
 . Attempt to parse the first branch of the choice.
 . If this fails with a Processing Error
+[loweralpha]
 .. If a dfdl:discriminator evaluated to true earlier on this branch  then the parser is 'bound' to this branch and parsing of the entire choice construct fails with a Processing Error.
 .. If the branch has a dfdl:initiator and the choice has dfdl:initiatedContent 'yes'  then the parser is 'bound' to this branch and parsing of the entire choice construct fails with a Processing Error.
 .. Otherwise repeat from step 1 for the next branch of the choice.
