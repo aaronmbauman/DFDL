@@ -70,4 +70,26 @@
     <xsl:attribute name="border"><xsl:value-of select="$table-border"/></xsl:attribute>
   </xsl:attribute-set>
 
+  <!--
+    Keeping a row span whole.  Table 43 is taller than a page, so it has to
+    break somewhere, and the break was landing inside a row span: the
+    continuation page opened with rows whose Symbol, Presentation and Meaning
+    cells were blank, because the cell that carries them had been cut.
+
+    A row that does not cover every column is one such continuation, so it is
+    tied to the row above and the break falls between groups instead.  This is
+    opt-in per table, with class="keep-row-groups", because the translation
+    table in Appendix D has a 23-row span that would not fit on a page at all.
+  -->
+  <xsl:attribute-set name="table-body-row-style" use-attribute-sets="table-row-style">
+    <xsl:attribute name="keep-with-previous.within-page">
+      <xsl:choose>
+        <xsl:when test="ancestor::*[local-name()='table'][1]/@class = 'keep-row-groups'
+                    and (count(*[local-name()='td'][not(@colspan)]) + sum(*[local-name()='td']/@colspan))
+                        &lt; count(ancestor::*[local-name()='table'][1]/*[local-name()='colgroup']/*[local-name()='col'])">always</xsl:when>
+        <xsl:otherwise>auto</xsl:otherwise>
+      </xsl:choose>
+    </xsl:attribute>
+  </xsl:attribute-set>
+
 </xsl:stylesheet>

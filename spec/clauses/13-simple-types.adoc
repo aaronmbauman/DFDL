@@ -1803,7 +1803,7 @@ The pattern is derived from the ICU SimpleDatetimeFormat class described here: [
 An extension is the formatting symbol I which means accept a subset of ISO 8601 [<<a-iso8601,ISO8601>>] compliant calendars
 
 .Symbols in the dfdl:calendarPattern Property
-[cols="1,2,3,1,4",options="header"]
+[cols="1,2,3,1,4",options="header",class="keep-row-groups"]
 |===
 
 | Symbol
