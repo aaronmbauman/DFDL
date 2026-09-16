@@ -207,7 +207,7 @@ Additionally:
 * No extra auto-casting is performed over and above that provided by XPath 2.0. XPath 2.0 has rules for when it promotes types and when it allows types to be substituted. These are in Appendix B.1 of the XPath 2.0 spec.
 * If the property is not expecting an expression to return a DFDL string literal, the returned value is never treated as a DFDL string literal.
 * If expecting an expression to return a DFDL string literal, the returned value is always treated as a DFDL string literal.
-* Within an expression, a string is never interpreted as a DFDL string literal.
+* [.underline]#Within# an expression, a string is never interpreted as a DFDL string literal.
 
 === DFDL Expression Syntax
 
