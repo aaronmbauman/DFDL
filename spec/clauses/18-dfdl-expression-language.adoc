@@ -215,7 +215,7 @@ Refer to XML Path Language (XPath) 2.0 [<<a-xpath,XPath>>] for a description of 
 
 [[dfdl-expression-language-2]]
 .DFDL Expression Language
-[cols="3,1,8"]
+[cols="3,1,8",class="bnf"]
 |===
 
 | DFDL Expression

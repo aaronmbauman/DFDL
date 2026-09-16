@@ -149,4 +149,23 @@
     </xsl:attribute>
   </xsl:attribute-set>
 
+  <!--
+    Grammar tables without interior rules.  GFD.240 sets its BNF grammars in a
+    table that has an outer frame and nothing between the cells, so the
+    production rules read as aligned text rather than as a grid.  Marking the
+    table class="bnf" drops the cell borders and leaves the frame alone.
+  -->
+  <xsl:attribute-set name="table-cell-style">
+    <xsl:attribute name="display-align">center</xsl:attribute>
+    <xsl:attribute name="padding-left">1mm</xsl:attribute>
+    <xsl:attribute name="padding-right">1mm</xsl:attribute>
+    <xsl:attribute name="padding-top">0.5mm</xsl:attribute>
+    <xsl:attribute name="border">
+      <xsl:choose>
+        <xsl:when test="ancestor::*[local-name()='table'][1]/@class = 'bnf'">none</xsl:when>
+        <xsl:otherwise><xsl:value-of select="$table-cell-border"/></xsl:otherwise>
+      </xsl:choose>
+    </xsl:attribute>
+  </xsl:attribute-set>
+
 </xsl:stylesheet>

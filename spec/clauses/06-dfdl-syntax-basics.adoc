@@ -250,7 +250,7 @@ The following grammar gives the syntax of DFDL String Literals generally, includ
 
 [[dfdl-character-entity-character-class-entity-and-byte-value]]
 .DFDL Character Entity, Character Class Entity, and Byte Value Entity Syntax
-[cols="5,1,15"]
+[cols="5,1,15",class="bnf"]
 |===
 
 | DfdlStringLiteral

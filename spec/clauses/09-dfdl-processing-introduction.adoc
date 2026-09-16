@@ -78,7 +78,7 @@ Note that sometimes the framing is not strictly necessary for parsing, but adds 
 In the grammar tables below, the terminal symbols are shown in bold italic font.
 
 .DFDL Grammar Productions
-[cols="6,1,15",options="header"]
+[cols="6,1,15",options="header",class="bnf"]
 |===
 
 | Productions
@@ -105,7 +105,7 @@ In the grammar tables below, the terminal symbols are shown in bold italic font.
 | ::=
 | ComplexElement \| AbsentElementRep
 
-| EnclosedElement
+| tr-style:[border-bottom:0.5pt solid black] EnclosedElement
 | ::=
 | SimpleEnclosedElement \| ComplexEnclosedElement
 
@@ -125,7 +125,7 @@ In the grammar tables below, the terminal symbols are shown in bold italic font.
 | ::=
 | LeadingAlignment *_EmptyElementInitiator_* PrefixLength
 
-| EmptyElementRightFraming
+| tr-style:[border-bottom:0.5pt solid black] EmptyElementRightFraming
 | ::=
 | *_EmptyElementTerminator_* TrailingAlignment
 
@@ -145,7 +145,7 @@ In the grammar tables below, the terminal symbols are shown in bold italic font.
 | ::=
 | *_NilElementTerminator_* TrailingAlignment
 
-| NilElementLiteralContent
+| tr-style:[border-bottom:0.5pt solid black] NilElementLiteralContent
 | ::=
 | *_LeftPadding_* *_NilLiteralValue_* RightPadOrFill
 
@@ -169,7 +169,7 @@ In the grammar tables below, the terminal symbols are shown in bold italic font.
 | ::=
 | SimpleContent \| PrefixPrefixLength SimpleContent
 
-| PrefixPrefixLength
+| tr-style:[border-bottom:0.5pt solid black] PrefixPrefixLength
 | ::=
 | SimpleContent
 
@@ -185,7 +185,7 @@ In the grammar tables below, the terminal symbols are shown in bold italic font.
 | ::=
 | ComplexValue *_ElementUnused_*
 
-| ComplexValue
+| tr-style:[border-bottom:0.5pt solid black] ComplexValue
 | ::=
 | Sequence \| Choice
 
@@ -193,7 +193,7 @@ In the grammar tables below, the terminal symbols are shown in bold italic font.
 | ::=
 | LeftFraming SequenceContent RightFraming
 
-| SequenceContent
+| tr-style:[border-bottom:0.5pt solid black] SequenceContent
 | ::=
 | {empty}[ *_PrefixSeparator_*  EnclosedContent [ *_Separator_* EnclosedContent ]* *_PostfixSeparator_* ]
 
@@ -201,7 +201,7 @@ In the grammar tables below, the terminal symbols are shown in bold italic font.
 | ::=
 | LeftFraming ChoiceContent RightFraming
 
-| ChoiceContent
+| tr-style:[border-bottom:0.5pt solid black] ChoiceContent
 | ::=
 | {empty}[ EnclosedContent ] *_ChoiceUnused_*
 
@@ -213,7 +213,7 @@ In the grammar tables below, the terminal symbols are shown in bold italic font.
 | ::=
 | {empty}[ EnclosedElement [ *_Separator_* EnclosedElement ]*  [ *_Separator_* StopValue] ]
 
-| StopValue
+| tr-style:[border-bottom:0.5pt solid black] StopValue
 | ::=
 | SimpleElement
 
