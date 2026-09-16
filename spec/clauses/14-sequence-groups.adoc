@@ -208,7 +208,7 @@ When dfdl:occursCountKind is 'implicit', between XSD minOccurs and XSD maxOccurs
 The behaviour for 'implicit' is more fully expressed in matrix form. The cells in the matrix give the number of occurrences of element values that are expected in the data stream when parsing, for the different values of dfdl:separatorSuppressionPolicy. The number of occurrences also depends whether XSD maxOccurs is unbounded or not, and the position of the element in the sequence. The number of separators can be inferred from this, considering dfdl:separatorPosition.
 
 .Separator Suppression for dfdl:occursCountKind 'implicit' when Parsing
-[cols="2,1,2,2,1,1,1"]
+[cols="^.^18,^.^10,^.^16,^.^16,^.^13,^.^13,^.^13",headerrows=4,keep-lines-together=true]
 |===
 
 .4+a| *dfdl:*
@@ -230,26 +230,26 @@ The behaviour for 'implicit' is more fully expressed in matrix form. The cells i
 | *Element not declared last and occurrence not followed by end-of-group*
 
 | never
-2+| Schema definition error
-2+|
-.3+| Schema definition error
-.3+| RepDef(min) ~ Rep(max pass-format:straightquotes[-] min)
+2+| td-style:[background-color:#DBDBDB;border-bottom:none] Schema definition error
+2+| td-style:[background-color:#8EAADB;border-bottom:none]
+.3+| td-style:[background-color:#DBDBDB] Schema definition error
+.3+| td-style:[background-color:#8EAADB] RepDef(min) ~ Rep(max pass-format:straightquotes[-] min)
 
 | trailingEmptyStrict
-.2+|
+.2+| td-style:[background-color:#DBDBDB;border-top:none]
 | RepDef(min) [ ~ Rep(M < INF) ~ RepNonZero(1) ]
-| RepDef(min) [ ~ Rep(M < max pass-format:straightquotes[-] min) ~ RepNonZero(1) ]
-.2+| RepDef(min) ~ Rep(max pass-format:straightquotes[-] min)
+| td-style:[background-color:#F7CAAC] RepDef(min) [ ~ Rep(M < max pass-format:straightquotes[-] min) ~ RepNonZero(1) ]
+.2+| td-style:[background-color:#8EAADB;border-top:none;border-left:none] RepDef(min) ~ Rep(max pass-format:straightquotes[-] min)
 
 | trailingEmpty
-.2+| RepDef(min) ~ Rep(M < INF)
-.2+| RepDef(min) ~ Rep(M pass-format:straightquotes[<=] max pass-format:straightquotes[-] min)
+.2+| td-style:[background-color:#FFE599;border-left:none] RepDef(min) ~ Rep(M < INF)
+.2+| td-style:[background-color:#C5E0B3;border-right:none] RepDef(min) ~ Rep(M pass-format:straightquotes[<=] max pass-format:straightquotes[-] min)
 
 | anyEmpty
-|
-|
-| RepDef(min) ~ Rep(M < INF)
-| RepDef(min) ~ Rep(M pass-format:straightquotes[<=] max pass-format:straightquotes[-] min)
+| td-style:[background-color:#FFE599;border-right:none]
+| td-style:[background-color:#C5E0B3;border-left:none]
+| td-style:[background-color:#FFE599] RepDef(min) ~ Rep(M < INF)
+| td-style:[background-color:#C5E0B3] RepDef(min) ~ Rep(M pass-format:straightquotes[<=] max pass-format:straightquotes[-] min)
 |===
 
 The notation in each cell uses the "~" symbol to mean "followed by" in the data stream. Square brackets surround things that are optional, as in they may or may not appear in the data stream.
@@ -390,7 +390,7 @@ When dfdl:occursCountKind is 'implicit' the occurrences in the augmented Infoset
 The behaviour for 'implicit' is more fully expressed in matrix form. The cells in the matrix give the number of occurrences of element values that are output to the data stream when unparsing, for the different values of dfdl:separatorSuppressionPolicy. The number of occurrences also depends whether XSD maxOccurs is unbounded or not, and the position of the element in the sequence. The number of separators output can be inferred from this, considering dfdl:separatorPosition.
 
 .Separator Suppressions for dfdl:occursCountKind 'implicit'
-[cols="2,1,1,2,2,1,2"]
+[cols="^.^27,^.^10,^.^10,^.^14,^.^13,^.^11,^.^15",headerrows=4,keep-lines-together=true]
 |===
 
 .4+a| *dfdl:*
@@ -412,20 +412,20 @@ The behaviour for 'implicit' is more fully expressed in matrix form. The cells i
 | *Element not declared last and occurrence not followed by end-of-group*
 
 | never
-2+| Schema definition error
-2+| Unparse N occurrences ~ unparse (maxOccurs pass-format:straightquotes[--] N) trailing zero-length occurrences
-.3+| Schema definition error
-.3+| Unparse N occurrences ~ unparse (maxOccurs pass-format:straightquotes[--] N) trailing zero-length occurrences
+2+| td-style:[background-color:#DBDBDB;border-bottom:none] Schema definition error
+2+| td-style:[background-color:#8EAADB;border-bottom:none] Unparse N occurrences ~ unparse (maxOccurs pass-format:straightquotes[--] N) trailing zero-length occurrences
+.3+| td-style:[background-color:#DBDBDB] Schema definition error
+.3+| td-style:[background-color:#8EAADB] Unparse N occurrences ~ unparse (maxOccurs pass-format:straightquotes[--] N) trailing zero-length occurrences
 
 | trailingEmptyStrict
-.2+|
-2.2+| Unparse N occurrences (suppressing trailing zero-length occurrences)
-.2+|
+.2+| td-style:[background-color:#DBDBDB;border-top:none]
+2.2+| td-style:[background-color:#E2EFD9] Unparse N occurrences (suppressing trailing zero-length occurrences)
+.2+| td-style:[background-color:#8EAADB;border-top:none]
 
 | trailingEmpty
 
 | anyEmpty
-6+| Unparse N occurrences (suppressing any optional zero-length occurrences)
+6+| td-style:[background-color:#D9E2F3] Unparse N occurrences (suppressing any optional zero-length occurrences)
 |===
 
 The notation in each cell uses the "~" symbol to mean "followed by" in the output data stream.
