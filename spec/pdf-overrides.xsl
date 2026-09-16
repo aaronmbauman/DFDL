@@ -11,7 +11,8 @@
   mn2pdf merges this file over the base stylesheet, so each attribute set has
   to repeat the attributes it is not changing or they would be dropped.
 -->
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                xmlns:mn="https://www.metanorma.org/ns/standoc">
 
   <xsl:attribute-set name="p-style">
     <xsl:attribute name="text-align">left</xsl:attribute>
@@ -177,5 +178,53 @@
       </xsl:choose>
     </xsl:attribute>
   </xsl:attribute-set>
+
+  <!--
+    Footnotes: one sequence for the whole document, and table footnotes at the
+    foot of the page rather than in an extra row at the end of the table.
+
+    GFD.240 numbers every footnote in one run and prints them all at the page
+    foot. metanorma-iso letters the ones inside tables, restarts the letters per
+    table, and draws them inside the table's own frame.
+
+    Three parts:
+      - fn-number renumbers by document order, reusing a number when the same
+        footnote is cited twice;
+      - the label is rebuilt in update_xml_step1, which is the only pass whose
+        output the reference picks up, since the reference is emitted with
+        value-of on the label text;
+      - the table's own footnote container is dropped so the table stops drawing
+        them, and the reference is routed through the page-footnote template
+        with footnote_body_from_table, which is the stylesheet's own hook for
+        exactly this.
+  -->
+  <xsl:key name="fn-by-target" match="mn:fn" use="@target"/>
+
+  <xsl:template name="fn-number">
+    <xsl:param name="target"/>
+    <xsl:variable name="first" select="key('fn-by-target',$target)[1]"/>
+    <xsl:value-of select="count($first/preceding::mn:fn[generate-id() = generate-id(key('fn-by-target',@target)[1])]) + 1"/>
+  </xsl:template>
+
+  <xsl:template match="mn:fmt-fn-label//mn:sup" mode="update_xml_step1" priority="9">
+    <xsl:copy>
+      <xsl:call-template name="fn-number">
+        <xsl:with-param name="target" select="ancestor::mn:fmt-fn-body/@id | ancestor::mn:fn/@target"/>
+      </xsl:call-template>
+    </xsl:copy>
+  </xsl:template>
+
+  <xsl:template match="mn:fmt-fn-label//mn:span[@class='fmt-label-delim']" mode="update_xml_step1" priority="9"/>
+
+
+  <!-- render a table footnote as a page footnote; the body is already in $footnotes -->
+  <xsl:template match="mn:fn[ancestor::mn:table][not(ancestor::mn:fmt-name)]" priority="10">
+    <xsl:call-template name="fn">
+      <xsl:with-param name="footnote_body_from_table" select="'true'"/>
+    </xsl:call-template>
+  </xsl:template>
+
+  <!-- stop the table drawing them itself -->
+  <xsl:template match="mn:table/mn:fmt-footnote-container" mode="update_xml_step1" priority="9"/>
 
 </xsl:stylesheet>
