@@ -14,6 +14,7 @@
 :presentation-metadata-ul-label-list: &#x2022;
 :data-uri-image:
 :source-highlighter: false
+:pdf-stylesheet-override: pdf-overrides.xsl
 :publisher: Open Grid Forum
 :docstage: 60
 :docsubstage: 60
