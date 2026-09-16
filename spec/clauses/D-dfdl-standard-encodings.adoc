@@ -361,7 +361,7 @@ XXXXXX**11**
 
 === References for Appendix D
 
-[cols="1,6"]
+[%plain%unnumbered,cols="1,6"]
 |===
 
 | [[a-ita2]][[a-dfdl]][ITA2]footnote:[This list is maintained separately from the other references in the specification to facilitate future migration of this material into a separate document.]
