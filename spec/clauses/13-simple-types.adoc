@@ -980,14 +980,19 @@ It is a Schema Definition Error if any symbols other than "0", "1" through "9" o
 
 3+a| Notation:
 
+[align=indent]
 X*  0 or more instances of X
 
+[align=indent]
 X? 0 or 1 instances of X
 
+[align=indent]
 X\|Y either X or Y
 
+[align=indent]
 C..D any character from C up to D, inclusive
 
+[align=indent]
 S-T characters in S, except those in T
 |===
 
